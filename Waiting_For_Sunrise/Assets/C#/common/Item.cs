@@ -1,26 +1,23 @@
-using System;
-using UnityEngine.UI;
-using Newtonsoft.Json;
+using System.Collections.Generic;
+
 
 namespace Assets.C_.common
 {
-    public class Item: JsonReadable<Item>
+    public class Item: AbstractJsonReadable<List<ItemDo>, List<Item>>
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public Rarity Rarity { get; set; }
         public string Description { get; set; }
-        public Image Icon { get; set; }
+        public Icon Icon { get; set; } = null;
 
-        public Item Read(FileResource fileResource)
+        protected override List<Item> Convert(List<ItemDo> jsonDos)
         {
-            string jsonFileContent = fileResource.FileContent;
-            if (jsonFileContent == null)
-            {
-                throw new ArgumentException("读取Json资源内容为空：" + fileResource.Path);
+            List<Item> list = new();
+            foreach (ItemDo jsonDo in jsonDos) {
+                list.Add(ItemConverter.Do2E(jsonDo));
             }
-            Item item = JsonConvert.DeserializeObject<Item>(jsonFileContent);
-            return item;
+            return list;
         }
     }
 }

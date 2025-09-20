@@ -4,7 +4,7 @@ namespace Assets.C_.common
     public class FileResource
     {
         public string Path {  get; set; }
-        public string FileContent { get; set; }
+        public string FileContent { get; set; } = null;
 
         public FileResource(string path)
         {
