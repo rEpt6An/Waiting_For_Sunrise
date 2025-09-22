@@ -10,19 +10,13 @@ namespace Assets.C_.common
             string jsonFileContent = fileResource.FileContent;
             if (jsonFileContent == null)
             {
-                throw new ArgumentException("读取Json资源内容为空：" + fileResource.Path);
+                throw new ArgumentException("fileResource中content为空：" + fileResource.Path);
             }
-            T t = JsonConvert.DeserializeObject<T>(jsonFileContent);
-            InitT(t);
+            T t = JsonConverter.FromJson<T>(jsonFileContent);
             R r = Convert(t);
             return r;
         }
 
         protected abstract R Convert(T jsonDo);
-
-        protected virtual void InitT(T t) 
-        { 
-            // default do nothing
-        }
     }
 }

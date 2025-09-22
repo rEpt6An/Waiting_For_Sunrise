@@ -1,14 +1,14 @@
 using System;
 
-public class ItemException : Exception
+public class StartException : Exception
 {
     // 基本构造函数
-    public ItemException()
+    public StartException()
     {
     }
 
     // 带有消息的构造函数
-    public ItemException(string message)
+    public StartException(string message)
         : base(message)
     {
     }
