@@ -1,0 +1,362 @@
+[
+    {
+        "Id": 0,
+        "Name": "name",
+        "Rarity": 0,
+        "Description": "empty",
+        "IconId": "0",
+        "ItemType": 0,
+        "Price": 0
+    },
+    {
+        "Id": 1,
+        "Name": "Table Lamp",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "1",
+        "ItemType": 0,
+        "Price": 17
+    },
+    {
+        "Id": 2,
+        "Name": "Mouse",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "2",
+        "ItemType": 0,
+        "Price": 25
+    },
+    {
+        "Id": 3,
+        "Name": "Keyboard",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "3",
+        "ItemType": 0,
+        "Price": 35
+    },
+    {
+        "Id": 4,
+        "Name": "Anime Figure",
+        "Rarity": 2,
+        "Description": "",
+        "IconId": "4",
+        "ItemType": 0,
+        "Price": 69
+    },
+    {
+        "Id": 5,
+        "Name": "Face Mask",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "5",
+        "ItemType": 0,
+        "Price": 16
+    },
+    {
+        "Id": 6,
+        "Name": "Razor",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "6",
+        "ItemType": 0,
+        "Price": 31
+    },
+    {
+        "Id": 7,
+        "Name": "Thermos Cup",
+        "Rarity": 2,
+        "Description": "",
+        "IconId": "7",
+        "ItemType": 0,
+        "Price": 49
+    },
+    {
+        "¼«Id": 8,
+        "Name": "Hand Cream",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "8",
+        "ItemType": 0,
+        "Price": 28
+    },
+    {
+        "Id": 9,
+        "Name": "Floral Water",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "9",
+        "ItemType": 0,
+        "Price": 16
+    },
+    {
+        "Id": 10,
+        "Name": "Essential Balm",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "10",
+        "ItemType": 0,
+        "Price": 23
+    },
+    {
+        "Id": 11,
+        "Name": "Plush Toy",
+        "Rarity": 2,
+        "Description": "",
+        "IconId": "11",
+        "ItemType": 0,
+        "Price": 84
+    },
+    {
+        "Id": 12,
+        "Name": "Tissue",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "12",
+        "ItemType": 0,
+        "Price": 11
+    },
+    {
+        "Id": 13,
+        "Name": "Headphones",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "13",
+        "ItemType": 0,
+        "Price": 35
+    },
+    {
+        "Id": 14,
+        "Name": "Vitamins",
+        "Rarity": 3,
+        "Description": "",
+        "IconId": "14",
+        "ItemType": 0,
+        "Price": 139
+    },
+    {
+        "Id": 15,
+        "Name": "Book",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "15",
+        "ItemType": 0,
+        "Price": 10
+    },
+    {
+        "Id": 16,
+        "¼«Name": "Gloves",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "16",
+        "ItemType": 0,
+        "Price": 12
+    },
+    {
+        "Id": 17,
+        "Name": "Toilet Cleaner",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "17",
+        "ItemType": 0,
+        "Price": 26
+    },
+    {
+        "Id": 18,
+        "Name": "Soap",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "18",
+        "ItemType": 0,
+        "Price": 11
+    },
+    {
+        "Id": 19,
+        "Name": "Mini Fan",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "19",
+        "ItemType": 0,
+        "Price": 16
+    },
+    {
+        "Id": 20,
+        "Name": "Nail Clipper",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "20",
+        "ItemType": 0,
+        "Price": 13
+    },
+    {
+        "Id": 21,
+        "Name": "Contact Lenses",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "21",
+        "ItemType": 0,
+        "Price": 30
+    },
+    {
+        "Id": 22,
+        "Name": "Glasses",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "22",
+        "ItemType": 0,
+        "Price": 18
+    },
+    {
+        "Id": 23,
+        "Name": "Trash Can",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "23",
+        "ItemType": 0,
+        "Price": 20
+    },
+    {
+        "Id": 24,
+        "Name": "Towel",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "24",
+        "ItemType": 0,
+        "Price": 16
+    },
+    {
+        "Id": 25,
+        "Name": "Rusty Hanger",
+        "Rarity": 3,
+        "Description": "",
+        "IconId": "25",
+        "ItemType": 0,
+        "Price": 159
+    },
+    {
+        "Id": 26,
+        "Name": "Regular Hanger",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "26",
+        "ItemType": 0,
+        "Price": 20
+    },
+    {
+        "Id": 27,
+        "Name": "Headband",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "27",
+        "ItemType": 0,
+        "Price": 16
+    },
+    {
+        "Id": 28,
+        "Name": "Electric Kettle",
+        "Rarity": 2,
+        "Description": "",
+        "IconId": "28",
+        "ItemType": 0,
+        "Price": 67
+    },
+    {
+        "Id": 29,
+        "Name": "Insecticide",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "29",
+        "ItemType": 0,
+        "Price": 34
+    },
+    {
+        "Id": 30,
+        "Name": "Plastic Bag",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "30",
+        "ItemType": 0,
+        "Price": 8
+    },
+    {
+        "Id": 31,
+        "Name": "Hair Dryer",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "31",
+        "ItemType": 0,
+        "Price": 38
+    },
+    {
+        "Id": 32,
+        "Name": "Hair Curler",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "32",
+        "ItemType": 0,
+        "Price": 41
+    },
+    {
+        "Id": 33,
+        "Name": "Hair Gel",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "33",
+        "ItemType": 0,
+        "Price": 23
+    },
+    {
+        "Id": 34,
+        "Name": "Baseball Cap",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "34",
+        "ItemType": 0,
+        "Price": 15
+    },
+    {
+        "Id": 35,
+        "Name": "Chess Set",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "35",
+        "ItemType": 0,
+        "Price": 30
+    },
+    {
+        "Id": 36,
+        "Name": "Playing Cards",
+        "Rarity": 0,
+        "Description": "",
+        "IconId": "36",
+        "ItemType": 0,
+        "Price": 11
+    },
+    {
+        "Id": 37,
+        "Name": "Three Kingdoms Kill",
+        "Rarity": 2,
+        "Description": "",
+        "IconId": "37",
+        "ItemType": 0,
+        "Price": 89
+    },
+    {
+        "Id": 38,
+        "Name": "Uno Cards",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "38",
+        "ItemType": 0,
+        "Price": 28
+    },
+    {
+        "Id": 39,
+        "Name": "Eye Drops",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "39",
+        "ItemType": 0,
+        "Price": 34
+    }
+]
