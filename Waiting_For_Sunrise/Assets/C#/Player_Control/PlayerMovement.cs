@@ -4,13 +4,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 5f; // 移动速度
+    private float moveSpeed = 1f; 
 
-    private Rigidbody2D rb;      // Rigidbody2D组件的引用
+    private Rigidbody2D rb;      //
     private Vector2 moveInput;   // 存储输入向量
 
-    void Awake()
+
+
+    public Vector2 MoveInput { get { return moveInput; } }    //
+
+
+    void Start()
     {
+        Debug.Log("--- PlayerMovement SCRIPT IS AWAKE! ---"); // 添加这行
+
         // 获取Rigidbody2D组件的引用
         rb = GetComponent<Rigidbody2D>();
     }
@@ -46,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        //固定的物理更新中应用速度
         rb.velocity = moveInput * moveSpeed;
     }
 }
