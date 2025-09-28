@@ -1,4 +1,5 @@
 ﻿using Assets.C_.common;
+using Assets.C_.player.bag;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Assets.C_.monster
         //速度
         public int Speed { get; private set; }
         //掉落物
-        public List<Item> FallenObjects { get; private set; }
+        public List<PileOfItem> FallenObjects { get; private set; }
         public MonsterState()
         {
 

@@ -1,4 +1,5 @@
 ﻿using Assets.C_.common;
+using Assets.C_.player.bag;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace Assets.C_.monster
         public override int HP { get; protected set; }
         public override int DefensivePower { get; protected set; }
         public override int Speed { get; protected set; }
-        public override List<Item> FallenObjects { get; protected set; }
+        public override List<PileOfItem> FallenObjects { get; protected set; }
 
         public EliteMonster()
         {
