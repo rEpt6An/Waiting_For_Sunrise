@@ -3,8 +3,12 @@ using System.Collections.Generic;
 
 namespace Assets.C_.shop
 {
-    public class GoodsDto
+    public record GoodsDto
     {
-        public List<int> GoodIds { get; set; }
+        public List<int> GoodIds { get; private set; }
+
+        public GoodsDto(List<int> itemIds) { 
+            GoodIds = itemIds;
+        }
     }
 }

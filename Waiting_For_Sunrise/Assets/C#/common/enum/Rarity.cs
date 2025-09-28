@@ -1,9 +1,11 @@
 ﻿using System;
+using UnityEditor;
 
 namespace Assets.C_.common
 {
     public enum Rarity: int
     {
+        // 稀有度必须从小到大排序
         Write,
         Green,
         Blue,
@@ -14,6 +16,8 @@ namespace Assets.C_.common
 
     public static class RarityExtensions
     {
+        public static int Count = Enum.GetValues(typeof(Rarity)).Length;
+
         public static Rarity GetById(int id)
         {
             if (Enum.IsDefined(typeof(Rarity), id))

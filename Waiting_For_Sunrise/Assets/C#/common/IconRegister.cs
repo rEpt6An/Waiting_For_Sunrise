@@ -21,7 +21,7 @@ namespace Assets.C_.common
                 FileResource fileResource = FileResourceFactory.CreateFileResource(path, "content");
                 fileResources.Add(fileResource);
             }
-            IconManager iconManager = new();
+            IconManager iconManager = IconManager.Instance;
             iconManager.Load(fileResources);
         }
     }

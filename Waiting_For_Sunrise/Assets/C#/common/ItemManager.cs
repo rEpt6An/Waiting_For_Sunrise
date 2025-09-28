@@ -1,7 +1,5 @@
 
 using System.Collections.Generic;
-using static Unity.Collections.AllocatorManager;
-
 
 namespace Assets.C_.common
 {
@@ -11,13 +9,28 @@ namespace Assets.C_.common
         private static readonly List<Item> ITEMS = new();
         private static readonly object _lock = new();
 
+        public static ItemManager Instance { get; private set; }
+
+        private ItemManager()
+        {
+
+        }
+
+        public static ItemManager GetInstance()
+        {
+            if (Instance == null)
+            {
+                Instance = new ItemManager();
+            }
+            return Instance;
+        }
+
         public void Load(FileResource fileResource)
         {
             lock (_lock)
             {
-                ItemManager itemManager = new();
                 ITEMS.Clear();
-                ITEMS.AddRange(itemManager.Read(fileResource));
+                ITEMS.AddRange(Instance.Read(fileResource));
             }
         }
 
@@ -39,6 +52,13 @@ namespace Assets.C_.common
                 list.Add(ItemConverter.Do2E(jsonDo));
             }
             return list;
+        }
+
+        public List<Item> GetAll()
+        {
+            List<Item> copy = new List<Item>();
+            copy.AddRange(ITEMS);
+            return copy;
         }
     }
 }

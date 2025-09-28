@@ -5,7 +5,9 @@ namespace Assets.C_.shop
 {
     public interface IShop
     {
-        GoodsDto GetGoodsForSale(GoodsGetConfig goodsGetConfig);
+        GoodsDto GetGoodsForSale();
+
+        void Flush(GoodsGetConfig goodsGetConfig);
 
         Re Buy(IPlayerAsset playerAsset, BuyRequest buyRequest);
     }

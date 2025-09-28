@@ -1,7 +1,6 @@
 using Assets.C_.common;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.C_.shop;
+
 using UnityEngine;
 
 public class Test : MonoBehaviour
@@ -10,6 +9,13 @@ public class Test : MonoBehaviour
     void Start()
     {
         RegisterCenter.RegisterAll();
+
+        IShop shop = Shop.GetInstance();
+        GoodsDto goodsDto = shop.GetGoodsForSale();
+        foreach (int id in goodsDto.GoodIds)
+        {
+            Debug.Log(id);
+        }
     }
 
     // Update is called once per frame

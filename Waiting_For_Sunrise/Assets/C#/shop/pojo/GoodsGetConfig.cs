@@ -4,9 +4,9 @@ namespace Assets.C_.shop
 {
     public class GoodsGetConfig
     {
-        public int Luck {  get; set; }
-        public int Day { get; set; }
-        public List<int> LockedGoodIndexs { get; set; }
+        public int Luck {  get; private set; }
+        public int Day { get; private set; }
+        public List<int> LockedGoodIndexs { get; private set; }
 
         public GoodsGetConfig(int luck, int day, List<int> lockedGoodIndexs)
         {

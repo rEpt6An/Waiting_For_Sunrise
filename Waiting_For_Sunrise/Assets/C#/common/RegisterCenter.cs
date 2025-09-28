@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using UnityEngine;
 namespace Assets.C_.common
 { 
     public class RegisterCenter
