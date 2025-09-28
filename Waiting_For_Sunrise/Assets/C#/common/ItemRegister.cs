@@ -8,7 +8,7 @@ namespace Assets.C_.common
         public void Register()
         {
             FileResource fileResource = FileResourceFactory.CreateFileResource(ITEM_JSON_FILE_RESOURCE_PATH, ITEM_JSON_FILE_RESOURCE_TYPE);
-            ItemManager itemManager = ItemManager.Instance;
+            ItemManager itemManager = ItemManager.GetInstance();
             itemManager.Load(fileResource);
         }
     }
