@@ -1,4 +1,9 @@
-﻿namespace Assets.C_.monster
+﻿using Assets.C_.common;
+using Assets.C_.player.bag;
+using System;
+using System.Collections.Generic;
+
+namespace Assets.C_.monster
 {
     public class BossMonster : MonsterBase
     {
@@ -7,7 +12,7 @@
         public override int HP { get; protected set; }
         public override int DefensivePower { get; protected set; }
         public override int Speed { get; protected set; }
-        public override List<Item> FallenObjects { get; protected set; }
+        public override List<PileOfItem> FallenObjects { get; protected set; }
 
         public BossMonster()
         {
@@ -16,7 +21,7 @@
             Attack = 30;
             DefensivePower = 15;
             Speed = 1;
-            FallenObjects = new List<Item> { new Item("Legendary Sword", 1), new Item("Gold", 100) };
+            //FallenObjects = new List<Item> { new Item("Legendary Sword", 1), new Item("Gold", 100) };
         }
 
         public override void TakeDamage(int damage)
