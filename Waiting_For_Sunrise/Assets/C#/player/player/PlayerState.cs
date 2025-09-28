@@ -10,66 +10,66 @@ namespace Assets.C_.player.player
     class PlayerState
     {
         //当前生命值
-        public int blood { get; private set; }
+        public int Blood { get; private set; }
         //经验值
-        public int experience { get; private set; }
+        public int Experience { get; private set; }
         //伤害倍率
-        public int damageMultipler { get; private set; }
+        public int DamageMultipler { get; private set; }
         //最大生命值
         public int HP { get; private set; }
         //防御力
-        public int defensivePower { get; private set; }
+        public int DefensivePower { get; private set; }
         //闪避
-        public int dodge { get; private set; }
+        public int Dodge { get; private set; }
         //命中率
-        public int hitRate { get; private set; }
+        public int HitRate { get; private set; }
         //范围
-        public int scope { get; private set; }
+        public int Scope { get; private set; }
         //速度
-        public int speed { get; private set; }
+        public int Speed { get; private set; }
         //暴击率
-        public int criticalChance { get; private set; }
+        public int CriticalChance { get; private set; }
         //暴击倍率（暴击伤害）
-        public int criticalDamage { get; private set; }
+        public int CriticalDamage { get; private set; }
         //吸血
-        public int leech { get; private set; }
+        public int Leech { get; private set; }
         //自愈
-        public int selfHealing { get; private set; }
+        public int SelfHealing { get; private set; }
         //幸运
-        public int lucky { get; private set; }
+        public int Lucky { get; private set; }
         //收获
-        public int harvest { get; private set; }
+        public int Harvest { get; private set; }
 
       
         public PlayerState()
         {
-            blood = 100;          // 当前生命值
+            Blood = 100;          // 当前生命值
             HP = 100;             // 最大生命值
-            experience = 0;       // 经验值
-            damageMultipler = 1;  // 伤害倍率（1 = 100%）
-            defensivePower = 5;   // 防御力
-            dodge = 10;           // 闪避率（%）
-            hitRate = 80;         // 命中率（%）
-            scope = 1;            // 范围
-            speed = 5;            // 速度
-            criticalChance = 5;   // 暴击率（%）
-            criticalDamage = 150; // 暴击伤害（150 = 1.5倍）
-            leech = 0;            // 吸血（%）
-            selfHealing = 1;      // 自愈（每回合恢复生命值）
-            lucky = 5;            // 幸运（影响掉落率）
-            harvest = 0;          // 收获（额外资源获取）
+            Experience = 0;       // 经验值
+            DamageMultipler = 1;  // 伤害倍率（1 = 100%）
+            DefensivePower = 5;   // 防御力
+            Dodge = 10;           // 闪避率（%）
+            HitRate = 80;         // 命中率（%）
+            Scope = 1;            // 范围
+            Speed = 5;            // 速度
+            CriticalChance = 5;   // 暴击率（%）
+            CriticalDamage = 150; // 暴击伤害（150 = 1.5倍）
+            Leech = 0;            // 吸血（%）
+            SelfHealing = 1;      // 自愈（每回合恢复生命值）
+            Lucky = 5;            // 幸运（影响掉落率）
+            Harvest = 0;          // 收获（额外资源获取）
         }
         public void changeBlood(int changePoint)
         {
-            this.blood += changePoint;
-            if (this.blood > this.HP)
+            this.Blood += changePoint;
+            if (this.Blood > this.HP)
             {
-                this.blood = this.HP;
+                this.Blood = this.HP;
             }
         }
         public Boolean isDie()
         {
-            if (blood <= 0)
+            if (Blood <= 0)
             {
                 return true;
             }
@@ -77,11 +77,11 @@ namespace Assets.C_.player.player
         }
         public void changeExperience(int changePoint)
         {
-            this.experience += changePoint;
+            this.Experience += changePoint;
         }
         public void changeDamageMultipler(int changePoint)
         {
-            this.damageMultipler += changePoint;
+            this.DamageMultipler += changePoint;
         }
         public void changeHP(int changePoint)
         {
@@ -89,52 +89,52 @@ namespace Assets.C_.player.player
         }
         public void changeDefensivePower(int changePoint)
         {
-            defensivePower += changePoint;
+            DefensivePower += changePoint;
         }
         public void changeDodge(int changePoint)
         {
-            dodge += changePoint;
-            if (dodge >= 90)
+            Dodge += changePoint;
+            if (Dodge >= 90)
             {
-                dodge = 90;
+                Dodge = 90;
             }
         }
         public void changeHitRate(int changePoint)
         {
-            hitRate += changePoint;
+            HitRate += changePoint;
         }
 
         public void changeScope(int changePoint)
         {
-            scope += changePoint;
+            Scope += changePoint;
         }
         public void changeSpeed(int changePoint)
         {
-            speed += changePoint;
+            Speed += changePoint;
         }
         public void changeCriticalChance(int changePoint)
         {
-            criticalChance += changePoint;
+            CriticalChance += changePoint;
         }
         public void changeCriticalDamage(int changePoint)
         {
-            criticalDamage += changePoint;
+            CriticalDamage += changePoint;
         }
         public void changeLeech(int changePoint)
         {
-            leech += changePoint;
+            Leech += changePoint;
         }
         public void changeSelfHealing(int changePoint)
         {
-            selfHealing += changePoint;
+            SelfHealing += changePoint;
         }
         public void changeLucky(int changePoint)
         {
-            lucky += changePoint;
+            Lucky += changePoint;
         }
         public void changeHarvest(int changePoint)
         {
-            harvest += changePoint;
+            Harvest += changePoint;
         }
     }
 }
