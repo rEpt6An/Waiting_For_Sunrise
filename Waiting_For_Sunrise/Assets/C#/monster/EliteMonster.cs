@@ -33,4 +33,3 @@ namespace Assets.C_.monster
         public override bool IsDead() => Blood <= 0;
     }
 }
-}

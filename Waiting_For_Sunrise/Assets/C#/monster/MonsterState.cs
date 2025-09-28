@@ -43,5 +43,6 @@ namespace Assets.C_.monster
             }
             return false;
         }
-       
+
     }
+}
