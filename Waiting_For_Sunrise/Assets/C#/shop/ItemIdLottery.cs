@@ -15,7 +15,8 @@ namespace Assets.C_.shop
             {
                 powerInt.AddRange(Enumerable.Repeat(item.Id, GetPower(item.Rarity, luck, day)));
             }
-            return powerInt.IndexOf(GetRandomIndex(allItem.Count));
+            int a = GetRandomIndex(powerInt.Count);
+            return powerInt[a];
         }
 
         private int GetPower(Rarity rarity, int luck, int day) {

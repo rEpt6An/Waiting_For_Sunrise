@@ -31,15 +31,18 @@ namespace Assets.C_.shop
         }
 
         public void Flush(GoodsGetConfig goodsGetConfig) {
-            IItemIdLottery itemIdLottery = new ItemIdLottery();
-            for (int i = 0; i < ItemIdForSale.Count; i++)
+            lock (this)
             {
-                if (goodsGetConfig.LockedGoodIndexs.Contains(i))
+                IItemIdLottery itemIdLottery = new ItemIdLottery();
+                for (int i = 0; i < ItemIdForSale.Count; i++)
                 {
-                    continue;
+                    if (goodsGetConfig.LockedGoodIndexs.Contains(i))
+                    {
+                        continue;
+                    }
+                    int itemId = itemIdLottery.GetItemId(goodsGetConfig.Luck, goodsGetConfig.Day);
+                    ItemIdForSale[i] = itemId;
                 }
-                int itemId = itemIdLottery.GetItemId(goodsGetConfig.Luck, goodsGetConfig.Day);
-                ItemIdForSale[i] = itemId;
             }
         }
 
