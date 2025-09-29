@@ -1,13 +1,9 @@
 ﻿
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.C_.player.player
 {
-    class PlayerState
+    class PlayerState: IPlayerState
     {
         //当前生命值
         public int Blood { get; private set; }

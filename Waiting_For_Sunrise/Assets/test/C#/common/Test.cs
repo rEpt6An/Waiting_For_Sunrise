@@ -5,37 +5,16 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    public static void Init()
+    {
+        RegisterCenter.RegisterAll();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        RegisterCenter.RegisterAll();
-        string o = "";
-
-        IShop shop = Shop.GetInstance();
-        GoodsDto goodsDto = shop.GetGoodsForSale();
-        foreach (int id in goodsDto.GoodIds)
-        {
-            o = o + "id:" + id + ",";
-        }
-        Debug.Log(o);
-
-        o = "";
-
-        List<int> ignore = new List<int>();
-        ignore.Add(1);
-        shop.Flush(new GoodsGetConfig(99, 22, ignore));
-
-        GoodsDto goodsDto2 = shop.GetGoodsForSale();
-
-
-        foreach (int id in goodsDto2.GoodIds)
-        {
-            {
-                o = o + "id:" + id + ",";
-            }
-
-        }
-        Debug.Log(o);
+        Init();
+        TestShop.TestFush();
     }
         // Update is called once per frame
         void Update()

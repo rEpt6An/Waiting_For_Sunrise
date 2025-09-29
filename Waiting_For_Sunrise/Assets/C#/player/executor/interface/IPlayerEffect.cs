@@ -1,7 +1,9 @@
+using UnityEngine.Playables;
+
 namespace Asset.C_.player.executor
 {
     public interface IPlayerEffect
     {
-        void Execute();
+        void Execute(PlayState playState);
     }
 }
