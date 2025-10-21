@@ -9,8 +9,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{96AF275A-48AC-245B-4ED3-305388676F1C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -61,38 +60,33 @@
     <Analyzer Include="D:\develop\UNITY\editor\2022.3.45f1c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\C#\bus\interface\IEventHandler.cs" />
-    <Compile Include="Assets\C#\common\abstract\AbstractRegister.cs" />
-    <Compile Include="Assets\C#\common\EquipmentRegister.cs" />
-    <Compile Include="Assets\C#\common\interface\ISingleton.cs" />
-    <Compile Include="Assets\C#\item\equipment\AbstractEquipment.cs" />
-    <Compile Include="Assets\C#\item\equipment\EquipmentConverter.cs" />
-    <Compile Include="Assets\C#\item\equipment\EquipmentManager.cs" />
-    <Compile Include="Assets\C#\item\equipment\pojo\EquipmentDo.cs" />
-    <Compile Include="Assets\C#\item\event\EquipmentEvent.cs" />
-    <Compile Include="Assets\C#\item\event\EquipmentEventHandler.cs" />
-    <Compile Include="Assets\C#\item\equipment\pojo\Equipment.cs" />
-    <Compile Include="Assets\C#\item\exception\NoSuchEquipmentException.cs" />
-    <Compile Include="Assets\C#\item\interface\IEquipment.cs" />
     <Compile Include="Assets\C#\monster\MonsterState.cs" />
     <Compile Include="Assets\C#\player\bag\PlayBag.cs" />
+    <Compile Include="Assets\C#\item\equipment\EquipmentManager.cs" />
     <Compile Include="Assets\C#\monster\NormalMonster.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Player_Control\PlayerAnimation.cs" />
     <Compile Include="Assets\C#\player\player\interface\IPlayerState.cs" />
     <Compile Include="Assets\C#\monster\BossMonster.cs" />
     <Compile Include="Assets\C#\common\interface\IResourceManager.cs" />
     <Compile Include="Assets\C#\bus\EventBus.cs" />
+    <Compile Include="Assets\C#\item\interface\IPlayerStateChanger.cs" />
     <Compile Include="Assets\C#\common\enum\Rarity.cs" />
+    <Compile Include="Assets\C#\item\exception\NoSuchEquipmentException.cs" />
+    <Compile Include="Assets\C#\common\interface\ISingleton.cs" />
+    <Compile Include="Assets\C#\item\equipment\pojo\EquipmentDo.cs" />
+    <Compile Include="Assets\C#\item\interface\IEquipment.cs" />
     <Compile Include="Assets\C#\common\util\ValidChecker.cs" />
     <Compile Include="Assets\C#\common\pojo\item\Item.cs" />
-    <Compile Include="Assets\C#\Player_Control.cs" />
     <Compile Include="Assets\C#\shop\ItemIdLottery.cs" />
     <Compile Include="Assets\test\C#\common\shop\TestShop.cs" />
     <Compile Include="Assets\C#\common\pojo\FileResource.cs" />
     <Compile Include="Assets\C#\common\ItemRegister.cs" />
+    <Compile Include="Assets\C#\common\EquipmentRegister.cs" />
     <Compile Include="Assets\C#\player\bag\interface\IPlayerBag.cs" />
     <Compile Include="Assets\C#\player\bag\PlayerInventory.cs" />
     <Compile Include="Assets\C#\player\bag\pojo\PileOfItem.cs" />
     <Compile Include="Assets\test\C#\common\Test.cs" />
+    <Compile Include="Assets\C#\item\equipment\pojo\Equipment.cs" />
     <Compile Include="Assets\C#\common\converter\JsonConverter.cs" />
     <Compile Include="Assets\C#\common\exception\ResourceNotFoundException.cs" />
     <Compile Include="Assets\C#\shop\interface\IShop.cs" />
@@ -101,7 +95,12 @@
     <Compile Include="Assets\C#\common\common\Re.cs" />
     <Compile Include="Assets\C#\common\interface\IReadable.cs" />
     <Compile Include="Assets\C#\common\IconRegister.cs" />
+    <Compile Include="Assets\C#\common\abstract\AbstractRegister.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Player_Control\PlayerMovement.cs" />
     <Compile Include="Assets\C#\player\bag\interface\IPlayerInventory.cs" />
+    <Compile Include="Assets\C#\item\equipment\EquipmentConverter.cs" />
+    <Compile Include="Assets\C#\bus\interface\IEventHandler.cs" />
+    <Compile Include="Assets\C#\item\equipment\AbstractEquipment.cs" />
     <Compile Include="Assets\C#\shop\interface\IItemIdLottery.cs" />
     <Compile Include="Assets\C#\common\IconManager.cs" />
     <Compile Include="Assets\C#\player\bag\interface\IPlayerToolbar.cs" />
@@ -109,16 +108,18 @@
     <Compile Include="Assets\C#\common\ResourceCenter.cs" />
     <Compile Include="Assets\C#\player\player\PlayerAsset.cs" />
     <Compile Include="Assets\C#\common\enum\ItemType.cs" />
-    <Compile Include="Assets\C#\item\interface\IPlayerStateChanger.cs" />
     <Compile Include="Assets\C#\player\bag\PlayerToolbar.cs" />
     <Compile Include="Assets\C#\shop\pojo\GoodsGetConfig.cs" />
     <Compile Include="Assets\C#\player\player\interface\IPlayerAsset.cs" />
     <Compile Include="Assets\C#\monster\MonsterBase.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Player_Value\CharacterData.cs" />
     <Compile Include="Assets\C#\common\ItemManager.cs" />
     <Compile Include="Assets\C#\common\exception\StartException.cs" />
     <Compile Include="Assets\C#\player\player\PlayerState.cs" />
     <Compile Include="Assets\C#\shop\pojo\GoodsDto.cs" />
+    <Compile Include="Assets\C#\item\event\EquipmentEventHandler.cs" />
     <Compile Include="Assets\C#\common\pojo\Icon.cs" />
+    <Compile Include="Assets\C#\item\event\EquipmentEvent.cs" />
     <Compile Include="Assets\C#\common\FileResourceFactory.cs" />
     <Compile Include="Assets\C#\common\RegisterCenter.cs" />
     <Compile Include="Assets\C#\shop\Shop.cs" />
@@ -1136,7 +1137,8 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

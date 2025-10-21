@@ -27,4 +27,5 @@ namespace Assets.C_.item
 
             return equipment;
         }
+    }
 }
