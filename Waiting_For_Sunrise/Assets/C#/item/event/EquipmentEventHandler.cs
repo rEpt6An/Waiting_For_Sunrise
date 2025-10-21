@@ -39,7 +39,6 @@ namespace Assets.C_.item
             {
                 equipment.ExecuteRemove(eventData.PlayerState);
             }
-            
         }
     }
 }
