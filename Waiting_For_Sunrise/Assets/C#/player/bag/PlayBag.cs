@@ -1,5 +1,8 @@
 
 
+using Assets.C_.bus;
+using Assets.C_.item;
+using Assets.C_.player.player;
 using System;
 
 namespace Assets.C_.player.bag
@@ -47,6 +50,7 @@ namespace Assets.C_.player.bag
                 {
                     PlayerInventory.Delete(new PileOfItem(itemId, countInInventory));
                     PlayerToolbar.Delete(new PileOfItem(itemId, neededNum - countInInventory));
+                    EquipmentEventHandler.UnEquip(itemId);
                 }
             }
         }
@@ -56,6 +60,7 @@ namespace Assets.C_.player.bag
             lock (this)
             {
                 PlayerInventory.Add(pileOfItem);
+                EquipmentEventHandler.Equip(pileOfItem.ItemId);
             }
         }
 
