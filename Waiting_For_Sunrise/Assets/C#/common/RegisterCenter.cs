@@ -4,7 +4,7 @@ namespace Assets.C_.common
 { 
     public class RegisterCenter
     {
-        public static readonly List<IRegister> REGISTERS= new();
+        public static readonly List<AbstractRegister> REGISTERS= new();
 
         public RegisterCenter() { }
 
@@ -12,12 +12,13 @@ namespace Assets.C_.common
         {
             REGISTERS.Add(new IconRegister());
             REGISTERS.Add(new ItemRegister());
+            REGISTERS.Add(new EquipmentRegister());
         }
 
         public static void RegisterAll()
         {
             AddRegister();
-            foreach (IRegister register in REGISTERS) { 
+            foreach (AbstractRegister register in REGISTERS) { 
                 register.Register();
             }
         }

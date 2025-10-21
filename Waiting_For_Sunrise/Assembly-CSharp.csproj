@@ -62,12 +62,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\C#\bus\interface\IEventHandler.cs" />
-    <Compile Include="Assets\C#\item\equipment\effect\ISimpleEquipmentEffect.cs" />
-    <Compile Include="Assets\C#\item\equipment\effect\SimpleEquipmentEffect.cs" />
+    <Compile Include="Assets\C#\common\abstract\AbstractRegister.cs" />
+    <Compile Include="Assets\C#\common\EquipmentRegister.cs" />
+    <Compile Include="Assets\C#\common\interface\ISingleton.cs" />
+    <Compile Include="Assets\C#\item\equipment\AbstractEquipment.cs" />
+    <Compile Include="Assets\C#\item\equipment\EquipmentConverter.cs" />
     <Compile Include="Assets\C#\item\equipment\EquipmentManager.cs" />
+    <Compile Include="Assets\C#\item\equipment\pojo\EquipmentDo.cs" />
     <Compile Include="Assets\C#\item\event\EquipmentEvent.cs" />
     <Compile Include="Assets\C#\item\event\EquipmentEventHandler.cs" />
-    <Compile Include="Assets\C#\item\equipment\Lamp.cs" />
+    <Compile Include="Assets\C#\item\equipment\pojo\Equipment.cs" />
     <Compile Include="Assets\C#\item\exception\NoSuchEquipmentException.cs" />
     <Compile Include="Assets\C#\item\interface\IEquipment.cs" />
     <Compile Include="Assets\C#\monster\MonsterState.cs" />

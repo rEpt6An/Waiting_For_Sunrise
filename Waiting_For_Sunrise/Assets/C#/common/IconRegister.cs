@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Assets.C_.common
 {
-    public class IconRegister: IRegister
+    public class IconRegister: AbstractRegister
     {
         private static readonly List<string> ICON_FILE_RESOURCE_PATHS = new();
 
@@ -13,7 +13,7 @@ namespace Assets.C_.common
             // todo 向 ICON_FILE_RESOURCE_PATHS 添加图标位置
         }
 
-        public void Register()
+        protected override object GetFileResource()
         {
             List<FileResource> fileResources = new();
             foreach (string path in ICON_FILE_RESOURCE_PATHS)
@@ -21,8 +21,12 @@ namespace Assets.C_.common
                 FileResource fileResource = FileResourceFactory.CreateFileResource(path, "content");
                 fileResources.Add(fileResource);
             }
-            IconManager iconManager = IconManager.GetInstance();
-            iconManager.Load(fileResources);
+            return fileResources;
+        }
+
+        protected override IResourceManager<object, object> GetResourceManager()
+        {
+            return (IResourceManager<object, object>)IconManager.GetInstance();
         }
     }
 }
