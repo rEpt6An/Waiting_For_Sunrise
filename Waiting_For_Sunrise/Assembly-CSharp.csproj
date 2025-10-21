@@ -88,11 +88,13 @@
     <Compile Include="Assets\C#\common\common\Re.cs" />
     <Compile Include="Assets\C#\common\interface\IReadable.cs" />
     <Compile Include="Assets\C#\common\IconRegister.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Player_Control\ResetTriggerOnEnter.cs" />
     <Compile Include="Assets\C#\Player_inGame\Player_Control\PlayerMovement.cs" />
     <Compile Include="Assets\C#\player\bag\interface\IPlayerInventory.cs" />
     <Compile Include="Assets\C#\shop\interface\IItemIdLottery.cs" />
     <Compile Include="Assets\C#\common\IconManager.cs" />
     <Compile Include="Assets\C#\player\bag\interface\IPlayerToolbar.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Camera\CameraFollow.cs" />
     <Compile Include="Assets\C#\player\bag\exception\BagException.cs" />
     <Compile Include="Assets\C#\common\ResourceCenter.cs" />
     <Compile Include="Assets\C#\player\player\PlayerAsset.cs" />
