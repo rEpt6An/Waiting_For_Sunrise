@@ -15,29 +15,30 @@ namespace Assets.C_.item
             EventBus.Subscribe<EquipmentEvent>(Handle);
         }
 
-        public static void Equip(int itemId, IPlayerState playerState)
+        public static void Equip(int itemId)
         {
-            EventBus.Publish(new EquipmentEvent(true, itemId, playerState));
+            EventBus.Publish(new EquipmentEvent(true, itemId));
         }
 
-        public static void UnEquip(int itemId, IPlayerState playerState)
+        public static void UnEquip(int itemId)
         {
-            EventBus.Publish(new EquipmentEvent(false, itemId, playerState));
+            EventBus.Publish(new EquipmentEvent(false, itemId));
         }
 
         private static void Handle(EquipmentEvent eventData)
         {
-            IEquipment equipment = EquipmentManager.EQUIPMENTS[eventData.ItemId];
+            EquipmentManager equipmentManager = EquipmentManager.GetInstance();
+            IEquipment equipment = equipmentManager.Get(eventData.ItemId);
             if (equipment != null)
             {
                 throw new NoSuchEquipmentException();
             }
             if (eventData.IsEquipped)
             {
-                equipment.Execute(eventData.PlayerState);
+                equipment.Execute(PlayerState.Instance);
             } else
             {
-                equipment.ExecuteRemove(eventData.PlayerState);
+                equipment.ExecuteRemove(PlayerState.Instance);
             }
         }
     }

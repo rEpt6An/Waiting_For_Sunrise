@@ -24,7 +24,7 @@ namespace Assets.C_.common
             }
             return Instance;
         }
-
+        
         public void Load(FileResource fileResource)
         {
             lock (_lock)
