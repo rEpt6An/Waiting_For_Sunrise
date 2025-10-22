@@ -10,6 +10,7 @@ namespace Assets.C_.common
         public string FileContent { get; private set; } = null;
         public byte[] Bytes { get; private set; } = null;
 
+        // content or byte
         public string Type { get; private set; }
 
         public FileResource(string path, string type)
