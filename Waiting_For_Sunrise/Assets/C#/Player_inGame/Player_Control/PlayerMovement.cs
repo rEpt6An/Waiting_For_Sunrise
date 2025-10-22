@@ -4,7 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerAnimator))] // 确保PlayerAnimator脚本存在
 public class PlayerMovement : MonoBehaviour
+
 {
+
+    public static Transform Instance { get; private set; }
+
     [Header("移动属性")]
     [SerializeField] private float moveSpeed = 5f;
 
@@ -25,8 +29,16 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 MoveInput => moveInput;
     public bool IsRolling => isRolling;
 
-    void Start()
+    void Awake()
     {
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this.transform;
+
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<PlayerAnimator>();
     }

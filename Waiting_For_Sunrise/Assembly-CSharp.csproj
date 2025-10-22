@@ -60,6 +60,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.45f1c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\C#\Player_inGame\Fight\EnemyController.cs" />
     <Compile Include="Assets\C#\monster\MonsterState.cs" />
     <Compile Include="Assets\C#\player\bag\PlayBag.cs" />
     <Compile Include="Assets\C#\monster\NormalMonster.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Assets\C#\Player_inGame\Player_Control\ResetTriggerOnEnter.cs" />
     <Compile Include="Assets\C#\Player_inGame\Player_Control\PlayerMovement.cs" />
     <Compile Include="Assets\C#\player\bag\interface\IPlayerInventory.cs" />
+    <Compile Include="Assets\C#\item\equipment\EquipmentConverter.cs" />
     <Compile Include="Assets\C#\shop\interface\IItemIdLottery.cs" />
     <Compile Include="Assets\C#\common\IconManager.cs" />
     <Compile Include="Assets\C#\player\bag\interface\IPlayerToolbar.cs" />
