@@ -61,9 +61,9 @@ namespace Assets.C_.player.player
             SelfHealing = 1;      // 自愈（每回合恢复生命值）
             Lucky = 5;            // 幸运（影响掉落率）
             Harvest = 0;          // 收获（额外资源获取）
-            MeleeAttack = 0;
-            RangedAttack = 0;
-            AttackSpeed = 0.01; 
+            MeleeAttack = 0;        //近战攻击
+            RangedAttack = 0;       //远程攻击
+            AttackSpeed = 1;         //攻速
         }
         public void changeBlood(int changePoint)
         {

@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\C#\Player_inGame\Fight\EnemyController.cs" />
     <Compile Include="Assets\C#\monster\MonsterState.cs" />
+    <Compile Include="Assets\C#\General\GameManager.cs" />
     <Compile Include="Assets\C#\player\bag\PlayBag.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\C#\item\equipment\EquipmentManager.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Assets\C#\monster\MonsterBase.cs" />
     <Compile Include="Assets\C#\Player_inGame\Player_Value\CharacterData.cs" />
     <Compile Include="Assets\C#\common\ItemManager.cs" />
+    <Compile Include="Assets\C#\UI_Control\DayDisplayUI.cs" />
     <Compile Include="Assets\C#\General\Quit.cs" />
     <Compile Include="Assets\C#\common\exception\StartException.cs" />
     <Compile Include="Assets\C#\player\player\PlayerState.cs" />
