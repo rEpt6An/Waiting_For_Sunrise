@@ -67,6 +67,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\C#\item\equipment\EquipmentManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+    <Compile Include="Assets\C#\UI_Control\Night\CoinDisplayUI.cs" />
     <Compile Include="Assets\C#\monster\NormalMonster.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\C#\item\equipment\pojo\EquipmentDo.cs" />
     <Compile Include="Assets\C#\item\interface\IEquipment.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\C#\UI_Control\Night\HealthBarUI.cs" />
     <Compile Include="Assets\C#\common\util\ValidChecker.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="Assets\C#\common\interface\IReadable.cs" />
     <Compile Include="Assets\C#\common\IconRegister.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Player_Value\PlayerCharacter.cs" />
     <Compile Include="Assets\C#\Player_inGame\Player_Control\ResetTriggerOnEnter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
@@ -146,6 +149,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\C#\player\bag\PlayerToolbar.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\C#\UI_Control\Night\ExperienceBarUI.cs" />
     <Compile Include="Assets\C#\shop\pojo\GoodsGetConfig.cs" />
     <Compile Include="Assets\C#\player\player\interface\IPlayerAsset.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />

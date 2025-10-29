@@ -393,7 +393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3653803303832198713, guid: 0bc7abbc37365fb48866c3d0fce64a1d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -623,6 +623,7 @@ GameObject:
   m_Component:
   - component: {fileID: 378650981}
   - component: {fileID: 378650982}
+  - component: {fileID: 378650983}
   m_Layer: 5
   m_Name: HP_Bar
   m_TagString: Untagged
@@ -704,6 +705,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &378650983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378650980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b12cac4cd990ce4aafee2f8df242e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 378650982}
+  healthText: {fileID: 330545419}
 --- !u!1 &386020580
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,7 +1499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93cb33cb6b907f74daad3f54e33db21b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeDuration: 5
+  timeDuration: 60
   sceneSwitcher: {fileID: 894068032}
 --- !u!114 &894068032
 MonoBehaviour:
@@ -1506,14 +1521,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 102094925795995598, guid: 0bc7abbc37365fb48866c3d0fce64a1d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 102094925795995598, guid: 0bc7abbc37365fb48866c3d0fce64a1d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 102094925795995598, guid: 0bc7abbc37365fb48866c3d0fce64a1d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1558,10 +1565,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie
       objectReference: {fileID: 0}
-    - target: {fileID: 3653803303832198713, guid: 0bc7abbc37365fb48866c3d0fce64a1d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1577,6 +1580,7 @@ GameObject:
   m_Component:
   - component: {fileID: 929206574}
   - component: {fileID: 929206575}
+  - component: {fileID: 929206576}
   m_Layer: 5
   m_Name: Exp_Bar
   m_TagString: Untagged
@@ -1658,6 +1662,21 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &929206576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929206573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0ba2d6cf306244a8ece971e90ba452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experienceSlider: {fileID: 929206575}
+  experienceText: {fileID: 460917183}
+  experienceToLevelUp: 100
 --- !u!1 &1117628671
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,6 +1872,7 @@ GameObject:
   - component: {fileID: 1186222993}
   - component: {fileID: 1186222994}
   - component: {fileID: 1186222995}
+  - component: {fileID: 1186222996}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1919,7 +1939,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -1931,7 +1951,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1186222991
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2048,6 +2068,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8f72e617f1fcd43b9937889e7890c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1186222996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186222988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3f5a588c244c247b3449525fc3f91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1418114337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2110,7 +2142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3653803303832198713, guid: 0bc7abbc37365fb48866c3d0fce64a1d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2557,7 +2589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3653803303832198713, guid: 0bc7abbc37365fb48866c3d0fce64a1d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2701,7 +2733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3653803303832198713, guid: 0bc7abbc37365fb48866c3d0fce64a1d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2719,6 +2751,7 @@ GameObject:
   - component: {fileID: 1655706551}
   - component: {fileID: 1655706553}
   - component: {fileID: 1655706552}
+  - component: {fileID: 1655706554}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2842,6 +2875,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655706550}
   m_CullTransparentMesh: 1
+--- !u!114 &1655706554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655706550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c96f13a7eb0ec547b5dd55e91b93b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1783888682
 GameObject:
   m_ObjectHideFlags: 0
@@ -2940,7 +2985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3653803303832198713, guid: 0bc7abbc37365fb48866c3d0fce64a1d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
