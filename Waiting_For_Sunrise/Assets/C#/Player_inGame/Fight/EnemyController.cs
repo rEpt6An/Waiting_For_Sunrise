@@ -1,4 +1,3 @@
-// EnemyController.cs
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -21,21 +20,22 @@ public class EnemyController : MonoBehaviour
 
     // --- 内部状态变量 ---
     private float currentHealth;
-    private Transform playerTransform;
-    private float timeSinceLastAttack = 0f; // 独立的攻击冷却计时器
+    private float timeSinceLastAttack = 0f;
+
+    // --- 修改：不再直接引用Transform，而是引用核心脚本 ---
+    private PlayerCharacter playerCharacter;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentHealth = maxHealth;
 
-        if (PlayerCharacter.Instance != null)
+        // --- 核心修改：在场景中查找唯一的PlayerCharacter实例 ---
+        playerCharacter = FindObjectOfType<PlayerCharacter>();
+
+        if (playerCharacter == null)
         {
-            playerTransform = PlayerCharacter.Instance.transform;
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("无法找到 PlayerCharacter.Instance！...");
+            UnityEngine.Debug.LogError("场景中找不到 PlayerCharacter 实例！怪物将不会移动或攻击。");
             this.enabled = false;
         }
 
@@ -45,17 +45,18 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        // --- 冷却计时器 ---
-        // 每帧都增加计时器的时间
         timeSinceLastAttack += Time.deltaTime;
 
-        if (playerTransform != null)
+        // 只有当玩家目标存在时才执行逻辑
+        if (playerCharacter != null)
         {
-            // --- 移动和翻转逻辑 ---
+            Transform playerTransform = playerCharacter.transform;
+
+            // 移动逻辑
             Vector2 direction = (playerTransform.position - transform.position).normalized;
             transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
 
-            // 根据你的反馈调整了翻转逻辑
+            // 翻转逻辑 (根据你的反馈已调整)
             if (direction.x > 0) spriteRenderer.flipX = true;
             else if (direction.x < 0) spriteRenderer.flipX = false;
         }
@@ -72,32 +73,25 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
-        if (PlayerCharacter.Instance != null)
+        // --- 核心修改：通过缓存的引用给予经验 ---
+        if (playerCharacter != null)
         {
-            PlayerCharacter.Instance.GainExperience(experienceReward);
+            playerCharacter.GainExperience(experienceReward);
         }
         Destroy(gameObject);
     }
 
-    // --- 核心修改：使用 OnCollisionStay2D ---
-    /// <summary>
-    /// 当碰撞体持续接触时，此方法会每帧被调用
-    /// </summary>
     private void OnCollisionStay2D(Collision2D collision)
     {
-        // 检查是否与玩家持续碰撞
         if (collision.gameObject.CompareTag("Player"))
         {
-            // 检查冷却时间是否已到
             if (timeSinceLastAttack >= attackCooldown)
             {
-                // 如果冷却时间到了，就执行攻击
-                if (PlayerCharacter.Instance != null)
+                // --- 核心修改：通过缓存的引用造成伤害 ---
+                if (playerCharacter != null)
                 {
-                    PlayerCharacter.Instance.TakeDamage(contactDamage);
+                    playerCharacter.TakeDamage(contactDamage);
                 }
-
-                // 攻击后，立即重置计时器
                 timeSinceLastAttack = 0f;
             }
         }

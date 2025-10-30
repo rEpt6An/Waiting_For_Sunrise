@@ -1,5 +1,8 @@
+// PlayerCharacter.cs
 using UnityEngine;
+// 引入你后端代码所在的命名空间
 using Assets.C_.player.player;
+using Assets.C_.player.bag; // 确保 PlayerAsset 能被正确识别
 
 // 确保玩家对象上有这些核心组件
 [RequireComponent(typeof(PlayerMovement))]
@@ -7,54 +10,91 @@ using Assets.C_.player.player;
 [RequireComponent(typeof(Collider2D))]
 public class PlayerCharacter : MonoBehaviour
 {
+    [Header("攻击设置")]
+    [SerializeField] private WeaponData currentWeapon;
+    [SerializeField] private GameObject attackPrefab;
+    [SerializeField] private Transform attackSpawnPoint;
+
     // --- 后端数据引用 ---
-    // 这是你的纯C#数据层，负责管理所有数值
     private PlayerState _playerState;
+    // --- 【关键】公开 PlayerAsset 属性 ---
+    public PlayerAsset PlayerAsset { get; private set; }
 
-    // --- Unity组件引用 ---
-    // [Header("UI组件引用")]
-    // public HealthBarUI healthBar; // 示例：血条UI脚本
-    // public ExperienceBarUI expBar; // 示例：经验条UI脚本
-    // public CoinDisplayUI coinDisplay; // 示例：金币UI脚本
-
-    // 静态单例，方便其他脚本（比如EnemyController）快速访问玩家
-    public static PlayerCharacter Instance { get; private set; }
-
-    public PlayerAsset PlayerAsset { get; private set; } // 将PlayerAsset改为公共属性
+    // --- 内部状态 ---
+    private float attackCooldownTimer = 0f;
 
     void Awake()
     {
-        // --- 单例模式实现 ---
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-
+        // --- 初始化后端数据 ---
         _playerState = PlayerState.Instance;
-        PlayerAsset = new PlayerAsset(); // 在这里创建唯一实例
-
-        // 可以在这里进行一次初始UI更新
-        UpdateAllUI();
+        PlayerAsset = new PlayerAsset(); // 创建 PlayerAsset 的唯一实例
     }
 
-    // --- 核心功能方法 ---
+    void Update()
+    {
+        // 攻击冷却计时
+        attackCooldownTimer += Time.deltaTime;
 
-    /// <summary>
-    /// 当玩家受到伤害时调用
-    /// </summary>
+        // 检查武器数据是否存在
+        if (currentWeapon == null) return;
+
+        // 计算攻击冷却时间
+        // 注意：玩家攻速 AttackSpeed 的初始值不应为0，否则会导致除以零错误
+        // 我们在这里加一个保护，如果玩家攻速小于等于0，则使用一个默认值
+        double playerAttackSpeed = _playerState.AttackSpeed > 0 ? _playerState.AttackSpeed : 1.0;
+        float attackCooldown = 1f / (currentWeapon.baseAttackSpeed * (float)playerAttackSpeed);
+
+        // 检测鼠标左键按住，并检查冷却
+        if (Input.GetMouseButton(0) && attackCooldownTimer >= attackCooldown)
+        {
+            PerformAttack();
+            attackCooldownTimer = 0f; // 重置冷却
+        }
+    }
+
+    private void PerformAttack()
+    {
+        // 1. 获取鼠标方向
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
+        Vector2 direction = (mousePosition - attackSpawnPoint.position).normalized;
+
+        // 2. 创建攻击实例
+        GameObject attackInstance = Instantiate(attackPrefab, attackSpawnPoint.position, Quaternion.identity);
+
+        // 3. 旋转攻击实例使其朝向鼠标
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        attackInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        // 4. 计算最终伤害
+        float correspondingPlayerDamage = 0;
+        // 检查伤害加成类型: 0=近战, 1=远程
+        if (currentWeapon.damageScaleType == 0)
+        {
+            correspondingPlayerDamage = _playerState.MeleeAttack;
+        }
+        else if (currentWeapon.damageScaleType == 1)
+        {
+            correspondingPlayerDamage = _playerState.RangedAttack;
+        }
+
+        float finalDamage = (currentWeapon.baseDamage + currentWeapon.scalingMultiplier * correspondingPlayerDamage)
+                            * (float)_playerState.DamageMultipler;
+
+        // 5. 将伤害值传递给攻击脚本
+        WeaponAttack attackScript = attackInstance.GetComponent<WeaponAttack>();
+        if (attackScript != null)
+        {
+            attackScript.Initialize(finalDamage);
+        }
+    }
+
+    // --- 玩家状态接口 ---
+    // 其他脚本现在可以通过 FindObjectOfType<PlayerCharacter>() 来调用这些方法
     public void TakeDamage(int damageAmount)
     {
-        // 可以在这里加入防御和闪避计算
-        // 示例： if (Random.value < _playerState.Dodge) { return; } // 闪避成功
-        // int finalDamage = Mathf.Max(1, damageAmount - _playerState.DefensivePower);
-
-        _playerState.changeBlood(-damageAmount); // 直接调用后端方法
-        UnityEngine.Debug.Log($"玩家受到 {damageAmount} 伤害, 剩余血量: {_playerState.Blood}");
-
-        // 更新血量UI
-        // healthBar.UpdateHealth(_playerState.Blood, _playerState.MaxHP);
+        // 未来可以在这里加入防御和闪避计算
+        _playerState.changeBlood(-damageAmount);
 
         if (_playerState.isDie())
         {
@@ -62,51 +102,15 @@ public class PlayerCharacter : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 当玩家获得经验时调用
-    /// </summary>
     public void GainExperience(int amount)
     {
         _playerState.changeExperience(amount);
-        UnityEngine.Debug.Log($"获得 {amount} 经验, 总经验: {_playerState.Experience}");
-
-        // 更新经验UI
-        // expBar.UpdateExperience(_playerState.Experience, requiredExp); // (需要一个计算升级所需经验的逻辑)
     }
 
     private void HandleDeath()
     {
         UnityEngine.Debug.LogWarning("玩家已死亡！");
-        // 禁用玩家移动和攻击等
-        GetComponent<PlayerMovement>().enabled = false;
-        // 可以在这里触发Game Over逻辑
-    }
-
-    /// <summary>
-    /// 一个集中的方法，用于在游戏开始或需要时更新所有UI
-    /// </summary>
-    public void UpdateAllUI()
-    {
-        // healthBar.UpdateHealth(_playerState.Blood, _playerState.MaxHP);
-        // expBar.UpdateExperience(_playerState.Experience, requiredExp);
-        // coinDisplay.UpdateCoins(PlayerAsset.Instance.Money); // 假设PlayerAsset也是单例
-    }
-
-    // 在Update中检测攻击输入
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0)) // 0代表鼠标左键
-        {
-            PerformAttack();
-        }
-    }
-
-    private void PerformAttack()
-    {
-        UnityEngine.Debug.Log("玩家发动了攻击！");
-        // TODO: 在这里实现攻击逻辑
-        // 1. 确定攻击范围 (一个圆或一个扇形)
-        // 2. 检测范围内的所有敌人
-        // 3. 对检测到的每个敌人调用其TakeDamage方法
+        // 简单地禁用玩家对象，可以换成更复杂的死亡逻辑
+        gameObject.SetActive(false);
     }
 }
