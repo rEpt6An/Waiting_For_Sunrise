@@ -72,7 +72,7 @@
         "Price": 49
     },
     {
-        "¼«Id": 8,
+        "ï¿½ï¿½Id": 8,
         "Name": "Hand Cream",
         "Rarity": 1,
         "Description": "",
@@ -145,7 +145,7 @@
     },
     {
         "Id": 16,
-        "¼«Name": "Gloves",
+        "ï¿½ï¿½Name": "Gloves",
         "Rarity": 0,
         "Description": "",
         "IconId": "16",
@@ -358,5 +358,167 @@
         "IconId": "39",
         "ItemType": 0,
         "Price": 34
+    },
+    {
+        "Id": 40,
+        "Name": "Wooden Stick",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "39",
+        "ItemType": 1,
+        "Price": 25
+    },
+    {
+        "Id": 41,
+        "Name": "Machete",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "40",
+        "ItemType": 1,
+        "Price": 30
+    },
+    {
+        "Id": 42,
+        "Name": "Knife",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "41",
+        "ItemType": 1,
+        "Price": 18
+    },
+    {
+        "Id": 43,
+        "Name": "Spear",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "42",
+        "ItemType": 1,
+        "Price": 32
+    },
+    {
+        "Id": 44,
+        "Name": "Pistol",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "43",
+        "ItemType": 1,
+        "Price": 25
+    },
+    {
+        "Id": 45,
+        "Name": "Submachine Gun",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "44",
+        "ItemType": 1,
+        "Price": 30
+    },
+    {
+        "Id": 46,
+        "Name": "Slingshot",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "45",
+        "ItemType": 1,
+        "Price": 21
+    },
+    {
+        "Id": 47,
+        "Name": "Shotgun",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "46",
+        "ItemType": 1,
+        "Price": 28
+    },
+       {
+        "Id": 48,
+        "Name": "Small Health Potion",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "48",
+        "ItemType": 2,
+        "Price": 10
+    },
+    {
+        "Id": 49,
+        "Name": "Small Attack Potion",
+        "Rarity": 2,
+        "Description": "",
+        "IconId": "49",
+        "ItemType": 2,
+        "Price": 18
+    },
+    {
+        "Id": 50,
+        "Name": "Small Speed Potion",
+        "Rarity": 2,
+        "Description": "",
+        "IconId": "50",
+        "ItemType": 2,
+        "Price": 18
+    },
+    {
+        "Id": 51,
+        "Name": "Small Defense Potion",
+        "Rarity": 2,
+        "Description": "",
+        "IconId": "51",
+        "ItemType": 2,
+        "Price": 15
+    },
+    {
+        "Id": 52,
+        "Name": "Berserk Potion",
+        "Rarity": 3,
+        "Description": "",
+        "IconId": "52",
+        "ItemType": 2,
+        "Price": 28
+    },
+    {
+        "Id": 53,
+        "Name": "Vampire Potion",
+        "Rarity": 3,
+        "Description": "",
+        "IconId": "53",
+        "ItemType": 2,
+        "Price": 28
+    },
+    {
+        "Id": 54,
+        "Name": "Molotov",
+        "Rarity": 3,
+        "Description": "",
+        "IconId": "54",
+        "ItemType": 2,
+        "Price": 25
+    },
+    {
+        "Id": 55,
+        "Name": "Firecracker",
+        "Rarity": 1,
+        "Description": "",
+        "IconId": "55",
+        "ItemType": 2,
+        "Price": 8
+    },
+    {
+        "Id": 56,
+        "Name": "Grenade",
+        "Rarity": 3,
+        "Description": "",
+        "IconId": "56",
+        "ItemType": 2,
+        "Price": 28
+    },
+    {
+        "Id": 57,
+        "Name": "Freeze Bomb",
+        "Rarity": 2,
+        "Description": "",
+        "IconId": "57",
+        "ItemType": 2,
+        "Price": 15
     }
 ]
