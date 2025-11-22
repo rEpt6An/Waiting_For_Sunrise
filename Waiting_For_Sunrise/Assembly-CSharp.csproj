@@ -140,6 +140,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\C#\Player_inGame\Player_Control\ResetTriggerOnEnter.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Player_Control\ResetTriggerOnEnter.cs" />
     <Compile Include="Assets\C#\common\abstract\AbstractRegister.cs" />
     <Compile Include="Assets\C#\Player_inGame\Player_Control\PlayerMovement.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
