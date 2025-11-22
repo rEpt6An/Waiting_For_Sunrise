@@ -77,7 +77,7 @@ namespace Assets.C_.item
                      double criticalMultiplier, int magazine, double reloadSpeed)
         {
             Id = id;
-            WeaponType = weaponType;
+            WeaponType = WeaponTypeExtensions.GetByName(weaponType);
             EffectDerivationCount = effectDerivationCount;
             BaseAttack = baseAttack;
             DamageMultiplier = damageMultiplier;
