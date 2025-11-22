@@ -27,6 +27,7 @@ namespace Assets.C_.common
 
         public Icon Get(int iconId)
         {
+            //现在无图标
             //Icon icon = ICONS[iconId];
             //if (icon == null)
             //{
