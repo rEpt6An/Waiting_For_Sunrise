@@ -1,9 +1,6 @@
 
 
-using Assets.C_.bus;
 using Assets.C_.item;
-using Assets.C_.player.player;
-using System;
 
 namespace Assets.C_.player.bag
 {

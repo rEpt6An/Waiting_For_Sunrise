@@ -1,4 +1,5 @@
 using Assets.C_.bus;
+using Assets.C_.player;
 using Assets.C_.player.player;
 
 namespace Assets.C_.item
@@ -35,10 +36,10 @@ namespace Assets.C_.item
             }
             if (eventData.IsEquipped)
             {
-                equipment.Execute(PlayerState.Instance);
+                equipment.Execute(Player.GetInstance().PlayerState);
             } else
             {
-                equipment.ExecuteRemove(PlayerState.Instance);
+                equipment.ExecuteRemove(Player.GetInstance().PlayerState);
             }
         }
     }

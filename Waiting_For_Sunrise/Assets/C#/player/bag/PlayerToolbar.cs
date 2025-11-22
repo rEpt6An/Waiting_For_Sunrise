@@ -5,7 +5,14 @@ namespace Assets.C_.player.bag
 {
     public class PlayerToolbar: IPlayerToolbar
     {
-        public PileOfItem[] Toolbar { get; private set; } = new PileOfItem[9];
+        private static readonly int ToolbarLength = 9;
+        public PileOfItem[] Toolbar { get; private set; } = new PileOfItem[ToolbarLength];
+
+        /// <summary>
+        /// 目前玩家所用的快捷栏index
+        /// </summary>
+        private int ToolbarIndex { get; set; }
+
         private readonly object _lock = new object();
 
         public void Add(int index, PileOfItem item)
@@ -115,6 +122,21 @@ namespace Assets.C_.player.bag
                     }
                 }
             }
+        }
+
+        public void ChangeToolbar(int index)
+        {
+            ToolbarIndex = index % ToolbarLength;
+        }
+
+        public int GetNowToolbarIndex()
+        {
+            return ToolbarIndex;
+        }
+
+        public PileOfItem GetNowToolbarPileOfItem()
+        {
+            return GetPileOfItem(ToolbarIndex);
         }
     }
 }
