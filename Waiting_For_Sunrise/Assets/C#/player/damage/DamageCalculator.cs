@@ -20,7 +20,8 @@ namespace Assets.C_.player
 
         public static Damage PlayerGiveDamage(PlayerGiveDamageContext playerGiveDamageContext)
         {
-
+            // TODO 
+            return null;
         }
     }
 }
