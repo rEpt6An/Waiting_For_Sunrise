@@ -26,5 +26,20 @@ namespace Assets.C_.player
         {
             EventBus.Publish(new PlayerGetDamageEvent(actualDamage, orignDamage));
         }
+
+        protected override int GetDefensivePower()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override double GetDodge()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void ChangeBlood(int value)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

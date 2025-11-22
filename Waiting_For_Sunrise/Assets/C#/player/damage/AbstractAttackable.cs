@@ -34,6 +34,5 @@ namespace Assets.C_.player
         protected abstract int GetDefensivePower();
         protected abstract double GetDodge();
         protected abstract void ChangeBlood(int value);
-
     }
 }
