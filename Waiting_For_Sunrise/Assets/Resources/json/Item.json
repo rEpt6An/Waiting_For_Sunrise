@@ -4,7 +4,7 @@
         "Name": "name",
         "Rarity": 0,
         "Description": "empty",
-        "IconId": "0",
+        "IconId": 0,
         "ItemType": 0,
         "Price": 0
     },
@@ -13,7 +13,7 @@
         "Name": "Table Lamp",
         "Rarity": 0,
         "Description": "",
-        "IconId": "1",
+        "IconId": 1,
         "ItemType": 0,
         "Price": 17
     },
@@ -22,7 +22,7 @@
         "Name": "Mouse",
         "Rarity": 0,
         "Description": "",
-        "IconId": "2",
+        "IconId": 2,
         "ItemType": 0,
         "Price": 25
     },
@@ -31,7 +31,7 @@
         "Name": "Keyboard",
         "Rarity": 1,
         "Description": "",
-        "IconId": "3",
+        "IconId": 3,
         "ItemType": 0,
         "Price": 35
     },
@@ -40,7 +40,7 @@
         "Name": "Anime Figure",
         "Rarity": 2,
         "Description": "",
-        "IconId": "4",
+        "IconId": 4,
         "ItemType": 0,
         "Price": 69
     },
@@ -49,7 +49,7 @@
         "Name": "Face Mask",
         "Rarity": 0,
         "Description": "",
-        "IconId": "5",
+        "IconId": 5,
         "ItemType": 0,
         "Price": 16
     },
@@ -58,7 +58,7 @@
         "Name": "Razor",
         "Rarity": 1,
         "Description": "",
-        "IconId": "6",
+        "IconId": 6,
         "ItemType": 0,
         "Price": 31
     },
@@ -67,16 +67,16 @@
         "Name": "Thermos Cup",
         "Rarity": 2,
         "Description": "",
-        "IconId": "7",
+        "IconId": 7,
         "ItemType": 0,
         "Price": 49
     },
     {
-        "��Id": 8,
+        "Id": 8,
         "Name": "Hand Cream",
         "Rarity": 1,
         "Description": "",
-        "IconId": "8",
+        "IconId": 8,
         "ItemType": 0,
         "Price": 28
     },
@@ -85,7 +85,7 @@
         "Name": "Floral Water",
         "Rarity": 0,
         "Description": "",
-        "IconId": "9",
+        "IconId": 9,
         "ItemType": 0,
         "Price": 16
     },
@@ -94,7 +94,7 @@
         "Name": "Essential Balm",
         "Rarity": 1,
         "Description": "",
-        "IconId": "10",
+        "IconId": 10,
         "ItemType": 0,
         "Price": 23
     },
@@ -103,7 +103,7 @@
         "Name": "Plush Toy",
         "Rarity": 2,
         "Description": "",
-        "IconId": "11",
+        "IconId": 11,
         "ItemType": 0,
         "Price": 84
     },
@@ -112,7 +112,7 @@
         "Name": "Tissue",
         "Rarity": 0,
         "Description": "",
-        "IconId": "12",
+        "IconId": 12,
         "ItemType": 0,
         "Price": 11
     },
@@ -121,7 +121,7 @@
         "Name": "Headphones",
         "Rarity": 1,
         "Description": "",
-        "IconId": "13",
+        "IconId": 13,
         "ItemType": 0,
         "Price": 35
     },
@@ -130,7 +130,7 @@
         "Name": "Vitamins",
         "Rarity": 3,
         "Description": "",
-        "IconId": "14",
+        "IconId": 14,
         "ItemType": 0,
         "Price": 139
     },
@@ -139,16 +139,16 @@
         "Name": "Book",
         "Rarity": 0,
         "Description": "",
-        "IconId": "15",
+        "IconId": 15,
         "ItemType": 0,
         "Price": 10
     },
     {
         "Id": 16,
-        "��Name": "Gloves",
+        "Name": "Gloves",
         "Rarity": 0,
         "Description": "",
-        "IconId": "16",
+        "IconId": 16,
         "ItemType": 0,
         "Price": 12
     },
@@ -157,7 +157,7 @@
         "Name": "Toilet Cleaner",
         "Rarity": 1,
         "Description": "",
-        "IconId": "17",
+        "IconId": 17,
         "ItemType": 0,
         "Price": 26
     },
@@ -166,7 +166,7 @@
         "Name": "Soap",
         "Rarity": 0,
         "Description": "",
-        "IconId": "18",
+        "IconId": 18,
         "ItemType": 0,
         "Price": 11
     },
@@ -175,7 +175,7 @@
         "Name": "Mini Fan",
         "Rarity": 0,
         "Description": "",
-        "IconId": "19",
+        "IconId": 19,
         "ItemType": 0,
         "Price": 16
     },
@@ -184,7 +184,7 @@
         "Name": "Nail Clipper",
         "Rarity": 0,
         "Description": "",
-        "IconId": "20",
+        "IconId": 20,
         "ItemType": 0,
         "Price": 13
     },
@@ -193,7 +193,7 @@
         "Name": "Contact Lenses",
         "Rarity": 1,
         "Description": "",
-        "IconId": "21",
+        "IconId": 21,
         "ItemType": 0,
         "Price": 30
     },
@@ -202,7 +202,7 @@
         "Name": "Glasses",
         "Rarity": 0,
         "Description": "",
-        "IconId": "22",
+        "IconId": 22,
         "ItemType": 0,
         "Price": 18
     },
@@ -211,7 +211,7 @@
         "Name": "Trash Can",
         "Rarity": 0,
         "Description": "",
-        "IconId": "23",
+        "IconId": 23,
         "ItemType": 0,
         "Price": 20
     },
@@ -220,7 +220,7 @@
         "Name": "Towel",
         "Rarity": 0,
         "Description": "",
-        "IconId": "24",
+        "IconId": 24,
         "ItemType": 0,
         "Price": 16
     },
@@ -229,7 +229,7 @@
         "Name": "Rusty Hanger",
         "Rarity": 3,
         "Description": "",
-        "IconId": "25",
+        "IconId": 25,
         "ItemType": 0,
         "Price": 159
     },
@@ -238,7 +238,7 @@
         "Name": "Regular Hanger",
         "Rarity": 1,
         "Description": "",
-        "IconId": "26",
+        "IconId": 26,
         "ItemType": 0,
         "Price": 20
     },
@@ -247,7 +247,7 @@
         "Name": "Headband",
         "Rarity": 0,
         "Description": "",
-        "IconId": "27",
+        "IconId": 27,
         "ItemType": 0,
         "Price": 16
     },
@@ -256,7 +256,7 @@
         "Name": "Electric Kettle",
         "Rarity": 2,
         "Description": "",
-        "IconId": "28",
+        "IconId": 28,
         "ItemType": 0,
         "Price": 67
     },
@@ -265,7 +265,7 @@
         "Name": "Insecticide",
         "Rarity": 1,
         "Description": "",
-        "IconId": "29",
+        "IconId": 29,
         "ItemType": 0,
         "Price": 34
     },
@@ -274,7 +274,7 @@
         "Name": "Plastic Bag",
         "Rarity": 0,
         "Description": "",
-        "IconId": "30",
+        "IconId": 30,
         "ItemType": 0,
         "Price": 8
     },
@@ -283,7 +283,7 @@
         "Name": "Hair Dryer",
         "Rarity": 1,
         "Description": "",
-        "IconId": "31",
+        "IconId": 31,
         "ItemType": 0,
         "Price": 38
     },
@@ -292,7 +292,7 @@
         "Name": "Hair Curler",
         "Rarity": 1,
         "Description": "",
-        "IconId": "32",
+        "IconId": 32,
         "ItemType": 0,
         "Price": 41
     },
@@ -301,7 +301,7 @@
         "Name": "Hair Gel",
         "Rarity": 1,
         "Description": "",
-        "IconId": "33",
+        "IconId": 33,
         "ItemType": 0,
         "Price": 23
     },
@@ -310,7 +310,7 @@
         "Name": "Baseball Cap",
         "Rarity": 0,
         "Description": "",
-        "IconId": "34",
+        "IconId": 34,
         "ItemType": 0,
         "Price": 15
     },
@@ -319,7 +319,7 @@
         "Name": "Chess Set",
         "Rarity": 1,
         "Description": "",
-        "IconId": "35",
+        "IconId": 35,
         "ItemType": 0,
         "Price": 30
     },
@@ -328,7 +328,7 @@
         "Name": "Playing Cards",
         "Rarity": 0,
         "Description": "",
-        "IconId": "36",
+        "IconId": 36,
         "ItemType": 0,
         "Price": 11
     },
@@ -337,7 +337,7 @@
         "Name": "Three Kingdoms Kill",
         "Rarity": 2,
         "Description": "",
-        "IconId": "37",
+        "IconId": 37,
         "ItemType": 0,
         "Price": 89
     },
@@ -346,7 +346,7 @@
         "Name": "Uno Cards",
         "Rarity": 1,
         "Description": "",
-        "IconId": "38",
+        "IconId": 38,
         "ItemType": 0,
         "Price": 28
     },
@@ -355,7 +355,7 @@
         "Name": "Eye Drops",
         "Rarity": 1,
         "Description": "",
-        "IconId": "39",
+        "IconId": 39,
         "ItemType": 0,
         "Price": 34
     },
@@ -364,7 +364,7 @@
         "Name": "Wooden Stick",
         "Rarity": 1,
         "Description": "",
-        "IconId": "39",
+        "IconId": 39,
         "ItemType": 1,
         "Price": 25
     },
@@ -373,7 +373,7 @@
         "Name": "Machete",
         "Rarity": 1,
         "Description": "",
-        "IconId": "40",
+        "IconId": 40,
         "ItemType": 1,
         "Price": 30
     },
@@ -382,7 +382,7 @@
         "Name": "Knife",
         "Rarity": 1,
         "Description": "",
-        "IconId": "41",
+        "IconId": 41,
         "ItemType": 1,
         "Price": 18
     },
@@ -391,7 +391,7 @@
         "Name": "Spear",
         "Rarity": 1,
         "Description": "",
-        "IconId": "42",
+        "IconId": 42,
         "ItemType": 1,
         "Price": 32
     },
@@ -400,7 +400,7 @@
         "Name": "Pistol",
         "Rarity": 1,
         "Description": "",
-        "IconId": "43",
+        "IconId": 43,
         "ItemType": 1,
         "Price": 25
     },
@@ -409,7 +409,7 @@
         "Name": "Submachine Gun",
         "Rarity": 1,
         "Description": "",
-        "IconId": "44",
+        "IconId": 44,
         "ItemType": 1,
         "Price": 30
     },
@@ -418,7 +418,7 @@
         "Name": "Slingshot",
         "Rarity": 1,
         "Description": "",
-        "IconId": "45",
+        "IconId": 45,
         "ItemType": 1,
         "Price": 21
     },
@@ -427,16 +427,16 @@
         "Name": "Shotgun",
         "Rarity": 1,
         "Description": "",
-        "IconId": "46",
+        "IconId": 46,
         "ItemType": 1,
         "Price": 28
     },
-       {
+    {
         "Id": 48,
         "Name": "Small Health Potion",
         "Rarity": 1,
         "Description": "",
-        "IconId": "48",
+        "IconId": 48,
         "ItemType": 2,
         "Price": 10
     },
@@ -445,7 +445,7 @@
         "Name": "Small Attack Potion",
         "Rarity": 2,
         "Description": "",
-        "IconId": "49",
+        "IconId": 49,
         "ItemType": 2,
         "Price": 18
     },
@@ -454,7 +454,7 @@
         "Name": "Small Speed Potion",
         "Rarity": 2,
         "Description": "",
-        "IconId": "50",
+        "IconId": 50,
         "ItemType": 2,
         "Price": 18
     },
@@ -463,7 +463,7 @@
         "Name": "Small Defense Potion",
         "Rarity": 2,
         "Description": "",
-        "IconId": "51",
+        "IconId": 51,
         "ItemType": 2,
         "Price": 15
     },
@@ -472,7 +472,7 @@
         "Name": "Berserk Potion",
         "Rarity": 3,
         "Description": "",
-        "IconId": "52",
+        "IconId": 52,
         "ItemType": 2,
         "Price": 28
     },
@@ -481,7 +481,7 @@
         "Name": "Vampire Potion",
         "Rarity": 3,
         "Description": "",
-        "IconId": "53",
+        "IconId": 53,
         "ItemType": 2,
         "Price": 28
     },
@@ -490,7 +490,7 @@
         "Name": "Molotov",
         "Rarity": 3,
         "Description": "",
-        "IconId": "54",
+        "IconId": 54,
         "ItemType": 2,
         "Price": 25
     },
@@ -499,7 +499,7 @@
         "Name": "Firecracker",
         "Rarity": 1,
         "Description": "",
-        "IconId": "55",
+        "IconId": 55,
         "ItemType": 2,
         "Price": 8
     },
@@ -508,7 +508,7 @@
         "Name": "Grenade",
         "Rarity": 3,
         "Description": "",
-        "IconId": "56",
+        "IconId": 56,
         "ItemType": 2,
         "Price": 28
     },
@@ -517,7 +517,7 @@
         "Name": "Freeze Bomb",
         "Rarity": 2,
         "Description": "",
-        "IconId": "57",
+        "IconId": 57,
         "ItemType": 2,
         "Price": 15
     }

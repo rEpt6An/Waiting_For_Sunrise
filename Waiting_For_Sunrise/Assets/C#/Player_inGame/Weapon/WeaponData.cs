@@ -15,6 +15,9 @@ public class WeaponData : ScriptableObject
     public int damageScaleType = 0;
 
     public float baseDamage = 10f;
-    public float scalingMultiplier = 0.5f;
+    public float scalingMultiplier = 5f;
     public float baseAttackSpeed = 1f;
+
+    [Tooltip("ÎäÆ÷µÄ»ù´¡¹¥»÷·¶Î§/³ß´ç")]
+    public float baseRange = 1.5f;
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro; // 引入 TextMeshPro 命名空间
 using Assets.C_.player.player;
+using Assets.C_.player;
 
 public class ExperienceBarUI : MonoBehaviour
 {
@@ -16,8 +17,7 @@ public class ExperienceBarUI : MonoBehaviour
 
     void Start()
     {
-        _playerState = PlayerState.Instance;
-
+        _playerState = (PlayerState)Player.GetInstance().PlayerState;
         if (experienceSlider == null)
         {
             experienceSlider = GetComponentInChildren<UnityEngine.UI.Slider>();

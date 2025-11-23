@@ -12,8 +12,7 @@ public class CoinDisplayUI : MonoBehaviour
     {
         coinText = GetComponent<TextMeshProUGUI>();
 
-        // --- 核心修改：不再使用 Instance，而是查找对象 ---
-        // 在场景中查找唯一的 PlayerCharacter 实例
+
         PlayerCharacter playerCharacter = FindObjectOfType<PlayerCharacter>();
 
         // 检查是否成功找到了玩家

@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro; // 引入 TextMeshPro 命名空间
 using Assets.C_.player.player;
-
+using Assets.C_.player;
 public class HealthBarUI : MonoBehaviour
 {
     [Header("组件引用")]
@@ -15,8 +15,7 @@ public class HealthBarUI : MonoBehaviour
 
     void Start()
     {
-        _playerState = PlayerState.Instance;
-
+        _playerState = (PlayerState)Player.GetInstance().PlayerState;
         // 如果没有在Inspector中手动拖拽引用，尝试自动查找
         if (healthSlider == null)
         {

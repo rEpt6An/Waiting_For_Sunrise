@@ -1,10 +1,8 @@
-// PlayerCharacter.cs
 using UnityEngine;
-// 引入你后端代码所在的命名空间
 using Assets.C_.player.player;
-using Assets.C_.player.bag; // 确保 PlayerAsset 能被正确识别
+using Assets.C_.player.bag;
+using Assets.C_.player;
 
-// 确保玩家对象上有这些核心组件
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
@@ -15,19 +13,19 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private GameObject attackPrefab;
     [SerializeField] private Transform attackSpawnPoint;
 
-    // --- 后端数据引用 ---
     private PlayerState _playerState;
-    // --- 【关键】公开 PlayerAsset 属性 ---
     public PlayerAsset PlayerAsset { get; private set; }
 
-    // --- 内部状态 ---
+    // 【重要】将属性类型从 IPlayerState 改为 PlayerState 以匹配 Awake 中的赋值
+    public PlayerState PlayerState => _playerState;
+
     private float attackCooldownTimer = 0f;
 
     void Awake()
     {
-        // --- 初始化后端数据 ---
-        _playerState = PlayerState.Instance;
-        PlayerAsset = new PlayerAsset(); // 创建 PlayerAsset 的唯一实例
+        _playerState = (PlayerState)Player.GetInstance().PlayerState;
+        PlayerAsset = new PlayerAsset();
+
     }
 
     void Update()
@@ -61,6 +59,8 @@ public class PlayerCharacter : MonoBehaviour
 
         // 2. 创建攻击实例
         GameObject attackInstance = Instantiate(attackPrefab, attackSpawnPoint.position, Quaternion.identity);
+
+
 
         // 3. 旋转攻击实例使其朝向鼠标
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

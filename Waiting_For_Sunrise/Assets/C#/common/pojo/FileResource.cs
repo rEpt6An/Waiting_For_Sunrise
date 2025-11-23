@@ -10,6 +10,14 @@ namespace Assets.C_.common
         public string FileContent { get; private set; } = null;
         public byte[] Bytes { get; private set; } = null;
 
+        // zy
+        public FileResource(string content)
+        {
+            this.FileContent = content;
+            this.Type = "content";
+            this.Path = "Injected_From_Unity";
+        }
+
         // content or byte
         public string Type { get; private set; }
 

@@ -1,6 +1,9 @@
 using Assets.C_.common;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
+using UnityEngine;
+
 
 namespace Assets.C_.item
 {
@@ -52,7 +55,11 @@ namespace Assets.C_.item
                 List<Equipment> equipments = Instance.Read(fileResource);
                 foreach (Equipment e in equipments) {
                     AddToEQUIPMENTS(e);
+                    //¥Ú”°e.id
+                    UnityEngine.Debug.Log($"Equipment ID: {e.Id}");
                 }
+                
+
             }
         }
 

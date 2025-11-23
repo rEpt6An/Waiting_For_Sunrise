@@ -16,5 +16,6 @@ MonoBehaviour:
   attackType: 0
   damageScaleType: 0
   baseDamage: 10
-  scalingMultiplier: 0.5
+  scalingMultiplier: 5
   baseAttackSpeed: 1
+  baseRange: 0.01
