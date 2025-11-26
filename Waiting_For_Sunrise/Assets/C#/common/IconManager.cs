@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.C_.common
 {
-    public class IconManager : IResourceManager<List<FileResource>, Icon>
+    public class IconManager : IResourceManager<FileResources, Icon>
     {
         // 下标必须和id一样！！！
         private readonly List<Icon> ICONS = new();
@@ -27,21 +27,19 @@ namespace Assets.C_.common
 
         public Icon Get(int iconId)
         {
-            //现在无图标
-            //Icon icon = ICONS[iconId];
-            //if (icon == null)
-            //{
-            //    throw new ResourceNotFoundException("无法通过iconId查找到该图标，iconId：" + iconId);
-            //}
-            //return icon;
-            return new Icon(iconId, null);
+            Icon icon = ICONS[iconId];
+            if (icon == null)
+            {
+                throw new ResourceNotFoundException("无法通过iconId查找到该图标，iconId：" + iconId);
+            }
+            return icon;
         }
 
-        public void Load(List<FileResource> fileResources) 
+        public void Load(FileResources fileResources) 
         {
             lock (_lock)
             {
-                foreach (FileResource resource in fileResources)
+                foreach (FileResource resource in fileResources.Resources)
                 {
                     byte[] bytes = resource.Bytes;
                     Sprite sprite = SpriteConverter.ConvertBytesToSprite(bytes);
