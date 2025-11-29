@@ -1,16 +1,15 @@
 namespace Assets.C_.common
 {
-    public abstract class AbstractRegister : IRegister
+    public abstract class AbstractRegister<I, O> : IRegister
     {
-        protected abstract object GetFileResource();
+        protected abstract I GetFileResource();
 
-        protected abstract IResourceManager<object, object> GetResourceManager();
+        protected abstract IResourceManager<I, O> GetResourceManager();
 
         public void Register()
         {
-            // ob อ๊มห
-            object fileResource = GetFileResource();
-            IResourceManager<object, object> resourceManager = GetResourceManager();
+            I fileResource = GetFileResource();
+            IResourceManager<I, O> resourceManager = GetResourceManager();
             resourceManager.Load(fileResource);
         }
     }
