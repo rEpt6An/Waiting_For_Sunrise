@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Assets.C_.common
 {
-    public class IconRegister: AbstractRegister
+    public class IconRegister: AbstractRegister<FileResources, Icon>
     {
         private static readonly List<string> ICON_FILE_RESOURCE_PATHS = new();
         private static readonly String ICON_FOLDER_PATH = "Assets/Resource/item/";
@@ -18,7 +18,7 @@ namespace Assets.C_.common
             }
         }
 
-        protected override object GetFileResource()
+        protected override FileResources GetFileResource()
         {
             List<FileResource> fileResources = new();
             foreach (string path in ICON_FILE_RESOURCE_PATHS)
@@ -26,12 +26,14 @@ namespace Assets.C_.common
                 FileResource fileResource = FileResourceFactory.CreateFileResource(path, "content");
                 fileResources.Add(fileResource);
             }
-            return fileResources;
+            FileResources fileResources1 = new FileResources();
+            fileResources1.Resources = fileResources;
+            return fileResources1;
         }
 
-        protected override IResourceManager<object, object> GetResourceManager()
+        protected override IResourceManager<FileResources, Icon> GetResourceManager()
         {
-            return (IResourceManager<object, object>) IconManager.GetInstance();
+            return IconManager.GetInstance();
         }
     }
 }
