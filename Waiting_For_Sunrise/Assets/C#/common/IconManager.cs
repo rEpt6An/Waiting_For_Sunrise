@@ -1,4 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.C_.common
@@ -51,8 +55,13 @@ namespace Assets.C_.common
 
         private static int GetIconId(FileResource fileResource)
         {
-            // todo
-            return 1;
+            Match match = Regex.Match(fileResource.Path, @"\d+");
+            if (match.Success)
+            {
+                int number = int.Parse(match.Value);
+                return number;
+            }
+            throw new ResourceNotFoundException("无法从路径中提取id");
         }
 
         public List<Icon> GetAll()
