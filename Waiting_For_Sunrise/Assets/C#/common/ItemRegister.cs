@@ -2,7 +2,7 @@ namespace Assets.C_.common
 {
     public class ItemRegister: AbstractRegister<FileResource, Item>
     {
-        private static readonly string ITEM_JSON_FILE_RESOURCE_PATH = "Assets/json/Item.json";
+        private static readonly string ITEM_JSON_FILE_RESOURCE_PATH = "Assets/Resources/json/Item.json";
         private static readonly string ITEM_JSON_FILE_RESOURCE_TYPE = "content";
 
         protected override FileResource GetFileResource()

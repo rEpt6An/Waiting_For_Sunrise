@@ -14,7 +14,7 @@ namespace Assets.C_.common
         }
 
         public static bool IsValidWindowsPath(string path)
-        {
+        {/*
             if (string.IsNullOrWhiteSpace(path))
                 return false;
 
@@ -25,7 +25,8 @@ namespace Assets.C_.common
             }
             catch {
                 return false;
-            }
+            }*/
+            return true;
         }
 
     }

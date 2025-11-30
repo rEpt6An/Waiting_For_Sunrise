@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44a0be620b48d654b801f123b5b15a5e, type: 3}
+  m_Name: slime
+  m_EditorClassIdentifier: 
+  enemyName: slime
+  enemyPrefab: {fileID: 204473194545692608, guid: ea7bcfafd5a385b4fb356a86f5f03d0b, type: 3}
+  maxHealth: 10
+  attackDamage: 2
+  attackCooldown: 1
+  moveSpeed: 0.4
+  experienceReward: 5
+  coinDropAmount: 1

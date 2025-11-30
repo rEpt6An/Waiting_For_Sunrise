@@ -18,4 +18,4 @@ MonoBehaviour:
   baseDamage: 10
   scalingMultiplier: 5
   baseAttackSpeed: 1
-  baseRange: 0.01
+  baseRange: 1

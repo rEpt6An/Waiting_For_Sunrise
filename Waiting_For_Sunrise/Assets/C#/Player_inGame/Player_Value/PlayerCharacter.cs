@@ -2,6 +2,7 @@ using UnityEngine;
 using Assets.C_.player.player;
 using Assets.C_.player.bag;
 using Assets.C_.player;
+using Assets.C_.common.common;
 
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -30,23 +31,42 @@ public class PlayerCharacter : MonoBehaviour
 
     void Update()
     {
-        // 攻击冷却计时
         attackCooldownTimer += Time.deltaTime;
+        if (currentWeapon == null)
+        {
+            UnityEngine.Debug.LogWarning("PlayerCharacter: 武器未装备 (Current Weapon is null)!");
+            return;
+        }
 
-        // 检查武器数据是否存在
-        if (currentWeapon == null) return;
-
-        // 计算攻击冷却时间
-        // 注意：玩家攻速 AttackSpeed 的初始值不应为0，否则会导致除以零错误
-        // 我们在这里加一个保护，如果玩家攻速小于等于0，则使用一个默认值
         double playerAttackSpeed = _playerState.AttackSpeed > 0 ? _playerState.AttackSpeed : 1.0;
         float attackCooldown = 1f / (currentWeapon.baseAttackSpeed * (float)playerAttackSpeed);
 
-        // 检测鼠标左键按住，并检查冷却
+        // --- 添加调试日志 ---
+        //UnityEngine.Debug.Log($"Attack CD Timer: {attackCooldownTimer:F2} / Cooldown: {attackCooldown:F2}");
+
         if (Input.GetMouseButton(0) && attackCooldownTimer >= attackCooldown)
         {
+            UnityEngine.Debug.Log("--- ATTACK TRIGGERED ---"); // 看看这行是否能打印出来
             PerformAttack();
-            attackCooldownTimer = 0f; // 重置冷却
+            attackCooldownTimer = 0f;
+        }
+    }
+
+    public void GainCoins(int amount)
+    {
+        if (PlayerAsset != null)
+        {
+            // 调用后端的 ChangeMoney 方法
+            Re result = PlayerAsset.ChangeMoney(amount);
+
+            if (result.IsSuccess())
+            {
+                UnityEngine.Debug.Log($"玩家获得了 {amount} 金币, 总金币: {PlayerAsset.Money}");
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning("增加金币失败: " + result.Message);
+            }
         }
     }
 

@@ -11,7 +11,7 @@ public class GameInitializer : MonoBehaviour
 
     [Header("×ÊÔ´Â·¾¶")]
     [SerializeField] private string itemsJsonPath = "json/Item"; // Assets/Resources/json/Item.json
-    [SerializeField] private string iconsFolderPath = "Icons"; // Assets/Resources/Icons/
+    [SerializeField] private string iconsFolderPath = "item"; // Assets/Resources/Icons/
 
     void Awake()
     {

@@ -6,40 +6,43 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
+    private PlayerCharacter playerCharacter;
 
-    // --- 怪物属性 ---
-    [Header("战斗属性")]
-    public float maxHealth = 10f;
-    public int contactDamage = 10;
-    [Tooltip("怪物攻击一次后的冷却时间（秒）")]
-    public float attackCooldown = 1f;
-
-    [Header("移动与成长")]
-    public float moveSpeed = 0.8f;
-    public int experienceReward = 5;
+    // --- 数值字段 ---
+    private float maxHealth;
+    private int attackDamage; // 【修改】
+    private float attackCooldown;
+    private float moveSpeed;
+    private int experienceReward;
+    private int coinDropAmount; // 【新增】
 
     // --- 内部状态变量 ---
     private float currentHealth;
     private float timeSinceLastAttack = 0f;
 
-    // --- 修改：不再直接引用Transform，而是引用核心脚本 ---
-    private PlayerCharacter playerCharacter;
+    public void Initialize(EnemyData data)
+    {
+        this.maxHealth = data.maxHealth;
+        this.attackDamage = data.attackDamage; // 【修改】
+        this.attackCooldown = data.attackCooldown;
+        this.moveSpeed = data.moveSpeed;
+        this.experienceReward = data.experienceReward;
+        this.coinDropAmount = data.coinDropAmount; // 【新增】
+
+        this.currentHealth = this.maxHealth;
+    }
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        currentHealth = maxHealth;
-
-        // --- 核心修改：在场景中查找唯一的PlayerCharacter实例 ---
         playerCharacter = FindObjectOfType<PlayerCharacter>();
 
         if (playerCharacter == null)
         {
-            UnityEngine.Debug.LogError("场景中找不到 PlayerCharacter 实例！怪物将不会移动或攻击。");
+            UnityEngine.Debug.LogError("场景中找不到 PlayerCharacter 实例！");
             this.enabled = false;
         }
 
-        // 允许怪物在游戏开始时立即攻击
         timeSinceLastAttack = attackCooldown;
     }
 
@@ -47,16 +50,12 @@ public class EnemyController : MonoBehaviour
     {
         timeSinceLastAttack += Time.deltaTime;
 
-        // 只有当玩家目标存在时才执行逻辑
         if (playerCharacter != null)
         {
             Transform playerTransform = playerCharacter.transform;
-
-            // 移动逻辑
             Vector2 direction = (playerTransform.position - transform.position).normalized;
             transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
 
-            // 翻转逻辑 (根据你的反馈已调整)
             if (direction.x > 0) spriteRenderer.flipX = true;
             else if (direction.x < 0) spriteRenderer.flipX = false;
         }
@@ -73,10 +72,13 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
-        // --- 核心修改：通过缓存的引用给予经验 ---
         if (playerCharacter != null)
         {
+            // 给予玩家经验
             playerCharacter.GainExperience(experienceReward);
+
+            // 给予玩家金币 
+            playerCharacter.GainCoins(coinDropAmount);
         }
         Destroy(gameObject);
     }
@@ -87,10 +89,9 @@ public class EnemyController : MonoBehaviour
         {
             if (timeSinceLastAttack >= attackCooldown)
             {
-                // --- 核心修改：通过缓存的引用造成伤害 ---
                 if (playerCharacter != null)
                 {
-                    playerCharacter.TakeDamage(contactDamage);
+                    playerCharacter.TakeDamage(attackDamage);
                 }
                 timeSinceLastAttack = 0f;
             }

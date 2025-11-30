@@ -62,7 +62,7 @@ namespace Assets.C_.player.player
             Harvest = 0;          // 收获（额外资源获取）
             MeleeAttack = 0;
             RangedAttack = 0;
-            AttackSpeed = 0.01; 
+            AttackSpeed = 1; 
         }
         public void changeBlood(int changePoint)
         {
