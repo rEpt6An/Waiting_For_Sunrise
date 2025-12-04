@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea70d9c9e18a2a47820ab3c9db03cd6, type: 3}
+  m_Name: D1W1
+  m_EditorClassIdentifier: 
+  enemyGroups:
+  - enemyData: {fileID: 11400000, guid: 463dda8a53a4d234aaa6c7bfc022fe8e, type: 2}
+    count: 45
+  duration: 30
+  spawnInterval: 0.8

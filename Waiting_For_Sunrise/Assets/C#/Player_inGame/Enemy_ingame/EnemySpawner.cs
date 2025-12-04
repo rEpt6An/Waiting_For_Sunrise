@@ -1,17 +1,33 @@
-// EnemySpawner.cs (修正版)
+// EnemySpawner.cs (固定范围版)
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("生成设置")]
-    [SerializeField] private List<EnemyData> spawnableEnemies;
-    [SerializeField] private float spawnInterval = 0.5f;
-    [SerializeField] private float spawnRadius = 20f;
-    [SerializeField] private int maxEnemies = 50;
+    [Header("天数数据")]
+    [Tooltip("按顺序将Day_01, Day_02...拖拽到这里")]
+    [SerializeField] private List<DayData> dayProgression;
 
+    [Header("生成范围设置")]
+    [Tooltip("生成区域的最小坐标 (左下角)")]
+    [SerializeField] private Vector2 minSpawnPosition = new Vector2(-10, -10);
+    [Tooltip("生成区域的最大坐标 (右上角)")]
+    [SerializeField] private Vector2 maxSpawnPosition = new Vector2(10, 10);
+
+    // --- 内部状态 ---
+    // playerTransform 仍然需要，因为某些逻辑可能依赖它（比如怪物AI的目标）
     private Transform playerTransform;
+    private int currentDayIndex = -1;
+    private int currentWaveIndex = -1;
+    private DayData currentDayData;
+    private WaveData currentWaveData;
+
+    private float waveTimer;
     private float spawnTimer;
+    private int enemiesSpawnedThisWave;
+
+    private List<GameObject> activeEnemies = new List<GameObject>();
 
     void Start()
     {
@@ -22,61 +38,124 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {
-            // 如果找不到玩家，打印错误并禁用此脚本
-            UnityEngine.Debug.LogError("EnemySpawner: 场景中找不到PlayerCharacter，无法生成怪物！");
+            UnityEngine.Debug.LogError("EnemySpawner: 场景中找不到PlayerCharacter！");
             this.enabled = false;
+            return;
         }
+
+        StartNextDay();
     }
 
     void Update()
     {
-        if (playerTransform == null) return;
+        if (playerTransform == null || currentWaveData == null) return;
 
+        waveTimer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
 
-        // 【核心修改】：使用 UnityEngine.Random
-        // 为了避免反复调用 FindGameObjectsWithTag (性能较差)，我们可以在这里添加一个计数器
-        // 但为了简单，暂时保持原样
-        if (spawnTimer >= spawnInterval && GameObject.FindGameObjectsWithTag("Enemy").Length < maxEnemies)
+        if (spawnTimer >= currentWaveData.spawnInterval)
         {
-            SpawnRandomEnemy();
             spawnTimer = 0f;
+            SpawnEnemyGroup();
+        }
+
+        if (waveTimer >= currentWaveData.duration)
+        {
+            StartNextWave();
         }
     }
 
-    private void SpawnRandomEnemy()
+    private void StartNextDay()
     {
-        if (spawnableEnemies.Count == 0)
+        int dayNumber = 1;
+        if (GameManager.Instance != null)
         {
-            UnityEngine.Debug.LogWarning("Spawner没有可生成的怪物！");
+            dayNumber = GameManager.Instance.Day;
+        }
+        currentDayIndex = dayNumber - 1;
+
+        if (currentDayIndex < 0 || currentDayIndex >= dayProgression.Count)
+        {
+            UnityEngine.Debug.LogError($"找不到第 {dayNumber} 天的数据！");
+            this.enabled = false;
             return;
         }
 
-        // --- 【核心修改】：明确使用 UnityEngine.Random ---
-        // 1. 从列表中随机选择一种怪物类型
-        int randomIndex = UnityEngine.Random.Range(0, spawnableEnemies.Count);
-        EnemyData enemyToSpawn = spawnableEnemies[randomIndex];
+        currentDayData = dayProgression[currentDayIndex];
+        currentWaveIndex = -1;
+        StartNextWave();
+    }
 
-        // 2. 确定生成位置 (在玩家周围的一个圆环上)
-        Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
-        Vector3 spawnPosition = playerTransform.position + (Vector3)(randomDirection * spawnRadius);
-
-        // 3. 实例化该怪物对应的预制体
-        // 确保 enemyToSpawn.enemyPrefab 已经被正确设置
-        if (enemyToSpawn.enemyPrefab == null)
+    private void StartNextWave()
+    {
+        currentWaveIndex++;
+        if (currentWaveIndex >= currentDayData.waves.Count)
         {
-            UnityEngine.Debug.LogError($"怪物数据 '{enemyToSpawn.name}' 没有指定预制体 (Enemy Prefab)！");
+            UnityEngine.Debug.Log($"第 {currentDayIndex + 1} 天的所有波次已完成！");
+            this.enabled = false;
             return;
         }
+
+        currentWaveData = currentDayData.waves[currentWaveIndex];
+        waveTimer = 0f;
+        spawnTimer = 0f;
+        enemiesSpawnedThisWave = 0;
+
+        UnityEngine.Debug.Log($"开始第 {currentDayIndex + 1} 天, 第 {currentWaveIndex + 1} 波...");
+    }
+
+    private void SpawnEnemyGroup()
+    {
+        activeEnemies.RemoveAll(e => e == null);
+
+        if (activeEnemies.Count >= currentDayData.maxEnemiesOnScreen) return;
+
+        int totalEnemiesInWave = 0;
+        foreach (var group in currentWaveData.enemyGroups) totalEnemiesInWave += group.count;
+        if (enemiesSpawnedThisWave >= totalEnemiesInWave) return;
+
+        EnemyGroup groupToSpawn = currentWaveData.enemyGroups[UnityEngine.Random.Range(0, currentWaveData.enemyGroups.Count)];
+        enemiesSpawnedThisWave++;
+        SpawnSingleEnemy(groupToSpawn.enemyData);
+    }
+
+    private void SpawnSingleEnemy(EnemyData enemyToSpawn)
+    {
+        // 1. 在指定的矩形区域内随机生成一个坐标
+        float spawnX = UnityEngine.Random.Range(minSpawnPosition.x, maxSpawnPosition.x);
+        float spawnY = UnityEngine.Random.Range(minSpawnPosition.y, maxSpawnPosition.y);
+        Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0);
+
+        // 2. 实例化怪物
         GameObject enemyInstance = Instantiate(enemyToSpawn.enemyPrefab, spawnPosition, Quaternion.identity);
-
         enemyInstance.tag = "Enemy";
+        activeEnemies.Add(enemyInstance);
 
-        // 4. 获取怪物控制器并注入数据
+        // 3. 初始化怪物控制器
         EnemyController controller = enemyInstance.GetComponent<EnemyController>();
         if (controller != null)
         {
-            controller.Initialize(enemyToSpawn);
+            // 【核心修改】调用新的 Initialize 方法，并传入 EnemyData 和 玩家引用
+            // playerTransform 是我们在 Spawner 的 Start 方法中缓存的
+            controller.Initialize(enemyToSpawn, playerTransform.GetComponent<PlayerCharacter>());
         }
+    }
+
+
+    //显示出怪范围
+    private void OnDrawGizmosSelected()   
+    {
+        Gizmos.color = Color.red; // 设置Gizmo的颜色
+        Vector3 center = new Vector3(
+            (minSpawnPosition.x + maxSpawnPosition.x) / 2,
+            (minSpawnPosition.y + maxSpawnPosition.y) / 2,
+            0
+        );
+        Vector3 size = new Vector3(
+            maxSpawnPosition.x - minSpawnPosition.x,
+            maxSpawnPosition.y - minSpawnPosition.y,
+            0
+        );
+        Gizmos.DrawWireCube(center, size); // 绘制一个线框矩形
     }
 }

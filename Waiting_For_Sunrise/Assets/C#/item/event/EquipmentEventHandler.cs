@@ -30,7 +30,7 @@ namespace Assets.C_.item
         {
             EquipmentManager equipmentManager = EquipmentManager.GetInstance();
             IEquipment equipment = equipmentManager.Get(eventData.ItemId);
-            if (equipment != null)
+            if (equipment == null)
             {
                 throw new NoSuchEquipmentException();
             }

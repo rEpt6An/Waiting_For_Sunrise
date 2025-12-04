@@ -72,6 +72,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\C#\UI_Control\Night\CoinDisplayUI.cs" />
     <Compile Include="Assets\C#\monster\NormalMonster.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Enemy_ingame\DayData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\C#\Player_inGame\Player_Control\PlayerAnimation.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Assets\C#\common\RegisterCenter.cs" />
     <Compile Include="Assets\C#\shop\Shop.cs" />
     <Compile Include="Assets\C#\common\converter\ItemConverter.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Enemy_ingame\WaveData.cs" />
     <Compile Include="Assets\C#\monster\EliteMonster.cs" />
     <Compile Include="Assets\C#\player\Player.cs" />
     <Compile Include="Assets\C#\common\converter\SpriteConverter.cs" />

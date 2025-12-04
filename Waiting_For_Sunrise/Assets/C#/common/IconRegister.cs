@@ -12,7 +12,7 @@ namespace Assets.C_.common
         static IconRegister()
         {
             // todo 向 ICON_FILE_RESOURCE_PATHS 添加图标位置
-            for (int i = 1; i < 58; i++)
+            for (int i = 0; i < 58; i++)
             {
                 ICON_FILE_RESOURCE_PATHS.Add(ICON_FOLDER_PATH + i + ".png");
             }

@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: "\u6D4B\u8BD5\u6B66\u5668"
   attackType: 0
   damageScaleType: 0
-  baseDamage: 10
+  baseDamage: 5
   scalingMultiplier: 5
   baseAttackSpeed: 1
   baseRange: 1

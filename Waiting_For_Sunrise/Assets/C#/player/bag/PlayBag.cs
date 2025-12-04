@@ -1,7 +1,7 @@
 
 
 using Assets.C_.item;
-
+using Assets.C_.common;
 namespace Assets.C_.player.bag
 {
     public class PlayerBag: IPlayerBag
@@ -57,7 +57,9 @@ namespace Assets.C_.player.bag
             lock (this)
             {
                 PlayerInventory.Add(pileOfItem);
-                EquipmentEventHandler.Equip(pileOfItem.ItemId);
+                if (ItemManager.Instance.Get(pileOfItem.ItemId).ItemType == ItemTypeExtensions.GetById(0)) {
+                    EquipmentEventHandler.Equip(pileOfItem.ItemId);
+                }
             }
         }
 

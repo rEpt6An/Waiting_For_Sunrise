@@ -121,11 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56062365290210843826efd812c297e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  contactDamage: 10
-  attackCooldown: 0.8
-  moveSpeed: 0.8
-  experienceReward: 5
 --- !u!50 &4022985165917668252
 Rigidbody2D:
   serializedVersion: 4

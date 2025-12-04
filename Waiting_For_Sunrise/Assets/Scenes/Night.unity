@@ -1168,12 +1168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc12f1cfe6983a04892eaf4d921485f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnableEnemies:
-  - {fileID: 11400000, guid: 76dbaa44fc97adc49b5b76173ddea59b, type: 2}
-  - {fileID: 11400000, guid: 463dda8a53a4d234aaa6c7bfc022fe8e, type: 2}
-  spawnInterval: 1
-  spawnRadius: 10
-  maxEnemies: 50
+  dayProgression:
+  - {fileID: 11400000, guid: 5cb2e17aa781304479c11a7b2d0d6ef9, type: 2}
+  - {fileID: 11400000, guid: 259ab7967f1e1e54e997928102b6b606, type: 2}
+  - {fileID: 11400000, guid: 259ab7967f1e1e54e997928102b6b606, type: 2}
+  minSpawnPosition: {x: -10, y: -10}
+  maxSpawnPosition: {x: 10, y: 10}
 --- !u!4 &604576393
 Transform:
   m_ObjectHideFlags: 0
@@ -1391,7 +1391,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 60
+  m_text: 30
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1480,7 +1480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93cb33cb6b907f74daad3f54e33db21b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeDuration: 60
+  timeDuration: 30
   sceneSwitcher: {fileID: 894068032}
 --- !u!114 &894068032
 MonoBehaviour:
@@ -2818,7 +2818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2029044128
 Transform:
   m_ObjectHideFlags: 0

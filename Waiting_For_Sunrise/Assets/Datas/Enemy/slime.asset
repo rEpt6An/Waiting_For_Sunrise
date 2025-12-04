@@ -17,6 +17,6 @@ MonoBehaviour:
   maxHealth: 10
   attackDamage: 2
   attackCooldown: 1
-  moveSpeed: 0.4
+  moveSpeed: 0.8
   experienceReward: 5
   coinDropAmount: 1
