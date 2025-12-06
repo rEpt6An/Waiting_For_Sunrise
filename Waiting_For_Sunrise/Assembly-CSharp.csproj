@@ -88,6 +88,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\C#\item\exception\NoSuchEquipmentException.cs" />
     <Compile Include="Assets\C#\item\weapon\pojo\Weapon.cs" />
+    <Compile Include="Assets\C#\UI_Control\ShopConnect\ItemSlotUI.cs" />
     <Compile Include="Assets\C#\common\interface\ISingleton.cs" />
     <Compile Include="Assets\C#\player\damage\PlayerGetDamageContext.cs" />
     <Compile Include="Assets\C#\item\equipment\pojo\EquipmentDo.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Assets\C#\monster\MonsterBase.cs" />
     <Compile Include="Assets\C#\Player_inGame\Player_Value\CharacterData.cs" />
     <Compile Include="Assets\C#\common\ItemManager.cs" />
+    <Compile Include="Assets\C#\UI_Control\ShopConnect\PlayerBagUI.cs" />
     <Compile Include="Assets\C#\UI_Control\DayDisplayUI.cs" />
     <Compile Include="Assets\C#\General\Quit.cs" />
     <Compile Include="Assets\C#\common\exception\StartException.cs" />

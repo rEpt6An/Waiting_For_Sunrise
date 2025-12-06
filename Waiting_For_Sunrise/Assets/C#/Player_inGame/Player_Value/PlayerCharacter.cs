@@ -1,7 +1,8 @@
+// PlayerCharacter.cs
 using UnityEngine;
+using Assets.C_.player;
 using Assets.C_.player.player;
 using Assets.C_.player.bag;
-using Assets.C_.player;
 using Assets.C_.common.common;
 
 [RequireComponent(typeof(PlayerMovement))]
@@ -14,78 +15,72 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private GameObject attackPrefab;
     [SerializeField] private Transform attackSpawnPoint;
 
-    private IPlayerState _playerState;
-    private IPlayerAsset _playerAsset;
+    // --- 【核心修正】: 将后端数据接口设为公共属性 ---
+    public IPlayerState PlayerState { get; private set; }
+    public IPlayerAsset PlayerAsset { get; private set; }
 
     private float attackCooldownTimer = 0f;
 
     void Awake()
     {
-        _playerState = Player.GetInstance().PlayerState;
-        _playerAsset = Player.GetInstance().PlayerAsset;
+        // 从后端的 Player 单例中获取 State 和 Asset
+        Player backendPlayer = Player.GetInstance();
+        PlayerState = backendPlayer.PlayerState;
+        PlayerAsset = backendPlayer.PlayerAsset;
     }
 
     void Update()
     {
         attackCooldownTimer += Time.deltaTime;
-        if (currentWeapon == null)
+        if (currentWeapon == null || PlayerState == null)
         {
-            UnityEngine.Debug.LogWarning("PlayerCharacter: 武器未装备 (Current Weapon is null)!");
             return;
         }
 
-        double playerAttackSpeed = _playerState.AttackSpeed > 0 ? _playerState.AttackSpeed : 1.0;
+        double playerAttackSpeed = PlayerState.AttackSpeed > 0 ? PlayerState.AttackSpeed : 1.0;
         float attackCooldown = 1f / (currentWeapon.baseAttackSpeed * (float)playerAttackSpeed);
-
-        // --- 添加调试日志 ---
-        //UnityEngine.Debug.Log($"Attack CD Timer: {attackCooldownTimer:F2} / Cooldown: {attackCooldown:F2}");
 
         if (Input.GetMouseButton(0) && attackCooldownTimer >= attackCooldown)
         {
-            UnityEngine.Debug.Log("--- ATTACK TRIGGERED ---"); // 看看这行是否能打印出来
             PerformAttack();
             attackCooldownTimer = 0f;
         }
     }
 
+    // --- 新增：提供一个给外部调用的方法，用于增加金币 ---
     public void GainCoins(int amount)
     {
-        _playerAsset.ChangeMoney(amount);
-        UnityEngine.Debug.Log($"玩家获得了 {amount} 金币");
+        if (PlayerAsset != null)
+        {
+            PlayerAsset.ChangeMoney(amount);
+            UnityEngine.Debug.Log($"玩家获得了 {amount} 金币");
+        }
     }
 
     private void PerformAttack()
     {
-        // 1. 获取鼠标方向
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         Vector2 direction = (mousePosition - attackSpawnPoint.position).normalized;
 
-        // 2. 创建攻击实例
         GameObject attackInstance = Instantiate(attackPrefab, attackSpawnPoint.position, Quaternion.identity);
 
-
-
-        // 3. 旋转攻击实例使其朝向鼠标
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         attackInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        // 4. 计算最终伤害
         float correspondingPlayerDamage = 0;
-        // 检查伤害加成类型: 0=近战, 1=远程
         if (currentWeapon.damageScaleType == 0)
         {
-            correspondingPlayerDamage = _playerState.MeleeAttack;
+            correspondingPlayerDamage = PlayerState.MeleeAttack;
         }
         else if (currentWeapon.damageScaleType == 1)
         {
-            correspondingPlayerDamage = _playerState.RangedAttack;
+            correspondingPlayerDamage = PlayerState.RangedAttack;
         }
 
         float finalDamage = (currentWeapon.baseDamage + currentWeapon.scalingMultiplier * correspondingPlayerDamage)
-                            * (float)_playerState.DamageMultipler;
+                            * (float)PlayerState.DamageMultipler;
 
-        // 5. 将伤害值传递给攻击脚本
         WeaponAttack attackScript = attackInstance.GetComponent<WeaponAttack>();
         if (attackScript != null)
         {
@@ -93,14 +88,10 @@ public class PlayerCharacter : MonoBehaviour
         }
     }
 
-    // --- 玩家状态接口 ---
-    // 其他脚本现在可以通过 FindObjectOfType<PlayerCharacter>() 来调用这些方法
     public void TakeDamage(int damageAmount)
     {
-        // 未来可以在这里加入防御和闪避计算
-        _playerState.changeBlood(-damageAmount);
-
-        if (_playerState.isDie())
+        PlayerState.changeBlood(-damageAmount);
+        if (PlayerState.isDie())
         {
             HandleDeath();
         }
@@ -108,13 +99,12 @@ public class PlayerCharacter : MonoBehaviour
 
     public void GainExperience(int amount)
     {
-        _playerState.changeExperience(amount);
+        PlayerState.changeExperience(amount);
     }
 
     private void HandleDeath()
     {
         UnityEngine.Debug.LogWarning("玩家已死亡！");
-        // 简单地禁用玩家对象，可以换成更复杂的死亡逻辑
         gameObject.SetActive(false);
     }
 }
