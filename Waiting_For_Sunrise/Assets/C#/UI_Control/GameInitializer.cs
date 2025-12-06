@@ -11,7 +11,7 @@ public class GameInitializer : MonoBehaviour
 
     [Header("×ÊÔ´Â·¾¶")]
     [SerializeField] private string itemsJsonPath = "json/Item"; // Assets/Resources/json/Item.json
-    [SerializeField] private string iconsFolderPath = "item"; // Assets/Resources/Icons/
+    [SerializeField] private string iconsFolderPath = "item"; // Assets/Resource/item/
 
     void Awake()
     {
@@ -21,8 +21,7 @@ public class GameInitializer : MonoBehaviour
             return;
         }
 
-        try
-        {
+
             UnityEngine.Debug.Log("--- Manual Backend Initialization Started ---");
 
             RegisterCenter.RegisterAll();
@@ -30,11 +29,6 @@ public class GameInitializer : MonoBehaviour
             isInitialized = true;
             DontDestroyOnLoad(gameObject);
             UnityEngine.Debug.Log("--- Backend Initialization Completed Successfully ---");
-        }
-        catch (System.Exception ex)
-        {
-            UnityEngine.Debug.LogError($"FATAL: Initialization failed: {ex.Message}\n{ex.StackTrace}");
-            this.enabled = false;
-        }
+
     }
 }

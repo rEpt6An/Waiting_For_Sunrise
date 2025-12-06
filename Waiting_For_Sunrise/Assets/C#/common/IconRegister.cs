@@ -23,7 +23,7 @@ namespace Assets.C_.common
             List<FileResource> fileResources = new();
             foreach (string path in ICON_FILE_RESOURCE_PATHS)
             {
-                FileResource fileResource = FileResourceFactory.CreateFileResource(path, "content");
+                FileResource fileResource = FileResourceFactory.CreateFileResource(path, "byte");
                 fileResources.Add(fileResource);
             }
             FileResources fileResources1 = new FileResources();

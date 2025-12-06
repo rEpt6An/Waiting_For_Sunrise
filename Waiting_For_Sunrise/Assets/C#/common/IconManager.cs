@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using Unity.VisualScripting;
@@ -46,9 +47,20 @@ namespace Assets.C_.common
                 foreach (FileResource resource in fileResources.Resources)
                 {
                     byte[] bytes = resource.Bytes;
+
+                    // 调用转换
                     Sprite sprite = SpriteConverter.ConvertBytesToSprite(bytes);
-                    Icon icon = new Icon(GetIconId(resource), sprite);
-                    ICONS.Add(icon);
+
+                    // 安全检查：只有在 sprite 创建成功时才添加到列表
+                    if (sprite != null)
+                    {
+                        Icon icon = new Icon(GetIconId(resource), sprite);
+                        ICONS.Add(icon);
+                    }
+                    else
+                    {
+                        throw new Exception($"图片资源加载失败: ID {GetIconId(resource)}, FilePath {resource.Path}");
+                    }
                 }
             }
         }

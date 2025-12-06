@@ -56,7 +56,7 @@ namespace Assets.C_.item
                 foreach (Equipment e in equipments) {
                     AddToEQUIPMENTS(e);
                     //¥Ú”°e.id
-                    UnityEngine.Debug.Log($"Equipment ID: {e.Id}");
+                    //UnityEngine.Debug.Log($"Equipment ID: {e.Id}");
                 }
                 
 

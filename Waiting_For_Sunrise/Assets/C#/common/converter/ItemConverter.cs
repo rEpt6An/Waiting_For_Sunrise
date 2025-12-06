@@ -6,8 +6,8 @@ namespace Assets.C_.common
     {
         public static Item Do2E(ItemDo itemDO)
         {
-            // 打印传入的 itemDO 信息
-            //UnityEngine.Debug.Log($"[ItemConverter] Converting ItemDo: ID={itemDO.Id}, Name={itemDO.Name}, IconId={itemDO.IconId}");
+            //打印传入的 itemDO 信息
+            //UnityEngine.Debug.Log($"[ItemConverter] Converting ItemDo: ID={itemDO.Id}, Name={itemDO.Name}, Describe= {itemDO.Description}, IconId={itemDO.IconId}");
 
             IconManager iconManager = IconManager.Instance;
 
@@ -19,7 +19,7 @@ namespace Assets.C_.common
                 icon = iconManager.Get(itemDO.IconId);
                 if (icon == null)
                 {
-                  //  UnityEngine.Debug.LogError($"[ItemConverter] Failed to get icon! IconId={itemDO.IconId} returned null.");
+                    // UnityEngine.Debug.LogError($"[ItemConverter] Failed to get icon.Image! IconId={itemDO.IconId} returned null.");
                 }
                 else
                 {
@@ -43,7 +43,7 @@ namespace Assets.C_.common
                 icon
             );
 
-            //UnityEngine.Debug.Log($"[ItemConverter] Successfully converted ItemDo to Item: {itemDO.Name} (ID={itemDO.Id})");
+            //UnityEngine.Debug.Log($"[ItemConverter] Successfully converted ItemDo to Item: {item.Name} (ID={item.Id}) Description = {item.Description}");
             return item;
         }
     }

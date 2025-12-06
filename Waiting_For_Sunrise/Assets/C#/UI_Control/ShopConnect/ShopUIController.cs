@@ -1,4 +1,4 @@
-// ShopUIController.cs (固定4个栏位版)
+// ShopUIController.cs
 using UnityEngine;
 using System.Collections.Generic;
 using Assets.C_.shop;
@@ -9,14 +9,20 @@ using Assets.C_.common.common;
 public class ShopUIController : MonoBehaviour
 {
     [Header("UI 引用")]
-    [Tooltip("请将4个固定的商品卡片对象拖拽到这里")]
-    [SerializeField] private List<ShopSlotUI> shopSlots; // 【核心修改】
-
-    [Header("功能按钮 (可选)")]
+    [SerializeField] private List<ShopSlotUI> shopSlots;
     [SerializeField] private UnityEngine.UI.Button refreshButton;
 
+    [SerializeField] private TMPro.TextMeshProUGUI refreshPriceText; 
+
+    [Header("商店逻辑设置")]
+    [SerializeField] private int baseRefreshPrice = 5;
+    [SerializeField] private int priceIncreasePerRefresh = 5;
+
+    // --- 内部状态 ---
     private IShop _shop;
     private PlayerCharacter _playerCharacter;
+    private List<int> _lockedSlotIndexes = new List<int>();
+    private int _currentRefreshPrice;
 
     void Start()
     {
@@ -29,87 +35,121 @@ public class ShopUIController : MonoBehaviour
             return;
         }
 
-        // 【核心修改】检查新的引用列表
-        if (shopSlots == null || shopSlots.Count == 0)
-        {
-            UnityEngine.Debug.LogError("ShopUIController 错误: 'Shop Slots' 列表未在Inspector中设置！");
-            return;
-        }
-
         if (refreshButton != null)
         {
             refreshButton.onClick.AddListener(RefreshShop);
         }
 
+        // 新的一天开始，重置刷新价格
+        ResetRefreshPrice();
+
+        InitialShopFlush();
         PopulateShop();
+    }
+
+    private void InitialShopFlush()
+    {
+        int luck = _playerCharacter.PlayerState.Lucky;
+        int day = GameManager.Instance != null ? GameManager.Instance.Day : 1;
+        _shop.Flush(new GoodsGetConfig(luck, day, new List<int>()));
     }
 
     private void PopulateShop()
     {
         GoodsDto goodsForSale = _shop.GetGoodsForSale();
-        if (goodsForSale == null)
-        {
-            UnityEngine.Debug.LogError("ShopUIController: _shop.GetGoodsForSale() 返回了 null!");
-            return;
-        }
+        if (goodsForSale == null) return;
 
-        // 【核心修改】不再 Instantiate，而是遍历固定的列表
         for (int i = 0; i < shopSlots.Count; i++)
         {
             ShopSlotUI currentSlot = shopSlots[i];
-
-            // 检查后端数据是否存在对应的商品
             if (i < goodsForSale.GoodIds.Count)
             {
                 int itemId = goodsForSale.GoodIds[i];
-
                 if (itemId != -1)
                 {
                     Item item = ItemManager.Instance.Get(itemId);
                     if (item != null)
                     {
-                        // 数据有效，激活UI对象并填充数据
                         currentSlot.gameObject.SetActive(true);
-                        currentSlot.Setup(item, i, this);
-                        continue; // 继续下一个循环
+                        bool isSlotLocked = _lockedSlotIndexes.Contains(i);
+                        currentSlot.Setup(item, i, this, isSlotLocked);
+                        continue;
                     }
                 }
             }
-
-            // 如果后端数据不足，或者商品ID无效，则隐藏这个UI栏位
             currentSlot.gameObject.SetActive(false);
         }
     }
 
     public void RefreshShop()
     {
-        var playerState = _playerCharacter.PlayerState;
-        if (playerState == null) return;
+        // 1. 检查玩家金币是否足够
+        if (_playerCharacter.PlayerAsset.Money < _currentRefreshPrice)
+        {
+            UnityEngine.Debug.LogWarning("金币不足，无法刷新商店！");
+            // TODO: 在UI上显示提示
+            return;
+        }
 
-        int luck = playerState.Lucky;
-        int day = 1;
-        if (GameManager.Instance != null) day = GameManager.Instance.Day;
+        // 2. 扣除金币
+        _playerCharacter.PlayerAsset.ChangeMoney(-_currentRefreshPrice);
 
-        _shop.Flush(new GoodsGetConfig(luck, day));
+        // 3. 增加下一次刷新的价格
+        _currentRefreshPrice += priceIncreasePerRefresh;
+        UpdateRefreshPriceText();
+
+        // 4. 调用后端刷新逻辑
+        int luck = _playerCharacter.PlayerState.Lucky;
+        int day = GameManager.Instance != null ? GameManager.Instance.Day : 1;
+        _shop.Flush(new GoodsGetConfig(luck, day, _lockedSlotIndexes));
+
+        // 5. 更新UI
         PopulateShop();
     }
 
-    public void AttemptToBuyItem(int slotIndex)
+    public bool AttemptToBuyItem(int slotIndex)
     {
-        IPlayerAsset playerAsset = _playerCharacter.PlayerAsset;
-        if (playerAsset == null) return;
-
-        BuyRequest request = new BuyRequest(slotIndex);
-        Re buyResult = _shop.Buy(playerAsset, request);
+        Re buyResult = _shop.Buy(_playerCharacter.PlayerAsset, new BuyRequest(slotIndex));
 
         if (buyResult.IsSuccess())
         {
             UnityEngine.Debug.Log("购买成功！");
-            PopulateShop();
+            return true;
         }
         else
         {
             UnityEngine.Debug.LogWarning("购买失败: " + buyResult.Message);
+            return false;
         }
     }
+
+    public void UpdateLockState(int slotIndex, bool isLocked)
+    {
+        if (isLocked)
+        {
+            if (!_lockedSlotIndexes.Contains(slotIndex)) _lockedSlotIndexes.Add(slotIndex);
+        }
+        else
+        {
+            if (_lockedSlotIndexes.Contains(slotIndex)) _lockedSlotIndexes.Remove(slotIndex);
+        }
+    }
+
+    // 新增：重置刷新价格的方法
+    public void ResetRefreshPrice()
+    {
+        _currentRefreshPrice = baseRefreshPrice;
+        UpdateRefreshPriceText();
+    }
+
+    // 新增：更新刷新价格显示的方法
+    private void UpdateRefreshPriceText()
+    {
+        if (refreshPriceText != null)
+        {
+            refreshPriceText.text = $"{_currentRefreshPrice}";
+        }
+    }
+
+
 }
