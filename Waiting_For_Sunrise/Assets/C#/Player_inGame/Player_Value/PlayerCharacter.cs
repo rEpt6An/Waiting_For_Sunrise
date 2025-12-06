@@ -14,19 +14,15 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private GameObject attackPrefab;
     [SerializeField] private Transform attackSpawnPoint;
 
-    private PlayerState _playerState;
-    public PlayerAsset PlayerAsset { get; private set; }
-
-    // 【重要】将属性类型从 IPlayerState 改为 PlayerState 以匹配 Awake 中的赋值
-    public PlayerState PlayerState => _playerState;
+    private IPlayerState _playerState;
+    private IPlayerAsset _playerAsset;
 
     private float attackCooldownTimer = 0f;
 
     void Awake()
     {
-        _playerState = (PlayerState)Player.GetInstance().PlayerState;
-        PlayerAsset = new PlayerAsset();
-
+        _playerState = Player.GetInstance().PlayerState;
+        _playerAsset = Player.GetInstance().PlayerAsset;
     }
 
     void Update()
@@ -54,20 +50,8 @@ public class PlayerCharacter : MonoBehaviour
 
     public void GainCoins(int amount)
     {
-        if (PlayerAsset != null)
-        {
-            // 调用后端的 ChangeMoney 方法
-            Re result = PlayerAsset.ChangeMoney(amount);
-
-            if (result.IsSuccess())
-            {
-                UnityEngine.Debug.Log($"玩家获得了 {amount} 金币, 总金币: {PlayerAsset.Money}");
-            }
-            else
-            {
-                UnityEngine.Debug.LogWarning("增加金币失败: " + result.Message);
-            }
-        }
+        _playerAsset.ChangeMoney(amount);
+        UnityEngine.Debug.Log($"玩家获得了 {amount} 金币");
     }
 
     private void PerformAttack()

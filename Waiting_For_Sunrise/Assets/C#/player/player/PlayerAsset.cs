@@ -30,5 +30,10 @@ namespace Assets.C_.player.player
         {
             return PlayerBag;
         }
+
+        public int GetMoney()
+        {
+            return Money;
+        }
     }
 }

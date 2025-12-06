@@ -5,6 +5,7 @@ using Assets.C_.shop;
 using Assets.C_.player.player;
 using Assets.C_.common;
 using Assets.C_.common.common;
+using Assets.C_.player;
 
 public class ShopUIController : MonoBehaviour
 {
@@ -20,20 +21,13 @@ public class ShopUIController : MonoBehaviour
 
     // --- 内部状态 ---
     private IShop _shop;
-    private PlayerCharacter _playerCharacter;
+    private Player _player = Player.GetInstance();
     private List<int> _lockedSlotIndexes = new List<int>();
     private int _currentRefreshPrice;
 
     void Start()
     {
         _shop = Shop.GetInstance();
-        _playerCharacter = FindObjectOfType<PlayerCharacter>();
-
-        if (_playerCharacter == null)
-        {
-            UnityEngine.Debug.LogError("商店场景中找不到PlayerCharacter!");
-            return;
-        }
 
         if (refreshButton != null)
         {
@@ -49,7 +43,7 @@ public class ShopUIController : MonoBehaviour
 
     private void InitialShopFlush()
     {
-        int luck = _playerCharacter.PlayerState.Lucky;
+        int luck = _player.PlayerState.Lucky;
         int day = GameManager.Instance != null ? GameManager.Instance.Day : 1;
         _shop.Flush(new GoodsGetConfig(luck, day, new List<int>()));
     }
@@ -84,7 +78,7 @@ public class ShopUIController : MonoBehaviour
     public void RefreshShop()
     {
         // 1. 检查玩家金币是否足够
-        if (_playerCharacter.PlayerAsset.Money < _currentRefreshPrice)
+        if (_player.PlayerAsset.GetMoney() < _currentRefreshPrice)
         {
             UnityEngine.Debug.LogWarning("金币不足，无法刷新商店！");
             // TODO: 在UI上显示提示
@@ -92,14 +86,14 @@ public class ShopUIController : MonoBehaviour
         }
 
         // 2. 扣除金币
-        _playerCharacter.PlayerAsset.ChangeMoney(-_currentRefreshPrice);
+        _player.PlayerAsset.ChangeMoney(-_currentRefreshPrice);
 
         // 3. 增加下一次刷新的价格
         _currentRefreshPrice += priceIncreasePerRefresh;
         UpdateRefreshPriceText();
 
         // 4. 调用后端刷新逻辑
-        int luck = _playerCharacter.PlayerState.Lucky;
+        int luck = _player.PlayerState.Lucky;
         int day = GameManager.Instance != null ? GameManager.Instance.Day : 1;
         _shop.Flush(new GoodsGetConfig(luck, day, _lockedSlotIndexes));
 
@@ -109,7 +103,7 @@ public class ShopUIController : MonoBehaviour
 
     public bool AttemptToBuyItem(int slotIndex)
     {
-        Re buyResult = _shop.Buy(_playerCharacter.PlayerAsset, new BuyRequest(slotIndex));
+        Re buyResult = _shop.Buy(_player.PlayerAsset, new BuyRequest(slotIndex));
 
         if (buyResult.IsSuccess())
         {

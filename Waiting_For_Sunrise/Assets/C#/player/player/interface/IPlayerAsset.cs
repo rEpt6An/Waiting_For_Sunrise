@@ -6,6 +6,9 @@ namespace Assets.C_.player.player
     public interface IPlayerAsset
     {
         Re ChangeMoney(int amount);
+
+        int GetMoney();
+
         IPlayerBag GetPlayerBag();
     }
 }

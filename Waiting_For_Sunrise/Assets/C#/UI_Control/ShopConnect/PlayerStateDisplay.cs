@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using Assets.C_.player.player;
 using System.Text;
+using Assets.C_.player;
 
 public class PlayerStateDisplay : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class PlayerStateDisplay : MonoBehaviour
 
         if (playerCharacter != null)
         {
-            playerState = playerCharacter.PlayerState;
+            playerState = Player.GetInstance().PlayerState;
         }
         else
         {
