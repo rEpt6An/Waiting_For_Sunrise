@@ -63,6 +63,7 @@
     <Compile Include="Assets\C#\Player_inGame\Fight\EnemyController.cs" />
     <Compile Include="Assets\C#\monster\MonsterState.cs" />
     <Compile Include="Assets\C#\Player_inGame\Enemy_ingame\EnemySpawner.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Weapon\WeaponAnimator.cs" />
     <Compile Include="Assets\C#\player\event\PlayerGetDamageEvent.cs" />
     <Compile Include="Assets\C#\General\GameManager.cs" />
     <Compile Include="Assets\C#\Player_inGame\Weapon\WeaponData.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\C#\UI_Control\Night\HealthBarUI.cs" />
     <Compile Include="Assets\C#\common\util\ValidChecker.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Weapon\WeaponHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />

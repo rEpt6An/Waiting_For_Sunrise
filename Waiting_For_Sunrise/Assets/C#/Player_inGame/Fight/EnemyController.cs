@@ -1,4 +1,4 @@
-// EnemyController.cs (×îÖÕĞŞÕı°æ)
+ï»¿// EnemyController.cs (æœ€ç»ˆä¿®æ­£ç‰ˆ)
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -9,7 +9,9 @@ public class EnemyController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private PlayerCharacter playerCharacter;
 
-    // --- ÊıÖµ×Ö¶Î (ÏÖÔÚÃ»ÓĞÄ¬ÈÏÖµ) ---
+    private Rigidbody2D rb;
+
+    // --- æ•°å€¼å­—æ®µ (ç°åœ¨æ²¡æœ‰é»˜è®¤å€¼) ---
     private float maxHealth;
     private int attackDamage;
     private float attackCooldown;
@@ -17,17 +19,17 @@ public class EnemyController : MonoBehaviour
     private int experienceReward;
     private int coinDropAmount;
 
-    // --- ÄÚ²¿×´Ì¬±äÁ¿ ---
+    // --- å†…éƒ¨çŠ¶æ€å˜é‡ ---
     private float currentHealth;
     private float timeSinceLastAttack = 0f;
-    private bool isInitialized = false; // Ìí¼ÓÒ»¸ö³õÊ¼»¯±êÖ¾
+    private bool isInitialized = false; // æ·»åŠ ä¸€ä¸ªåˆå§‹åŒ–æ ‡å¿—
 
     /// <summary>
-    /// Íâ²¿µ÷ÓÃµÄ³õÊ¼»¯·½·¨£¬ËùÓĞÉèÖÃ¶¼ÔÚÕâÀïÍê³É
+    /// å¤–éƒ¨è°ƒç”¨çš„åˆå§‹åŒ–æ–¹æ³•ï¼Œæ‰€æœ‰è®¾ç½®éƒ½åœ¨è¿™é‡Œå®Œæˆ
     /// </summary>
     public void Initialize(EnemyData data, PlayerCharacter player)
     {
-        // ÉèÖÃËùÓĞÊıÖµ
+        // è®¾ç½®æ‰€æœ‰æ•°å€¼
         this.maxHealth = data.maxHealth;
         this.attackDamage = data.attackDamage;
         this.attackCooldown = data.attackCooldown;
@@ -35,27 +37,28 @@ public class EnemyController : MonoBehaviour
         this.experienceReward = data.experienceReward;
         this.coinDropAmount = data.coinDropAmount;
 
-        // ³õÊ¼»¯×´Ì¬
+        // åˆå§‹åŒ–çŠ¶æ€
         this.currentHealth = this.maxHealth;
-        this.timeSinceLastAttack = this.attackCooldown; // ÔÊĞíÁ¢¼´¹¥»÷
+        this.timeSinceLastAttack = this.attackCooldown; // å…è®¸ç«‹å³æ”»å‡»
 
-        // »ñÈ¡×é¼şºÍÄ¿±ê
+        // è·å–ç»„ä»¶å’Œç›®æ ‡
         this.spriteRenderer = GetComponent<SpriteRenderer>();
         this.playerCharacter = player;
 
-        // ±ê¼ÇÎªÒÑ³õÊ¼»¯
+        // æ ‡è®°ä¸ºå·²åˆå§‹åŒ–
         this.isInitialized = true;
+        this.rb = GetComponent<Rigidbody2D>();
     }
 
-    // Start ·½·¨¿ÉÒÔÁô¿Õ£¬»òÕßÓÃÓÚÒ»Ğ©²»ÒÀÀµÍâ²¿Êı¾İµÄ³õÊ¼»¯
+    // Start æ–¹æ³•å¯ä»¥ç•™ç©ºï¼Œæˆ–è€…ç”¨äºä¸€äº›ä¸ä¾èµ–å¤–éƒ¨æ•°æ®çš„åˆå§‹åŒ–
     void Start()
     {
-        // Start ·½·¨ÏÖÔÚ¿ÉÒÔ·Ç³£¸É¾»
+        // Start æ–¹æ³•ç°åœ¨å¯ä»¥éå¸¸å¹²å‡€
     }
 
     void Update()
     {
-        // Ö»ÓĞÔÚÍêÈ«³õÊ¼»¯ºó²ÅÖ´ĞĞÂß¼­
+        // åªæœ‰åœ¨å®Œå…¨åˆå§‹åŒ–åæ‰æ‰§è¡Œé€»è¾‘
         if (!isInitialized || playerCharacter == null)
         {
             return;
@@ -63,13 +66,35 @@ public class EnemyController : MonoBehaviour
 
         timeSinceLastAttack += Time.deltaTime;
 
-        // ÒÆ¶¯ºÍ·­×ªÂß¼­
-        Transform playerTransform = playerCharacter.transform;
+        // ç§»åŠ¨å’Œç¿»è½¬é€»è¾‘
+        /*Transform playerTransform = playerCharacter.transform;
         Vector2 direction = (playerTransform.position - transform.position).normalized;
         transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
 
         if (direction.x > 0) spriteRenderer.flipX = true;
+        else if (direction.x < 0) spriteRenderer.flipX = false;*/
+
+        // ç§»åŠ¨å’Œç¿»è½¬é€»è¾‘
+        //ä¼˜åŒ–ç§»åŠ¨ï¼šå¦‚æœæ•Œäººå½“å‰æ­£åœ¨è¢«å‡»é€€ï¼ˆå³ Rigidbody æœ‰é€Ÿåº¦ï¼‰ï¼Œåˆ™ä¸æ‰§è¡Œè‡ªèº«çš„å¯»è·¯ç§»åŠ¨
+        Transform playerTransform = playerCharacter.transform;
+        Vector2 direction = (playerTransform.position - transform.position).normalized;
+        if (rb.velocity.magnitude < 0.1f)
+        {
+            transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
+        }
+
+        if (direction.x > 0) spriteRenderer.flipX = true;
         else if (direction.x < 0) spriteRenderer.flipX = false;
+    }
+
+    public void ApplyRepel(Vector2 direction, float force)     //å‡»é€€
+    {
+        if (!isInitialized || rb == null) return;
+
+        rb.velocity = Vector2.zero;
+
+        Vector2 pushVector = direction.normalized * force;
+        rb.AddForce(pushVector, ForceMode2D.Impulse);
     }
 
     public void TakeDamage(float damageAmount)
@@ -87,7 +112,7 @@ public class EnemyController : MonoBehaviour
         if (playerCharacter != null)
         {
             playerCharacter.GainExperience(experienceReward);
-             playerCharacter.GainCoins(coinDropAmount); // È·±£PlayerCharacterÓĞGainCoins·½·¨
+             playerCharacter.GainCoins(coinDropAmount); // ç¡®ä¿PlayerCharacteræœ‰GainCoinsæ–¹æ³•
         }
         Destroy(gameObject);
     }

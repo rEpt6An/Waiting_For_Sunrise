@@ -21,6 +21,16 @@ public class PlayerCharacter : MonoBehaviour
 
     private float attackCooldownTimer = 0f;
 
+
+    void Start()
+    {
+
+        WeaponAnimator weaponAnimator = GetComponentInChildren<WeaponAnimator>();
+        if (weaponAnimator != null)
+        {
+            weaponAnimator.Initialize(currentWeapon);
+        }
+    }
     void Awake()
     {
         // 从后端的 Player 单例中获取 State 和 Asset
@@ -59,15 +69,18 @@ public class PlayerCharacter : MonoBehaviour
 
     private void PerformAttack()
     {
+        // 1. 获取攻击方向和角度
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         Vector2 direction = (mousePosition - attackSpawnPoint.position).normalized;
 
+        // 2. 实例化攻击碰撞体
         GameObject attackInstance = Instantiate(attackPrefab, attackSpawnPoint.position, Quaternion.identity);
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         attackInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
 
+        // 3. 计算最终伤害
         float correspondingPlayerDamage = 0;
         if (currentWeapon.damageScaleType == 0)
         {
@@ -79,15 +92,21 @@ public class PlayerCharacter : MonoBehaviour
         }
 
         float finalDamage = (currentWeapon.baseDamage + currentWeapon.scalingMultiplier * correspondingPlayerDamage)
-                            * (float)PlayerState.DamageMultipler;
+                             * (float)PlayerState.DamageMultipler;
 
+        // 4. 初始化 WeaponAttack 脚本
         WeaponAttack attackScript = attackInstance.GetComponent<WeaponAttack>();
         if (attackScript != null)
         {
-            attackScript.Initialize(finalDamage);
+            attackScript.Initialize(finalDamage, currentWeapon.repel, attackSpawnPoint.position);
+        }
+
+        WeaponAnimator weaponAnimator = GetComponentInChildren<WeaponAnimator>();
+        if (weaponAnimator != null)
+        {
+            weaponAnimator.TriggerAttackAnimation(currentWeapon.attackType);
         }
     }
-
     public void TakeDamage(int damageAmount)
     {
         PlayerState.changeBlood(-damageAmount);

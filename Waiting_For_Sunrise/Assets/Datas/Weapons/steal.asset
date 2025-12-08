@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc433050be3a278448b23e29733d13da, type: 3}
   m_Name: steal
   m_EditorClassIdentifier: 
+  image: {fileID: 21300000, guid: 6bb9baa3ab7831a4fbd507640e58909a, type: 3}
   weaponName: "\u6D4B\u8BD5\u6B66\u5668"
   attackType: 0
   damageScaleType: 0
@@ -19,3 +20,10 @@ MonoBehaviour:
   scalingMultiplier: 5
   baseAttackSpeed: 1
   baseRange: 1
+  repel: 2
+  clip: 1
+  cliptime: 1
+  animationDuration: 0.2
+  rotationAngle: 90
+  shakeIntensity: 0.05
+  attackSound: {fileID: 0}
