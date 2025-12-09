@@ -96,6 +96,7 @@
     <Compile Include="Assets\C#\player\damage\PlayerGiveDamageContext.cs" />
     <Compile Include="Assets\C#\item\interface\IEquipment.cs" />
     <Compile Include="Assets\C#\player\event\LifeStealEvent.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Weapon\MeleeVisualizer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\C#\UI_Control\Night\HealthBarUI.cs" />
     <Compile Include="Assets\C#\common\util\ValidChecker.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Assets\C#\item\equipment\AbstractEquipment.cs" />
     <Compile Include="Assets\C#\shop\interface\IItemIdLottery.cs" />
     <Compile Include="Assets\C#\common\pojo\FileResources.cs" />
+    <Compile Include="Assets\C#\UI_Control\Night\WeaponUI.cs" />
     <Compile Include="Assets\C#\common\IconManager.cs" />
     <Compile Include="Assets\C#\player\bag\interface\IPlayerToolbar.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />

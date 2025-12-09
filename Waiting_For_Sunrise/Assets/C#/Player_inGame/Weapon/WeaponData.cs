@@ -6,6 +6,15 @@ public class WeaponData : ScriptableObject
 {
     // 不在这里定义任何 enum
 
+    [Header("攻击体配置")]
+    [Tooltip("攻击碰撞体/弹药的预制件。近战是碰撞区域，远程是子弹。")]
+    public GameObject attackPrefab;
+    [Tooltip("近战攻击碰撞体存在时间 (秒)")]
+    public float meleeLifetime = 0.1f;
+
+    [Tooltip("攻击体在 Instantiate 时的速度 (仅用于远程武器)")]
+    public float projectileSpeed = 10f;
+
     [Header("核心数值")]
     public Sprite image;
     public string weaponName = "测试武器";
@@ -28,18 +37,21 @@ public class WeaponData : ScriptableObject
 
     [Tooltip("弹夹")]
     public int clip = 1;
+
     public float cliptime = 1f;
+
+    [Tooltip("穿透")]
+    public int penetrate = 1;   //穿透
 
     [Header("动画配置")]
 
     [Tooltip("动画持续时间（往返）")]
     public float animationDuration = 0.2f;
 
-    [Tooltip("近战：旋转角度 (例如: 90)")]
+    [Tooltip("旋转角度 (例如: 90)")]
     public float rotationAngle = 90f;
 
-    [Tooltip("远程：抖动强度/位移 (例如: 0.05)")]
-    public float shakeIntensity = 0.05f;
+
 
     [Tooltip("攻击时的声音效果 (可选)")]
     public AudioClip attackSound;
