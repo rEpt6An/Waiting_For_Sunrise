@@ -1,4 +1,4 @@
-// PlayerCharacter.cs
+ï»¿// PlayerCharacter.cs
 using UnityEngine;
 using Assets.C_.player;
 using Assets.C_.player.player;
@@ -10,33 +10,35 @@ using Assets.C_.common.common;
 [RequireComponent(typeof(Collider2D))]
 public class PlayerCharacter : MonoBehaviour
 {
-    [Header("¹¥»÷ÉèÖÃ")]
+    [Header("æ”»å‡»è®¾ç½®")]
     [SerializeField] private WeaponData currentWeapon;
     [SerializeField] private GameObject attackPrefab;
     [SerializeField] private Transform attackSpawnPoint;
 
-    // --- ¡¾ºËĞÄĞŞÕı¡¿: ½«ºó¶ËÊı¾İ½Ó¿ÚÉèÎª¹«¹²ÊôĞÔ ---
+    // â­ï¸ å¼•ç”¨ WeaponAnimator 
+    private WeaponAnimator weaponAnimator;
+
     public IPlayerState PlayerState { get; private set; }
     public IPlayerAsset PlayerAsset { get; private set; }
 
     private float attackCooldownTimer = 0f;
 
+    void Awake()
+    {
+        // ä»åç«¯çš„ Player å•ä¾‹ä¸­è·å– State å’Œ Asset
+        Player backendPlayer = Player.GetInstance();
+        PlayerState = backendPlayer.PlayerState;
+        PlayerAsset = backendPlayer.PlayerAsset;
+    }
 
     void Start()
     {
-
-        WeaponAnimator weaponAnimator = GetComponentInChildren<WeaponAnimator>();
+        // â­ï¸ è·å– WeaponAnimator å¼•ç”¨å¹¶åœ¨ Awake/Start ä¹‹ååˆå§‹åŒ–
+        weaponAnimator = GetComponentInChildren<WeaponAnimator>();
         if (weaponAnimator != null)
         {
             weaponAnimator.Initialize(currentWeapon);
         }
-    }
-    void Awake()
-    {
-        // ´Óºó¶ËµÄ Player µ¥ÀıÖĞ»ñÈ¡ State ºÍ Asset
-        Player backendPlayer = Player.GetInstance();
-        PlayerState = backendPlayer.PlayerState;
-        PlayerAsset = backendPlayer.PlayerAsset;
     }
 
     void Update()
@@ -52,35 +54,49 @@ public class PlayerCharacter : MonoBehaviour
 
         if (Input.GetMouseButton(0) && attackCooldownTimer >= attackCooldown)
         {
+            if (weaponAnimator != null)
+            {
+                if (currentWeapon.attackType == 1 && weaponAnimator.IsReloading()) // è¿œç¨‹æ­¦å™¨ä¸”æ­£åœ¨è£…å¼¹
+                {
+                    // æ­£åœ¨è£…å¼¹ï¼Œä¸æ”»å‡»
+                    return;
+                }
+
+                // å°è¯•æ¶ˆè€—å¼¹è¯ã€‚è¿‘æˆ˜æ°¸è¿œè¿”å› trueã€‚è¿œç¨‹åªæœ‰æœ‰å¼¹è¯æ‰è¿”å› trueã€‚
+                if (!weaponAnimator.ConsumeClip())
+                {
+                    // å¼¹è¯ä¸è¶³ï¼Œè¿”å›ï¼Œç­‰å¾…è‡ªåŠ¨è£…å¼¹
+                    return;
+                }
+            }
+
             PerformAttack();
             attackCooldownTimer = 0f;
         }
     }
 
-    // --- ĞÂÔö£ºÌá¹©Ò»¸ö¸øÍâ²¿µ÷ÓÃµÄ·½·¨£¬ÓÃÓÚÔö¼Ó½ğ±Ò ---
+    // --- æ–°å¢ï¼šæä¾›ä¸€ä¸ªç»™å¤–éƒ¨è°ƒç”¨çš„æ–¹æ³•ï¼Œç”¨äºå¢åŠ é‡‘å¸ ---
     public void GainCoins(int amount)
     {
         if (PlayerAsset != null)
         {
             PlayerAsset.ChangeMoney(amount);
-            UnityEngine.Debug.Log($"Íæ¼Ò»ñµÃÁË {amount} ½ğ±Ò");
+            UnityEngine.Debug.Log($"ç©å®¶è·å¾—äº† {amount} é‡‘å¸");
         }
     }
 
     private void PerformAttack()
     {
-        // 1. »ñÈ¡¹¥»÷·½ÏòºÍ½Ç¶È
+        // ... (è·å–æ”»å‡»æ–¹å‘ã€å®ä¾‹åŒ–æ”»å‡»ç¢°æ’ä½“ã€è®¡ç®—æœ€ç»ˆä¼¤å®³çš„ä»£ç ä¿æŒä¸å˜) ...
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         Vector2 direction = (mousePosition - attackSpawnPoint.position).normalized;
 
-        // 2. ÊµÀı»¯¹¥»÷Åö×²Ìå
         GameObject attackInstance = Instantiate(attackPrefab, attackSpawnPoint.position, Quaternion.identity);
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         attackInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        // 3. ¼ÆËã×îÖÕÉËº¦
         float correspondingPlayerDamage = 0;
         if (currentWeapon.damageScaleType == 0)
         {
@@ -94,14 +110,13 @@ public class PlayerCharacter : MonoBehaviour
         float finalDamage = (currentWeapon.baseDamage + currentWeapon.scalingMultiplier * correspondingPlayerDamage)
                              * (float)PlayerState.DamageMultipler;
 
-        // 4. ³õÊ¼»¯ WeaponAttack ½Å±¾
         WeaponAttack attackScript = attackInstance.GetComponent<WeaponAttack>();
         if (attackScript != null)
         {
             attackScript.Initialize(finalDamage, currentWeapon.repel, attackSpawnPoint.position);
         }
 
-        WeaponAnimator weaponAnimator = GetComponentInChildren<WeaponAnimator>();
+        // â­ï¸ è§¦å‘åŠ¨ç”»
         if (weaponAnimator != null)
         {
             weaponAnimator.TriggerAttackAnimation(currentWeapon.attackType);
@@ -123,7 +138,7 @@ public class PlayerCharacter : MonoBehaviour
 
     private void HandleDeath()
     {
-        UnityEngine.Debug.LogWarning("Íæ¼ÒÒÑËÀÍö£¡");
+        UnityEngine.Debug.LogWarning("ç©å®¶å·²æ­»äº¡ï¼");
         gameObject.SetActive(false);
     }
 }

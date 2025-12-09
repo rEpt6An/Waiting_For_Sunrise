@@ -172,4 +172,15 @@ public class WeaponAnimator : MonoBehaviour
             visualTransform.localPosition = originalPos;
         }
     }
+
+
+    /// <summary>
+    /// 检查武器是否正在装弹
+    /// </summary>
+    public bool IsReloading()
+    {
+        return isReloading;
+    }
+
+
 }

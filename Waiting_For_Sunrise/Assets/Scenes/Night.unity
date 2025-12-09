@@ -1343,7 +1343,7 @@ GameObject:
   - component: {fileID: 797762717}
   - component: {fileID: 797762716}
   - component: {fileID: 797762718}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WeaponVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1374,8 +1374,8 @@ Transform:
   m_GameObject: {fileID: 797762715}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: 1.48, y: -2, z: -1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1186222992}
@@ -2105,7 +2105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3f5a588c244c247b3449525fc3f91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 11400000, guid: 96726f7af99f4d84d8c3beefa37bcd0b, type: 2}
+  currentWeapon: {fileID: 11400000, guid: ef968633b93639e459303e89cbaf55af, type: 2}
   attackPrefab: {fileID: 4254535825771883383, guid: 0fb8388ac8dcf6d41961dc0af48764d5, type: 3}
   attackSpawnPoint: {fileID: 1186222992}
 --- !u!1 &1418280603

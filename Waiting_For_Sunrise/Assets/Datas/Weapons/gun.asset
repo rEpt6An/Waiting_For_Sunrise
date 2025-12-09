@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc433050be3a278448b23e29733d13da, type: 3}
+  m_Name: gun
+  m_EditorClassIdentifier: 
+  image: {fileID: 21300000, guid: 7c8922b1deaa00742ab425fc540d09ac, type: 3}
+  weaponName: gun
+  attackType: 1
+  damageScaleType: 1
+  baseDamage: 5
+  scalingMultiplier: 5
+  baseAttackSpeed: 1
+  baseRange: 1.5
+  repel: 1
+  clip: 8
+  cliptime: 3
+  animationDuration: 0.2
+  rotationAngle: 90
+  shakeIntensity: 0.05
+  attackSound: {fileID: 0}
