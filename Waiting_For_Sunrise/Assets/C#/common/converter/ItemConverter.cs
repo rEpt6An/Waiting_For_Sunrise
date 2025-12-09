@@ -1,4 +1,5 @@
-using UnityEngine;
+
+using Assets.C_.item;
 
 namespace Assets.C_.common
 {
@@ -28,9 +29,11 @@ namespace Assets.C_.common
             }
             catch (System.Exception e)
             {
-                UnityEngine.Debug.LogError($"[ItemConverter] Exception while getting icon (IconId={itemDO.IconId}): {e.Message}");
+                // UnityEngine.Debug.LogError($"[ItemConverter] Exception while getting icon (IconId={itemDO.IconId}): {e.Message}");
                 throw; // 重新抛出异常以便上层捕获
             }
+
+
 
             // 创建 Item 对象
             Item item = new(
@@ -38,13 +41,28 @@ namespace Assets.C_.common
                 itemDO.Name,
                 RarityExtensions.GetById(itemDO.Rarity),
                 ItemTypeExtensions.GetById(itemDO.ItemType),
-                itemDO.Description,
+                GetItemDescription(itemDO),
                 itemDO.Price,
                 icon
             );
 
             //UnityEngine.Debug.Log($"[ItemConverter] Successfully converted ItemDo to Item: {item.Name} (ID={item.Id}) Description = {item.Description}");
             return item;
+        }
+
+        private static string GetItemDescription(ItemDo itemDo)
+        {
+            if (itemDo.ItemType == (int) ItemType.equipment)
+            {
+                return DescriptionGenerater.GetEquipmentDescription(EquipmentManager.GetInstance().Get(itemDo.Id));
+            } else if (itemDo.ItemType == (int) ItemType.consumable)
+            {
+                return "还没写1";
+            } else
+            {
+                return "还没写2";
+            }
+            
         }
     }
 }
