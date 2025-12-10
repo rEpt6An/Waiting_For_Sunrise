@@ -82,6 +82,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\C#\player\player\interface\IPlayerState.cs" />
     <Compile Include="Assets\C#\monster\BossMonster.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Fight\Special_Enemy\SlimeBombController.cs" />
     <Compile Include="Assets\C#\common\interface\IResourceManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\C#\bus\EventBus.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Assets\C#\shop\interface\IItemIdLottery.cs" />
     <Compile Include="Assets\C#\common\pojo\FileResources.cs" />
     <Compile Include="Assets\C#\UI_Control\Night\WeaponUI.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Enemy_ingame\EnemyDeathSound.cs" />
     <Compile Include="Assets\C#\common\IconManager.cs" />
     <Compile Include="Assets\C#\player\bag\interface\IPlayerToolbar.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="Assets\C#\UI_Control\ShopConnect\ShopSlotUI.cs" />
     <Compile Include="Assets\C#\common\ResourceCenter.cs" />
     <Compile Include="Assets\C#\player\player\PlayerAsset.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Fight\Special_Enemy\SlimeRushController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\C#\common\enum\ItemType.cs" />
@@ -188,6 +191,7 @@
     <Compile Include="Assets\C#\common\exception\StartException.cs" />
     <Compile Include="Assets\C#\player\player\PlayerState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\C#\Player_inGame\ExplosionVFX.cs" />
     <Compile Include="Assets\C#\shop\pojo\GoodsDto.cs" />
     <Compile Include="Assets\C#\item\event\EquipmentEventHandler.cs" />
     <Compile Include="Assets\C#\common\pojo\Icon.cs" />

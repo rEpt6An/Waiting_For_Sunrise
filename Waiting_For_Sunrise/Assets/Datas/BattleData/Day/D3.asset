@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b31a04591c6489c459438246abaa1c5e, type: 3}
+  m_Name: D3
+  m_EditorClassIdentifier: 
+  waves:
+  - {fileID: 11400000, guid: 806b8129b1c724e4181b719a2be372a3, type: 2}
+  - {fileID: 11400000, guid: 99c0b5651b3a58c4799585f94a5a7714, type: 2}
+  maxEnemiesOnScreen: 100

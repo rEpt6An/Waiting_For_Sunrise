@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44a0be620b48d654b801f123b5b15a5e, type: 3}
-  m_Name: slime_bomb
+  m_Name: slime_rush
   m_EditorClassIdentifier: 
-  enemyName: slime_bomb
-  enemyPrefab: {fileID: 4671824011422154132, guid: c45c7443e89e7974da033a8acc72d594, type: 3}
-  maxHealth: 20
-  attackDamage: 3
+  enemyName: slime_rush
+  enemyPrefab: {fileID: 4593758896393256516, guid: c2d99d11ca490b241b91447cafe5bae3, type: 3}
+  maxHealth: 25
+  attackDamage: 7
   attackCooldown: 1
-  moveSpeed: 1
-  experienceReward: 8
-  coinDropAmount: 5
+  moveSpeed: 1.2
+  experienceReward: 9
+  coinDropAmount: 11

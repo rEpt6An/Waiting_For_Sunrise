@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4704216407181183020}
   - component: {fileID: 391732615819941614}
   - component: {fileID: 1185238368130703886}
+  - component: {fileID: -912093102307146233}
   m_Layer: 0
   m_Name: Silme
   m_TagString: Untagged
@@ -193,3 +194,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56062365290210843826efd812c297e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-912093102307146233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204473194545692608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c24a8473a8b3cd4eb6a6d470710a7f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathSoundClip: {fileID: 0}
