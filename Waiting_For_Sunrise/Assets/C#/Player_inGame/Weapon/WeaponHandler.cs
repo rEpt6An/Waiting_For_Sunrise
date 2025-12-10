@@ -13,6 +13,7 @@ public class WeaponHandler : MonoBehaviour
 
     // 运行时数据
     private SpriteRenderer weaponImageRenderer;
+    private Transform visualTf; // ⭐️ 新增：缓存视觉Transform
     private int currentClip;
     private bool isReloading = false;
     private float attackCooldownTimer = 0f;
@@ -23,47 +24,90 @@ public class WeaponHandler : MonoBehaviour
 
     private void Start()
     {
-        // 1. 初始化武器图片
+        // 1. 初始化武器图片和视觉 Transform
         SetupWeaponVisuals();
 
         // 2. 初始化弹夹
-        currentClip = currentWeaponData.clip;
+        if (currentWeaponData != null)
+        {
+            currentClip = currentWeaponData.clip;
+        }
     }
 
     private void Update()
     {
+        if (currentWeaponData == null) return;
+
+        // --- 1. 攻击冷却计时 ---
         if (attackCooldownTimer > 0)
         {
             attackCooldownTimer -= Time.deltaTime;
         }
 
-        // 尝试自动装弹 (如果远程武器没弹药且不在装弹中)
+        // --- 2. 武器朝向鼠标和角色翻转 ---
+        HandleWeaponAimingAndFlip();
+
+        // --- 3. 自动装弹 ---
         if (currentWeaponData.attackType == ATTACK_TYPE_RANGED && currentClip <= 0 && !isReloading)
         {
             StartCoroutine(Reload());
         }
 
-        // 示例：按鼠标左键尝试攻击
-        if (Input.GetMouseButtonDown(0))
+        // --- 4. 尝试攻击 (改为按住鼠标连发) ---
+        // ⭐️ 核心修改: GetMouseButtonDown(0) -> GetMouseButton(0)
+        if (Input.GetMouseButton(0))
         {
             TryAttack();
         }
     }
 
+    // --- 新增：处理武器瞄准和垂直翻转 ---
+    private void HandleWeaponAimingAndFlip()
+    {
+        if (visualTf == null) return;
+
+        // 1. 计算鼠标方向
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = (mousePosition - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // 2. 武器旋转
+        // 武器视觉对象绕 Z 轴旋转，朝向鼠标
+        visualTf.rotation = Quaternion.Euler(0, 0, angle);
+
+        // 3. 角色垂直翻转逻辑 (基于 W/S 输入)
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        Vector3 newScale = visualTf.localScale;
+
+        if (verticalInput > 0) // 按 W 向上走
+        {
+            // ⭐️ 向上时设置为 1
+            newScale.y = 1f;
+        }
+        else if (verticalInput < 0) // 按 S 向下走
+        {
+            // ⭐️ 向下时设置为 -1
+            newScale.y = -1f;
+        }
+        // 如果没有垂直输入，保持当前状态
+
+        visualTf.localScale = newScale;
+    }
+
+
     // --- 可视化设置 ---
     private void SetupWeaponVisuals()
     {
-        // 创建一个子对象来放置武器图片
         GameObject visualGO = new GameObject("Weapon Visual");
         visualGO.transform.SetParent(transform);
-        visualGO.transform.localPosition = visualOffset;
+        visualTf = visualGO.transform; // 缓存 Transform
+        visualTf.localPosition = visualOffset;
 
         weaponImageRenderer = visualGO.AddComponent<SpriteRenderer>();
         if (currentWeaponData.image != null)
         {
             weaponImageRenderer.sprite = currentWeaponData.image;
         }
-        // 确保武器在角色前面显示 (例如设置一个更高的 Sorting Order)
         weaponImageRenderer.sortingOrder = 10;
     }
 
@@ -77,7 +121,6 @@ public class WeaponHandler : MonoBehaviour
             {
                 if (currentClip <= 0)
                 {
-                    // 没有子弹，尝试装弹（或者直接返回等待自动装弹）
                     Debug.Log("弹夹为空，正在装弹中或等待装弹...");
                     return;
                 }
@@ -88,32 +131,45 @@ public class WeaponHandler : MonoBehaviour
             PerformAttack();
 
             // 设置攻击冷却
-            attackCooldownTimer = currentWeaponData.baseAttackSpeed;
+            // ⚠️ 建议 PlayerCharacter 中使用玩家攻速加成来修改冷却时间
+            attackCooldownTimer = 1f / currentWeaponData.baseAttackSpeed;
 
-            // 触发武器动画
+            // 触发武器动画 (近战和远程都使用相同的旋转动画)
             StartCoroutine(WeaponAttackAnimation());
         }
     }
 
     private void PerformAttack()
     {
-        // ⚠️ 实际游戏应在这里计算最终伤害，这里使用 baseDamage 作为示例
-        float finalDamage = currentWeaponData.baseDamage;
+        float finalDamage = currentWeaponData.baseDamage; // 伤害计算应在 PlayerCharacter 中，这里仅作为示例
 
-        // 实例化攻击碰撞体 (使用角色的位置作为攻击发起点)
-        GameObject attackGO = Instantiate(weaponAttackPrefab, transform.position + visualOffset, Quaternion.identity);
+        // 1. 计算攻击方向 (使用视觉对象的旋转方向)
+        Vector3 direction = visualTf.right; // 武器视觉对象的 X 轴指向即为攻击方向
 
-        // 获取 WeaponAttack 脚本并初始化
-        WeaponAttack attackComponent = attackGO.GetComponent<WeaponAttack>();
-        if (attackComponent != null)
+        // 2. 实例化攻击碰撞体 (使用武器视觉对象的位置)
+        // 如果远程子弹需要沿视觉方向发射，则应使用 visualTf.rotation 
+        GameObject attackGO = Instantiate(weaponAttackPrefab, visualTf.position, visualTf.rotation);
+
+        // 3. 初始化 WeaponAttack 脚本
+        //WeaponAttack attackComponent = attackGO.GetComponent<WeaponAttack>();
+        //if (attackComponent != null)
+        //{
+        //    attackComponent.Initialize(finalDamage, currentWeaponData.repel, transform.position); // 攻击发起点仍用玩家位置
+        //}
+
+        // 4. ⭐️ 远程武器特有：施加初始速度
+        if (currentWeaponData.attackType == ATTACK_TYPE_RANGED)
         {
-            // 传递伤害值，击退强度，和攻击发起位置 (玩家的中心位置)
-            attackComponent.Initialize(finalDamage, currentWeaponData.repel, transform.position);
+            Rigidbody2D rb = attackGO.GetComponent<Rigidbody2D>();
+            // 使用 visualTf.right (即武器朝向) 作为子弹方向
+            if (rb != null && currentWeaponData.projectileSpeed > 0)
+            {
+                rb.velocity = direction * currentWeaponData.projectileSpeed;
+            }
         }
     }
 
-
-    // --- ⭐️ 装弹逻辑 (仅远程武器) ---
+    // --- 装弹逻辑 (保持不变) ---
     IEnumerator Reload()
     {
         if (isReloading) yield break;
@@ -121,70 +177,47 @@ public class WeaponHandler : MonoBehaviour
         isReloading = true;
         Debug.Log($"[{currentWeaponData.weaponName}] 开始装弹...");
 
-        // 等待装弹时间
         yield return new WaitForSeconds(currentWeaponData.cliptime);
 
-        // 装弹完成
         currentClip = currentWeaponData.clip;
         isReloading = false;
         Debug.Log($"[{currentWeaponData.weaponName}] 装弹完成！当前弹夹: {currentClip}");
     }
 
-    // ---  武器攻击动画 ---
+    // --- 武器攻击动画 (统一为旋转动画) ---
     IEnumerator WeaponAttackAnimation()
     {
-        Transform visualTf = weaponImageRenderer.transform;
+        if (visualTf == null || currentWeaponData == null) yield break;
 
-        if (currentWeaponData.attackType == ATTACK_TYPE_MELEE)
+        // ⭐️ 使用数据驱动的旋转动画 (近战和远程现在都使用这个)
+        float angle = currentWeaponData.rotationAngle;
+        float duration = currentWeaponData.animationDuration / 2f; // 往或返的单程时间
+
+        // 保存初始状态，以便在动画结束后恢复，防止和鼠标瞄准冲突
+        Quaternion originalRotation = visualTf.localRotation;
+
+        // 计算旋转终点：在当前面向方向上额外旋转
+        Quaternion endRotation = originalRotation * Quaternion.Euler(0, 0, angle);
+
+        // 前摇/攻击旋转
+        float timer = 0f;
+        while (timer < duration)
         {
-            //  近战动画：旋转 90 度
-            float duration = 0.1f;
-            Quaternion startRotation = visualTf.localRotation;
-            // 旋转 90 度，注意这个旋转是相对于父物体 (即角色) 的局部旋转
-            Quaternion endRotation = startRotation * Quaternion.Euler(0, 0, 90);
-
-            // 执行旋转动画
-            float timer = 0f;
-            while (timer < duration)
-            {
-                visualTf.localRotation = Quaternion.Lerp(startRotation, endRotation, timer / duration);
-                timer += Time.deltaTime;
-                yield return null;
-            }
-            // 确保完全到达终点
-            visualTf.localRotation = endRotation;
-
-            // 等待一小段时间 (可选)
-            yield return new WaitForSeconds(0.05f);
-
-            // 回位动画
-            timer = 0f;
-            while (timer < duration)
-            {
-                visualTf.localRotation = Quaternion.Lerp(endRotation, startRotation, timer / duration);
-                timer += Time.deltaTime;
-                yield return null;
-            }
-            // 确保回到原位
-            visualTf.localRotation = startRotation;
+            // 使用局部旋转进行动画
+            visualTf.localRotation = Quaternion.Lerp(originalRotation, endRotation, timer / duration);
+            timer += Time.deltaTime;
+            yield return null;
         }
-        else if (currentWeaponData.attackType == ATTACK_TYPE_RANGED)
+
+        // 回位动画
+        timer = 0f;
+        while (timer < duration)
         {
-            //  远程动画：抖动效果
-            Vector3 originalPos = visualTf.localPosition;
-            float shakeIntensity = 0.05f; // 抖动幅度
-            float shakeDuration = 0.1f; // 抖动持续时间
-
-            for (float t = 0; t < shakeDuration; t += Time.deltaTime)
-            {
-                // 生成随机偏移量
-                float x = Random.Range(-1f, 1f) * shakeIntensity;
-                float y = Random.Range(-1f, 1f) * shakeIntensity;
-                visualTf.localPosition = originalPos + new Vector3(x, y, 0);
-                yield return null;
-            }
-            // 确保动画结束后回到原位
-            visualTf.localPosition = originalPos;
+            visualTf.localRotation = Quaternion.Lerp(endRotation, originalRotation, timer / duration);
+            timer += Time.deltaTime;
+            yield return null;
         }
+
+        // 动画结束，不强制设置回 localRotation，让 HandleWeaponAimingAndFlip 接管，实现平滑过渡
     }
 }
