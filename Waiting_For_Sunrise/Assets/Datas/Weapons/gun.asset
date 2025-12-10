@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc433050be3a278448b23e29733d13da, type: 3}
   m_Name: gun
   m_EditorClassIdentifier: 
-  attackPrefab: {fileID: 3518509106354909237, guid: 35a319b7deb226c4fb3c4f491ebef0d8, type: 3}
-  projectileSpeed: 10
   image: {fileID: 21300000, guid: 7c8922b1deaa00742ab425fc540d09ac, type: 3}
   weaponName: gun
   attackType: 1
@@ -23,9 +21,9 @@ MonoBehaviour:
   baseAttackSpeed: 1
   baseRange: 1.5
   repel: 1
-  clip: 12
-  cliptime: 1.5
-  penetrate: 1
+  clip: 8
+  cliptime: 3
   animationDuration: 0.2
   rotationAngle: 90
+  shakeIntensity: 0.05
   attackSound: {fileID: 0}

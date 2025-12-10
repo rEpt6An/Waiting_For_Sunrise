@@ -1,14 +1,14 @@
-ï»¿using UnityEngine;
-using TMPro; // å¼•å…¥ TextMeshPro å‘½åç©ºé—´
+using UnityEngine;
+using TMPro; // ÒıÈë TextMeshPro ÃüÃû¿Õ¼ä
 using Assets.C_.player.player;
 using Assets.C_.player;
 public class HealthBarUI : MonoBehaviour
 {
-    [Header("ç»„ä»¶å¼•ç”¨")]
-    [Tooltip("è¡€æ¡çš„Sliderç»„ä»¶")]
+    [Header("×é¼şÒıÓÃ")]
+    [Tooltip("ÑªÌõµÄSlider×é¼ş")]
     [SerializeField] private UnityEngine.UI.Slider healthSlider;
 
-    [Tooltip("æ˜¾ç¤ºè¡€é‡æ•°å€¼çš„TextMeshProæ–‡æœ¬ç»„ä»¶")]
+    [Tooltip("ÏÔÊ¾ÑªÁ¿ÊıÖµµÄTextMeshProÎÄ±¾×é¼ş")]
     [SerializeField] private TextMeshProUGUI healthText;
 
     private PlayerState _playerState;
@@ -16,7 +16,7 @@ public class HealthBarUI : MonoBehaviour
     void Start()
     {
         _playerState = (PlayerState)Player.GetInstance().PlayerState;
-        // å¦‚æœæ²¡æœ‰åœ¨Inspectorä¸­æ‰‹åŠ¨æ‹–æ‹½å¼•ç”¨ï¼Œå°è¯•è‡ªåŠ¨æŸ¥æ‰¾
+        // Èç¹ûÃ»ÓĞÔÚInspectorÖĞÊÖ¶¯ÍÏ×§ÒıÓÃ£¬³¢ÊÔ×Ô¶¯²éÕÒ
         if (healthSlider == null)
         {
             healthSlider = GetComponentInChildren<UnityEngine.UI.Slider>();
@@ -28,34 +28,34 @@ public class HealthBarUI : MonoBehaviour
 
         if (_playerState != null)
         {
-            // åˆå§‹åŒ–UI
+            // ³õÊ¼»¯UI
             UpdateDisplay();
         }
         else
         {
-            UnityEngine.Debug.LogError("HealthBarUI: æ— æ³•æ‰¾åˆ° PlayerState.Instanceï¼");
+            UnityEngine.Debug.LogError("HealthBarUI: ÎŞ·¨ÕÒµ½ PlayerState.Instance£¡");
         }
     }
 
     void Update()
     {
-        // å®æ—¶åˆ·æ–°UI
+        // ÊµÊ±Ë¢ĞÂUI
         UpdateDisplay();
     }
 
     /// <summary>
-    /// ç»Ÿä¸€æ›´æ–°è¡€æ¡Sliderå’Œæ–‡æœ¬çš„æ–¹æ³•
+    /// Í³Ò»¸üĞÂÑªÌõSliderºÍÎÄ±¾µÄ·½·¨
     /// </summary>
     private void UpdateDisplay()
     {
         if (_playerState != null && healthSlider != null && healthText != null)
         {
-            // æ›´æ–°Slider
+            // ¸üĞÂSlider
             healthSlider.maxValue = _playerState.MaxHP;
             healthSlider.value = _playerState.Blood;
 
-            // æ›´æ–°æ–‡æœ¬
-            // ä½¿ç”¨ $"" æ ¼å¼åŒ–å­—ç¬¦ä¸²ï¼Œæ¸…æ™°ç›´è§‚
+            // ¸üĞÂÎÄ±¾
+            // Ê¹ÓÃ $"" ¸ñÊ½»¯×Ö·û´®£¬ÇåÎúÖ±¹Û
             healthText.text = $"{_playerState.Blood} / {_playerState.MaxHP}";
         }
     }
