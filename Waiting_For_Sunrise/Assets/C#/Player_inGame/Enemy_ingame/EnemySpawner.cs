@@ -1,22 +1,26 @@
-// EnemySpawner.cs (¹Ì¶¨·¶Î§°æ)
-using UnityEngine;
-using System.Collections;
+ï»¿using UnityEngine;
+using System.Collections; // â­ï¸ å¿…é¡»å¯¼å…¥ï¼Œç”¨äºåç¨‹
 using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("ÌìÊıÊı¾İ")]
-    [Tooltip("°´Ë³Ğò½«Day_01, Day_02...ÍÏ×§µ½ÕâÀï")]
+    [Header("å¤©æ•°æ•°æ®")]
+    [Tooltip("æŒ‰é¡ºåºå°†Day_01, Day_02...æ‹–æ‹½åˆ°è¿™é‡Œ")]
     [SerializeField] private List<DayData> dayProgression;
 
-    [Header("Éú³É·¶Î§ÉèÖÃ")]
-    [Tooltip("Éú³ÉÇøÓòµÄ×îĞ¡×ø±ê (×óÏÂ½Ç)")]
+    [Header("ç”ŸæˆèŒƒå›´è®¾ç½®")]
+    [Tooltip("ç”ŸæˆåŒºåŸŸçš„æœ€å°åæ ‡ (å·¦ä¸‹è§’)")]
     [SerializeField] private Vector2 minSpawnPosition = new Vector2(-10, -10);
-    [Tooltip("Éú³ÉÇøÓòµÄ×î´ó×ø±ê (ÓÒÉÏ½Ç)")]
+    [Tooltip("ç”ŸæˆåŒºåŸŸçš„æœ€å¤§åæ ‡ (å³ä¸Šè§’)")]
     [SerializeField] private Vector2 maxSpawnPosition = new Vector2(10, 10);
 
-    // --- ÄÚ²¿×´Ì¬ ---
-    // playerTransform ÈÔÈ»ĞèÒª£¬ÒòÎªÄ³Ğ©Âß¼­¿ÉÄÜÒÀÀµËü£¨±ÈÈç¹ÖÎïAIµÄÄ¿±ê£©
+    [Header("é¢„è­¦è®¾ç½®")] // â­ï¸ æ–°å¢ï¼šé¢„è­¦å›¾æ ‡è®¾ç½®
+    [Tooltip("æ€ªç‰©ç”Ÿæˆå‰çš„é¢„è­¦å›¾æ ‡é¢„åˆ¶ä½“")]
+    [SerializeField] private GameObject warningIconPrefab;
+    [Tooltip("é¢„è­¦å›¾æ ‡æ˜¾ç¤ºçš„æ—¶é•¿ (ç§’)")]
+    [SerializeField] private float warningDuration = 0.5f;
+
+    // --- å†…éƒ¨çŠ¶æ€ ---
     private Transform playerTransform;
     private int currentDayIndex = -1;
     private int currentWaveIndex = -1;
@@ -38,14 +42,14 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {
-            UnityEngine.Debug.LogError("EnemySpawner: ³¡¾°ÖĞÕÒ²»µ½PlayerCharacter£¡");
+            UnityEngine.Debug.LogError("EnemySpawner: åœºæ™¯ä¸­æ‰¾ä¸åˆ°PlayerCharacterï¼");
             this.enabled = false;
             return;
         }
 
         StartNextDay();
     }
-
+    // ---
     void Update()
     {
         if (playerTransform == null || currentWaveData == null) return;
@@ -76,7 +80,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (currentDayIndex < 0 || currentDayIndex >= dayProgression.Count)
         {
-            UnityEngine.Debug.LogError($"ÕÒ²»µ½µÚ {dayNumber} ÌìµÄÊı¾İ£¡");
+            UnityEngine.Debug.LogError($"æ‰¾ä¸åˆ°ç¬¬ {dayNumber} å¤©çš„æ•°æ®ï¼");
             this.enabled = false;
             return;
         }
@@ -91,7 +95,7 @@ public class EnemySpawner : MonoBehaviour
         currentWaveIndex++;
         if (currentWaveIndex >= currentDayData.waves.Count)
         {
-            UnityEngine.Debug.Log($"µÚ {currentDayIndex + 1} ÌìµÄËùÓĞ²¨´ÎÒÑÍê³É£¡");
+            UnityEngine.Debug.Log($"ç¬¬ {currentDayIndex + 1} å¤©çš„æ‰€æœ‰æ³¢æ¬¡å·²å®Œæˆï¼");
             this.enabled = false;
             return;
         }
@@ -101,7 +105,7 @@ public class EnemySpawner : MonoBehaviour
         spawnTimer = 0f;
         enemiesSpawnedThisWave = 0;
 
-        UnityEngine.Debug.Log($"¿ªÊ¼µÚ {currentDayIndex + 1} Ìì, µÚ {currentWaveIndex + 1} ²¨...");
+        UnityEngine.Debug.Log($"å¼€å§‹ç¬¬ {currentDayIndex + 1} å¤©, ç¬¬ {currentWaveIndex + 1} æ³¢...");
     }
 
     private void SpawnEnemyGroup()
@@ -116,36 +120,70 @@ public class EnemySpawner : MonoBehaviour
 
         EnemyGroup groupToSpawn = currentWaveData.enemyGroups[UnityEngine.Random.Range(0, currentWaveData.enemyGroups.Count)];
         enemiesSpawnedThisWave++;
-        SpawnSingleEnemy(groupToSpawn.enemyData);
+
+        // â­ï¸ æ ¸å¿ƒä¿®æ”¹ï¼šå¯åŠ¨åç¨‹æ¥å¤„ç†é¢„è­¦å’Œç”Ÿæˆ
+        StartCoroutine(SpawnEnemyWithWarning(groupToSpawn.enemyData));
     }
 
-    private void SpawnSingleEnemy(EnemyData enemyToSpawn)
+    /// <summary>
+    /// åœ¨ç”Ÿæˆæ€ªç‰©å‰æ˜¾ç¤ºé¢„è­¦å›¾æ ‡çš„åç¨‹
+    /// </summary>
+    private IEnumerator SpawnEnemyWithWarning(EnemyData enemyToSpawn) // â­ï¸ æ›¿ä»£åŸæœ‰çš„ SpawnSingleEnemy
     {
-        // 1. ÔÚÖ¸¶¨µÄ¾ØĞÎÇøÓòÄÚËæ»úÉú³ÉÒ»¸ö×ø±ê
+        // 1. åœ¨æŒ‡å®šçš„çŸ©å½¢åŒºåŸŸå†…éšæœºç”Ÿæˆä¸€ä¸ªåæ ‡
         float spawnX = UnityEngine.Random.Range(minSpawnPosition.x, maxSpawnPosition.x);
         float spawnY = UnityEngine.Random.Range(minSpawnPosition.y, maxSpawnPosition.y);
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0);
 
-        // 2. ÊµÀı»¯¹ÖÎï
+        GameObject warningInstance = null;
+
+        // 2. å®ä¾‹åŒ–é¢„è­¦å›¾æ ‡ (å¦‚æœé¢„åˆ¶ä½“å­˜åœ¨)
+        if (warningIconPrefab != null)
+        {
+            // â­ï¸ ä¿®æ­£ï¼šç›´æ¥åœ¨ spawnPosition å®ä¾‹åŒ–
+            warningInstance = Instantiate(warningIconPrefab, spawnPosition, Quaternion.identity);
+
+            // ç¡®ä¿ Z è½´åœ¨èƒŒæ™¯å±‚çº§ä¸Šï¼Œå¦‚æœæ‚¨çš„æ¸¸æˆéœ€è¦ï¼Œå¯ä»¥è°ƒæ•´ Z è½´çš„å€¼
+            // warningInstance.transform.position = new Vector3(spawnPosition.x, spawnPosition.y, 0); // è¿™ä¸€è¡Œç°åœ¨æ˜¯å¤šä½™çš„ï¼Œä½†å¦‚æœéœ€è¦è°ƒæ•´Zè½´å¯ä»¥ä¿ç•™
+
+            UnityEngine.Debug.Log($"EnemySpawner: âš ï¸ åœ¨ {spawnPosition} æ˜¾ç¤ºé¢„è­¦å›¾æ ‡ã€‚");
+        }
+
+        // 3. æš‚åœé¢„è­¦æ—¶é•¿ (0.5s)
+        yield return new WaitForSeconds(warningDuration);
+
+        // 4. é”€æ¯é¢„è­¦å›¾æ ‡ (æ ¸å¿ƒé”€æ¯é€»è¾‘)
+        if (warningInstance != null)
+        {
+            // â­ï¸ ç¡®ä¿é”€æ¯
+            Destroy(warningInstance);
+        }
+
+        // 5. å®ä¾‹åŒ–æ€ªç‰©
         GameObject enemyInstance = Instantiate(enemyToSpawn.enemyPrefab, spawnPosition, Quaternion.identity);
         enemyInstance.tag = "Enemy";
         activeEnemies.Add(enemyInstance);
 
-        // 3. ³õÊ¼»¯¹ÖÎï¿ØÖÆÆ÷
+        PlayerCharacter playerChar = playerTransform.GetComponent<PlayerCharacter>();
+
+        // 6. åˆå§‹åŒ–æ€ªç‰©
         EnemyController controller = enemyInstance.GetComponent<EnemyController>();
         if (controller != null)
         {
-            // ¡¾ºËĞÄĞŞ¸Ä¡¿µ÷ÓÃĞÂµÄ Initialize ·½·¨£¬²¢´«Èë EnemyData ºÍ Íæ¼ÒÒıÓÃ
-            // playerTransform ÊÇÎÒÃÇÔÚ Spawner µÄ Start ·½·¨ÖĞ»º´æµÄ
-            controller.Initialize(enemyToSpawn, playerTransform.GetComponent<PlayerCharacter>());
+            controller.Initialize(enemyToSpawn, playerChar);
+            UnityEngine.Debug.Log($"EnemySpawner: åˆå§‹åŒ– {enemyInstance.name} æˆåŠŸã€‚");
+        }
+        else
+        {
+            UnityEngine.Debug.LogError($"EnemySpawner: âŒ æ— æ³•åœ¨ {enemyInstance.name} ä¸Šæ‰¾åˆ° EnemyController æˆ–ç»§æ‰¿ç±»ï¼");
         }
     }
 
-
-    //ÏÔÊ¾³ö¹Ö·¶Î§
-    private void OnDrawGizmosSelected()   
+    // ---
+    //æ˜¾ç¤ºå‡ºæ€ªèŒƒå›´
+    private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red; // ÉèÖÃGizmoµÄÑÕÉ«
+        Gizmos.color = Color.red; // è®¾ç½®Gizmoçš„é¢œè‰²
         Vector3 center = new Vector3(
             (minSpawnPosition.x + maxSpawnPosition.x) / 2,
             (minSpawnPosition.y + maxSpawnPosition.y) / 2,
@@ -156,6 +194,6 @@ public class EnemySpawner : MonoBehaviour
             maxSpawnPosition.y - minSpawnPosition.y,
             0
         );
-        Gizmos.DrawWireCube(center, size); // »æÖÆÒ»¸öÏß¿ò¾ØĞÎ
+        Gizmos.DrawWireCube(center, size); // ç»˜åˆ¶ä¸€ä¸ªçº¿æ¡†çŸ©å½¢
     }
 }
