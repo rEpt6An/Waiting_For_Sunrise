@@ -94,6 +94,7 @@
     <Compile Include="Assets\C#\item\weapon\pojo\Weapon.cs" />
     <Compile Include="Assets\C#\UI_Control\ShopConnect\ItemSlotUI.cs" />
     <Compile Include="Assets\C#\common\interface\ISingleton.cs" />
+    <Compile Include="Assets\C#\UI_Control\MainMenu\MainMenuController.cs" />
     <Compile Include="Assets\C#\player\damage\PlayerGetDamageContext.cs" />
     <Compile Include="Assets\C#\item\equipment\pojo\EquipmentDo.cs" />
     <Compile Include="Assets\C#\player\damage\PlayerGiveDamageContext.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Assets\C#\Player_inGame\Player_Control\PlayerMovement.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\C#\player\bag\interface\IPlayerInventory.cs" />
+    <Compile Include="Assets\C#\UI_Control\MainMenu\SettingsManager.cs" />
     <Compile Include="Assets\C#\item\equipment\EquipmentConverter.cs" />
     <Compile Include="Assets\C#\bus\interface\IEventHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Assets\C#\common\pojo\FileResources.cs" />
     <Compile Include="Assets\C#\UI_Control\Night\WeaponUI.cs" />
     <Compile Include="Assets\C#\Player_inGame\Enemy_ingame\EnemyDeathSound.cs" />
+    <Compile Include="Assets\C#\General\GlobalAudioManager.cs" />
     <Compile Include="Assets\C#\common\IconManager.cs" />
     <Compile Include="Assets\C#\player\bag\interface\IPlayerToolbar.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
