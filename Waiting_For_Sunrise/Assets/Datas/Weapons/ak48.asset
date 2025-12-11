@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc433050be3a278448b23e29733d13da, type: 3}
-  m_Name: gun
+  m_Name: ak48
   m_EditorClassIdentifier: 
   attackPrefab: {fileID: 3518509106354909237, guid: 35a319b7deb226c4fb3c4f491ebef0d8, type: 3}
   meleeLifetime: 0.1
   projectileSpeed: 10
-  image: {fileID: 21300000, guid: 7c8922b1deaa00742ab425fc540d09ac, type: 3}
+  image: {fileID: 21300000, guid: 12dcc3bbb49995e40af36ff085839374, type: 3}
   weaponName: gun
   attackType: 1
   damageScaleType: 1
-  baseDamage: 5
+  baseDamage: 4
   scalingMultiplier: 100
-  baseAttackSpeed: 1
+  baseAttackSpeed: 5
   baseRange: 1.5
   repel: 1
-  clip: 12
-  cliptime: 0.75
+  clip: 35
+  cliptime: 1.5
   penetrate: 1
   animationDuration: 0.2
-  rotationAngle: 90
+  rotationAngle: 30
   attackSound: {fileID: 8300000, guid: d7a39c1ca9f0ecf4aba8f86d78da17b2, type: 3}

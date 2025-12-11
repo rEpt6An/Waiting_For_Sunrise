@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc433050be3a278448b23e29733d13da, type: 3}
-  m_Name: steal
+  m_Name: knife
   m_EditorClassIdentifier: 
   attackPrefab: {fileID: 4254535825771883383, guid: 0fb8388ac8dcf6d41961dc0af48764d5, type: 3}
   meleeLifetime: 0.2
@@ -29,4 +29,4 @@ MonoBehaviour:
   penetrate: 1
   animationDuration: 0.3
   rotationAngle: 90
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: adbec6aa9273b584a8a91081c1c8b9d4, type: 3}
