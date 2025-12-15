@@ -26,7 +26,9 @@ MonoBehaviour:
   repel: 2
   clip: 30
   cliptime: 0.75
-  penetrate: 3
+  penetrate: 0
   animationDuration: 0.2
   rotationAngle: 30
-  attackSound: {fileID: 8300000, guid: d7a39c1ca9f0ecf4aba8f86d78da17b2, type: 3}
+  projectileCount: 5
+  spreadAngle: 20
+  attackSound: {fileID: 8300000, guid: fc7e888243cb3b543aa8d8270f27efaf, type: 3}

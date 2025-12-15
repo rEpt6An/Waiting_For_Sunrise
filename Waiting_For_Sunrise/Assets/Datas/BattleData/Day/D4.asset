@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b31a04591c6489c459438246abaa1c5e, type: 3}
-  m_Name: D1
+  m_Name: D4
   m_EditorClassIdentifier: 
   waves:
-  - {fileID: 11400000, guid: bb8cc0d637e8fd044b52d960e3c4032b, type: 2}
-  - {fileID: 11400000, guid: 3c8840ecb2c8edc40817fe8f9432a71b, type: 2}
-  - {fileID: 11400000, guid: bb8cc0d637e8fd044b52d960e3c4032b, type: 2}
+  - {fileID: 11400000, guid: 13a3f23519126df4ea847b8705cc75b9, type: 2}
   maxEnemiesOnScreen: 100

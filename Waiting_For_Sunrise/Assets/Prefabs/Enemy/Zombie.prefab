@@ -121,6 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56062365290210843826efd812c297e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathParticlePrefab: {fileID: 3868071127524113780, guid: 655568be403734447af8a7ef48d51867, type: 3}
+  destroyDelayTime: 0.3
 --- !u!50 &4022985165917668252
 Rigidbody2D:
   serializedVersion: 4

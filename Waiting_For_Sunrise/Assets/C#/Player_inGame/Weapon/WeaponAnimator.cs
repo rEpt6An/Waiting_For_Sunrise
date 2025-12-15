@@ -1,5 +1,4 @@
-﻿// WeaponAnimator.cs (最终修正版)
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class WeaponAnimator : MonoBehaviour
@@ -17,6 +16,9 @@ public class WeaponAnimator : MonoBehaviour
     private const int ATTACK_TYPE_MELEE = 0;
     private const int ATTACK_TYPE_RANGED = 1;
 
+    // ⭐️ 音效组件
+    private AudioSource audioSource;
+
     // 缓存初始旋转，用于动画结束恢复
     private Quaternion initialLocalRotation;
 
@@ -28,6 +30,7 @@ public class WeaponAnimator : MonoBehaviour
     {
         return currentClip;
     }
+
     public void Initialize(WeaponData data)
     {
         currentWeaponData = data;
@@ -35,6 +38,26 @@ public class WeaponAnimator : MonoBehaviour
         // 确保获取组件，如果 Inspector 中未赋值
         if (weaponImageRenderer == null) weaponImageRenderer = GetComponent<SpriteRenderer>();
         if (visualTransform == null) visualTransform = transform;
+
+
+        // ⭐️ 核心：获取或添加 AudioSource 组件
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false; // 避免自动播放
+        }
+
+        // ⭐️ 核心：将 AudioSource 连接到 SFX 混音器组
+        if (GlobalAudioManager.Instance != null && GlobalAudioManager.Instance.SFXGroup != null)
+        {
+            audioSource.outputAudioMixerGroup = GlobalAudioManager.Instance.SFXGroup;
+        }
+        else
+        {
+            Debug.LogWarning("WeaponAnimator: ⚠️ 无法连接到 SFX 混音器组，请检查 GlobalAudioManager 是否已初始化，且混音器中存在名为 'SFX' 的组。");
+        }
+
 
         // 缓存视觉Transform的初始局部旋转
         initialLocalRotation = visualTransform.localRotation;
@@ -85,15 +108,7 @@ public class WeaponAnimator : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         // 3. 旋转武器视觉对象，使其朝向鼠标
-        // 注意：这里使用 localRotation 可能会与攻击动画冲突，
-        // 更好的做法是直接设置 rotation (世界旋转)
         visualTransform.rotation = Quaternion.Euler(0, 0, angle);
-
-        // 可选：根据面向方向进行视觉翻转 (使武器始终朝向玩家前方)
-        // if (angle > 90 || angle < -90)
-        // {
-        //     // 翻转 visualTransform.localScale.y = -1;
-        // }
     }
 
     public bool ConsumeClip()
@@ -140,7 +155,7 @@ public class WeaponAnimator : MonoBehaviour
                 timer += Time.deltaTime;
                 yield return null;
             }
-            // 确保回到初始状态，并由 HandleWeaponAiming 接管方向
+            // 确保回到初始状态
             visualTransform.localRotation = startRot;
         }
 
@@ -159,10 +174,12 @@ public class WeaponAnimator : MonoBehaviour
     {
         if (!isReloading && currentWeaponData != null)
         {
-            if (currentWeaponData.attackSound != null)
+            // ⭐️ 核心：播放音效
+            if (audioSource != null && currentWeaponData.attackSound != null)
             {
-                // 假设有一个 AudioSource 组件来播放声音
+                audioSource.PlayOneShot(currentWeaponData.attackSound);
             }
+
             // 确保停止之前的动画，避免冲突
             StopCoroutine("WeaponAttackAnimationCoroutine");
             StartCoroutine(WeaponAttackAnimationCoroutine(attackType));
@@ -202,6 +219,6 @@ public class WeaponAnimator : MonoBehaviour
         }
 
         // 动画结束，不强制设置 rotation，让 Update 中的 HandleWeaponAiming 接管
-        // visualTransform.rotation = startRotation; 
+        // visualTransform.rotation = startRotation; 
     }
 }

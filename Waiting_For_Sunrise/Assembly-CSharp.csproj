@@ -69,6 +69,7 @@
     <Compile Include="Assets\C#\Player_inGame\Weapon\WeaponData.cs" />
     <Compile Include="Assets\C#\player\bag\PlayBag.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Fight\BossHealthMonitor.cs" />
     <Compile Include="Assets\C#\item\equipment\EquipmentManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\C#\UI_Control\Night\CoinDisplayUI.cs" />
@@ -156,8 +157,10 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\C#\Player_inGame\Weapon\WeaponAttack.cs" />
     <Compile Include="Assets\C#\item\equipment\AbstractEquipment.cs" />
+    <Compile Include="Assets\C#\UI_Control\Night\PauseMenuController.cs" />
     <Compile Include="Assets\C#\shop\interface\IItemIdLottery.cs" />
     <Compile Include="Assets\C#\common\pojo\FileResources.cs" />
+    <Compile Include="Assets\C#\UI_Control\Night\BossUIManager.cs" />
     <Compile Include="Assets\C#\UI_Control\Night\WeaponUI.cs" />
     <Compile Include="Assets\C#\Player_inGame\Enemy_ingame\EnemyDeathSound.cs" />
     <Compile Include="Assets\C#\General\GlobalAudioManager.cs" />

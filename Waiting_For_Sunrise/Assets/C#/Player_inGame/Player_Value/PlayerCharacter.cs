@@ -135,12 +135,14 @@ public class PlayerCharacter : MonoBehaviour
 
     private void PerformAttack()
     {
+        if (currentWeapon == null || attackSpawnPoint == null) return;
+
         float correspondingPlayerDamage = 0f;
 
         // 获取鼠标方向
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
-        Vector2 direction = (mousePosition - attackSpawnPoint.position).normalized;
+        Vector2 baseDirection = (mousePosition - attackSpawnPoint.position).normalized;
 
         // 获取伤害加成
         if (currentWeapon.damageScaleType == 0)
@@ -152,60 +154,87 @@ public class PlayerCharacter : MonoBehaviour
             correspondingPlayerDamage = PlayerState.RangedAttack;
         }
 
-        // 实例化攻击碰撞体
-        GameObject prefabToInstantiate = currentWeapon.attackPrefab;
-        if (prefabToInstantiate == null)
-        {
-            Debug.LogError($"Weapon '{currentWeapon.weaponName}' is missing an Attack Prefab!");
-            return;
-        }
-        float attackLifetime = 0.1f; // 默认值
-        if (currentWeapon.attackType == 0) // 近战
-        {
-            attackLifetime = currentWeapon.meleeLifetime;
-        }
-
-        GameObject attackInstance = Instantiate(prefabToInstantiate, attackSpawnPoint.position, Quaternion.identity);
-
-        // 设置攻击角度
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        attackInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
-
         // 计算最终伤害
         float finalDamage = (currentWeapon.baseDamage + currentWeapon.scalingMultiplier * correspondingPlayerDamage)
                              * (float)PlayerState.DamageMultipler;
 
-        // 初始化 WeaponAttack 脚本
-        WeaponAttack attackScript = attackInstance.GetComponent<WeaponAttack>();
-        if (attackScript != null)
-        {
-            attackScript.Initialize(
-                finalDamage,
-                currentWeapon.repel,
-                attackSpawnPoint.position,
-                currentWeapon.penetrate,
-                currentWeapon.attackType,
-                attackLifetime
-            );
-        }
-
-        // 远程武器施加初始速度
-        if (currentWeapon.attackType == 1)
-        {
-            Rigidbody2D rb = attackInstance.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                rb.velocity = direction * currentWeapon.projectileSpeed;
-            }
-        }
-
-        // 触发动画
+        // 触发动画 (在攻击循环外只触发一次)
         if (weaponAnimator != null)
         {
             weaponAnimator.TriggerAttackAnimation(currentWeapon.attackType);
         }
-    }
 
+        // ⭐️ 核心改动：根据 projectileCount 循环实例化
+        int count = currentWeapon.attackType == 1 ? currentWeapon.projectileCount : 1;
+
+        for (int i = 0; i < count; i++)
+        {
+            GameObject prefabToInstantiate = currentWeapon.attackPrefab;
+            if (prefabToInstantiate == null)
+            {
+                Debug.LogError($"Weapon '{currentWeapon.weaponName}' is missing an Attack Prefab!");
+                return; // 至少要确保动画触发了，但这里退出循环继续执行
+            }
+
+            // --- 1. 计算散射角度和方向 ---
+            float randomAngleOffset = 0f;
+            if (currentWeapon.attackType == 1 && currentWeapon.spreadAngle > 0f)
+            {
+                // 引入随机散射
+                randomAngleOffset = Random.Range(-currentWeapon.spreadAngle / 2f, currentWeapon.spreadAngle / 2f);
+            }
+
+            // 将方向向量转换为角度
+            float baseAngle = Mathf.Atan2(baseDirection.y, baseDirection.x) * Mathf.Rad2Deg;
+            float finalAngle = baseAngle + randomAngleOffset;
+
+            // 将角度转换回新的方向向量
+            Vector2 direction = new Vector2(
+                Mathf.Cos(finalAngle * Mathf.Deg2Rad),
+                Mathf.Sin(finalAngle * Mathf.Deg2Rad)
+            ).normalized;
+
+
+            // --- 2. 实例化和设置 ---
+            GameObject attackInstance = Instantiate(prefabToInstantiate, attackSpawnPoint.position, Quaternion.identity);
+
+            float attackLifetime = 0.1f;
+            if (currentWeapon.attackType == 0) // 近战
+            {
+                attackLifetime = currentWeapon.meleeLifetime;
+            }
+
+            // 设置攻击角度
+            attackInstance.transform.rotation = Quaternion.Euler(0, 0, finalAngle);
+
+            // 初始化 WeaponAttack 脚本
+            WeaponAttack attackScript = attackInstance.GetComponent<WeaponAttack>();
+            if (attackScript != null)
+            {
+                attackScript.Initialize(
+                    finalDamage,
+                    currentWeapon.repel,
+                    attackSpawnPoint.position,
+                    currentWeapon.penetrate,
+                    currentWeapon.attackType,
+                    attackLifetime
+                );
+            }
+
+            // 远程武器施加初始速度
+            if (currentWeapon.attackType == 1)
+            {
+                Rigidbody2D rb = attackInstance.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    rb.velocity = direction * currentWeapon.projectileSpeed;
+                }
+            }
+        } // 结束 for 循环
+
+        // 重置冷却计时器
+        attackCooldownTimer = 0f;
+    }
     // --- 核心方法：武器切换 ---
     private void HandleWeaponSwitching()
     {

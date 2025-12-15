@@ -53,6 +53,15 @@ public class WeaponData : ScriptableObject
 
 
 
+    [Header("远程武器配置 (霰弹)")]
+    [Tooltip("每次攻击发射的弹丸数量 (1 即为普通子弹)")]
+    public int projectileCount = 1;
+
+    [Tooltip("弹丸的最大散射角度 (默认 0)")]
+    [Range(0f, 45f)]
+    public float spreadAngle = 0f;
+
+
     [Tooltip("攻击时的声音效果 (可选)")]
     public AudioClip attackSound;
 }

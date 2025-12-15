@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections; // 必须导入，因为我们要使用协程 (IEnumerator)
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -9,6 +10,13 @@ public class EnemyController : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     protected PlayerCharacter playerCharacter;
     protected Rigidbody2D rb;
+
+    // --- 新增粒子效果字段 ---
+    [Header("死亡效果")]
+    [Tooltip("死亡时播放的粒子系统预制件")]
+    [SerializeField] protected GameObject deathParticlePrefab;
+    [Tooltip("粒子效果播放完毕后，延迟销毁整个对象的时间")]
+    [SerializeField] protected float destroyDelayTime = 0.3f; // 0.3秒消散时间
 
     // --- 数值字段 (改为 protected) ---
     protected float maxHealth;
@@ -23,6 +31,10 @@ public class EnemyController : MonoBehaviour
     protected float timeSinceLastAttack = 0f;
     protected bool isInitialized = false;
 
+
+    // 公共属性来获取血量信息
+    public float MaxHealth => maxHealth;
+    public float CurrentHealth => currentHealth;
     /// <summary>
     /// 外部调用的初始化方法，设为 virtual 允许子类重写。
     /// </summary>
@@ -116,11 +128,52 @@ public class EnemyController : MonoBehaviour
     // ⭐️ Die 方法改为 public virtual，允许子类重写并调用 base.Die()
     public virtual void Die() // ⭐️ 设为 public virtual
     {
+        // 1. 奖励结算 (原有的 base.Die() 逻辑)
         if (playerCharacter != null)
         {
             playerCharacter.GainExperience(experienceReward);
             playerCharacter.GainCoins(coinDropAmount);
         }
+
+        // 2. 视觉和物理禁用 (怪物实体不再可见或可碰撞)
+        if (spriteRenderer != null) spriteRenderer.enabled = false;
+        if (GetComponent<Collider2D>() != null) GetComponent<Collider2D>().enabled = false;
+        if (rb != null) rb.velocity = Vector2.zero; // 停止所有移动
+
+        // 确保 Boss 相关的脚本知道怪物已死，以便隐藏血条等
+        // 如果您使用了 BossHealthMonitor，它会在 OnDisable 或被通知后处理 UI 隐藏。
+
+        // 3. 启动销毁协程
+        StartCoroutine(DeathSequence());
+    }
+
+    /// <summary>
+    /// 死亡效果和延迟销毁的协程
+    /// </summary>
+    protected virtual IEnumerator DeathSequence()
+    {
+        // 4. 播放粒子效果
+        if (deathParticlePrefab != null)
+        {
+            // 在怪物当前位置实例化粒子
+            GameObject particleInstance = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+
+            // 确保粒子系统播放完后自动销毁 (通常在粒子系统组件中设置)
+            // 如果粒子系统组件没有设置 Stop Action = Destroy，需要在这里额外处理销毁
+
+            // ⭐️ 可选：如果你想让粒子系统的销毁时间与 destroyDelayTime 匹配：
+            // var ps = particleInstance.GetComponent<ParticleSystem>();
+            // if (ps != null)
+            // {
+            //     var main = ps.main;
+            //     main.duration = destroyDelayTime;
+            // }
+        }
+
+        // 5. 等待 0.3 秒，让粒子效果播放和消散
+        yield return new WaitForSeconds(destroyDelayTime);
+
+        // 6. 销毁怪物主体对象 (包括此脚本)
         Destroy(gameObject);
     }
 

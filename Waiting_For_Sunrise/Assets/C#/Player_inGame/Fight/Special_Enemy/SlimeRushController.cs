@@ -222,12 +222,17 @@ public class SlimeRushController : EnemyController
     public override void Die()
     {
         Debug.Log("RushSlime: 💥 死亡。");
+
+        // 1. 设置状态 (子类特定逻辑)
         currentState = RushState.Dead;
         if (lineRenderer != null) lineRenderer.enabled = false;
 
+        // 2. 调用父类 Die 方法，触发粒子、禁用Sprite、结算奖励和延迟销毁
         base.Die();
-    }
 
+        // ⚠️ 注意：由于 base.Die() 会最终调用 Destroy(gameObject)，
+        // 任何写在 base.Die() 之后的代码都不会被执行。
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

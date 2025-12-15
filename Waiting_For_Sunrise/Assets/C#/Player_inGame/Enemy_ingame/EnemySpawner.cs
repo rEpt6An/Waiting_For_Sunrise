@@ -128,34 +128,29 @@ public class EnemySpawner : MonoBehaviour
     /// <summary>
     /// 在生成怪物前显示预警图标的协程
     /// </summary>
-    private IEnumerator SpawnEnemyWithWarning(EnemyData enemyToSpawn) // ⭐️ 替代原有的 SpawnSingleEnemy
+
+    private IEnumerator SpawnEnemyWithWarning(EnemyData enemyToSpawn)
     {
-        // 1. 在指定的矩形区域内随机生成一个坐标
+        // 1. 随机生成坐标
         float spawnX = UnityEngine.Random.Range(minSpawnPosition.x, maxSpawnPosition.x);
         float spawnY = UnityEngine.Random.Range(minSpawnPosition.y, maxSpawnPosition.y);
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0);
 
         GameObject warningInstance = null;
 
-        // 2. 实例化预警图标 (如果预制体存在)
+        // 2. 实例化预警图标
         if (warningIconPrefab != null)
         {
-            // ⭐️ 修正：直接在 spawnPosition 实例化
             warningInstance = Instantiate(warningIconPrefab, spawnPosition, Quaternion.identity);
-
-            // 确保 Z 轴在背景层级上，如果您的游戏需要，可以调整 Z 轴的值
-            // warningInstance.transform.position = new Vector3(spawnPosition.x, spawnPosition.y, 0); // 这一行现在是多余的，但如果需要调整Z轴可以保留
-
             UnityEngine.Debug.Log($"EnemySpawner: ⚠️ 在 {spawnPosition} 显示预警图标。");
         }
 
-        // 3. 暂停预警时长 (0.5s)
+        // 3. 暂停预警时长
         yield return new WaitForSeconds(warningDuration);
 
-        // 4. 销毁预警图标 (核心销毁逻辑)
+        // 4. 销毁预警图标
         if (warningInstance != null)
         {
-            // ⭐️ 确保销毁
             Destroy(warningInstance);
         }
 
@@ -172,13 +167,27 @@ public class EnemySpawner : MonoBehaviour
         {
             controller.Initialize(enemyToSpawn, playerChar);
             UnityEngine.Debug.Log($"EnemySpawner: 初始化 {enemyInstance.name} 成功。");
+
+            // ⭐️ 核心修正：检查是否是 Boss 并注册到 UI Manager
+            BossHealthMonitor bossMonitor = enemyInstance.GetComponent<BossHealthMonitor>();
+            if (bossMonitor != null)
+            {
+                // 确保 BossUIManager 存在
+                if (BossUIManager.Instance != null)
+                {
+                    BossUIManager.Instance.RegisterNewBoss(bossMonitor);
+                }
+                else
+                {
+                    UnityEngine.Debug.LogError("EnemySpawner: ❌ 找不到 BossUIManager 单例！Boss 血条无法注册。");
+                }
+            }
         }
         else
         {
             UnityEngine.Debug.LogError($"EnemySpawner: ❌ 无法在 {enemyInstance.name} 上找到 EnemyController 或继承类！");
         }
     }
-
     // ---
     //显示出怪范围
     private void OnDrawGizmosSelected()
