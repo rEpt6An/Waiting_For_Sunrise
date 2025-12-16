@@ -65,6 +65,7 @@
     <Compile Include="Assets\C#\Player_inGame\Enemy_ingame\EnemySpawner.cs" />
     <Compile Include="Assets\C#\Player_inGame\Weapon\WeaponAnimator.cs" />
     <Compile Include="Assets\C#\player\event\PlayerGetDamageEvent.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Fight\Special_Enemy\弹幕\DamageableProjectile.cs" />
     <Compile Include="Assets\C#\General\GameManager.cs" />
     <Compile Include="Assets\C#\Player_inGame\Weapon\WeaponData.cs" />
     <Compile Include="Assets\C#\player\bag\PlayBag.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Assets\C#\item\interface\IEquipment.cs" />
     <Compile Include="Assets\C#\player\event\LifeStealEvent.cs" />
     <Compile Include="Assets\C#\Player_inGame\Weapon\MeleeVisualizer.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Fight\Special_Enemy\弹幕\Projectile.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\C#\UI_Control\Night\HealthBarUI.cs" />
     <Compile Include="Assets\C#\common\util\ValidChecker.cs" />
@@ -193,9 +195,11 @@
     <Compile Include="Assets\C#\UI_Control\DayDisplayUI.cs" />
     <Compile Include="Assets\C#\General\Quit.cs" />
     <Compile Include="Assets\C#\common\exception\StartException.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Fight\Special_Enemy\WolfController.cs" />
     <Compile Include="Assets\C#\player\player\PlayerState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\C#\Player_inGame\ExplosionVFX.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Fight\Special_Enemy\FireSixShooterController.cs" />
     <Compile Include="Assets\C#\shop\pojo\GoodsDto.cs" />
     <Compile Include="Assets\C#\item\event\EquipmentEventHandler.cs" />
     <Compile Include="Assets\C#\common\pojo\Icon.cs" />

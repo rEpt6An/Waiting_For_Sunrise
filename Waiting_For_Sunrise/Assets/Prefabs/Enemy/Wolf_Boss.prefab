@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 3951164056582598709}
   - component: {fileID: 8267851759024711996}
   - component: {fileID: 7772350258663677110}
+  - component: {fileID: -2399034695256164497}
   m_Layer: 0
-  m_Name: Wolf
+  m_Name: Wolf_Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.847, y: -1.04, z: 0}
-  m_LocalScale: {x: -1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: -2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -122,9 +123,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 20
-  m_LinearDrag: 3
-  m_AngularDrag: 3
+  m_Mass: 100
+  m_LinearDrag: 5
+  m_AngularDrag: 5
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -256,8 +257,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 1
-        value: 0.5090904
+        time: 0.5006714
+        value: 0.7333336
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -308,3 +309,16 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-2399034695256164497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6104108987532270553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2fd7f866bba3114abb5528e6d58a7e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossDisplayName: Wolf King

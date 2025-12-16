@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMixer: {fileID: 24100000, guid: 0f1701c58a2fa45498e20f3265f795e9, type: 2}
   bgmAudioSource: {fileID: 291766077}
+  SFXGroup: {fileID: 0}
   mainMenuBGM: {fileID: 8300000, guid: 6c4f86977b128b840993a85c7e176943, type: 3}
   nightBGM: {fileID: 8300000, guid: b4c28319e522df74caf689118ac5fbf3, type: 3}
   ShopBGM: {fileID: 8300000, guid: 893863fb1eaa87a458ddca7f7508b8f4, type: 3}

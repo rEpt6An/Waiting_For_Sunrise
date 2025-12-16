@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fea70d9c9e18a2a47820ab3c9db03cd6, type: 3}
-  m_Name: Wave_Test
+  m_Name: Wave_6fire
   m_EditorClassIdentifier: 
   enemyGroups:
-  - enemyData: {fileID: 11400000, guid: 797c463c306ab2f4b9496f249f438301, type: 2}
+  - enemyData: {fileID: 11400000, guid: fdbeddf3a33f072449df851d2a3530f4, type: 2}
     count: 1
   duration: 10
   spawnInterval: 1

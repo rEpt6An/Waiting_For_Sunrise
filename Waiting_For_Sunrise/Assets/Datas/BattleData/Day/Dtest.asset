@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fea70d9c9e18a2a47820ab3c9db03cd6, type: 3}
-  m_Name: Wave_Test
+  m_Script: {fileID: 11500000, guid: b31a04591c6489c459438246abaa1c5e, type: 3}
+  m_Name: Dtest
   m_EditorClassIdentifier: 
-  enemyGroups:
-  - enemyData: {fileID: 11400000, guid: 797c463c306ab2f4b9496f249f438301, type: 2}
-    count: 1
-  duration: 10
-  spawnInterval: 1
+  waves:
+  - {fileID: 11400000, guid: cdbc4236cd14f27409f7d0bd250c4fbf, type: 2}
+  maxEnemiesOnScreen: 100

@@ -29,4 +29,6 @@ MonoBehaviour:
   penetrate: 1
   animationDuration: 0.2
   rotationAngle: 30
-  attackSound: {fileID: 8300000, guid: d7a39c1ca9f0ecf4aba8f86d78da17b2, type: 3}
+  projectileCount: 1
+  spreadAngle: 0
+  attackSound: {fileID: 8300000, guid: 595c4e4c903662042b5919f35fb9f3b9, type: 3}

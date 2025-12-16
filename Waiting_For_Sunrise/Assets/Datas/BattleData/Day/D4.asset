@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - {fileID: 11400000, guid: 13a3f23519126df4ea847b8705cc75b9, type: 2}
+  - {fileID: 11400000, guid: 588c5c33af9d21a40a80e8f80bd0e511, type: 2}
+  - {fileID: 11400000, guid: 99c0b5651b3a58c4799585f94a5a7714, type: 2}
   maxEnemiesOnScreen: 100

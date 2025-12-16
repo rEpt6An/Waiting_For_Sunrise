@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc433050be3a278448b23e29733d13da, type: 3}
-  m_Name: gun
+  m_Name: usp
   m_EditorClassIdentifier: 
   attackPrefab: {fileID: 3518509106354909237, guid: 35a319b7deb226c4fb3c4f491ebef0d8, type: 3}
   meleeLifetime: 0.1
@@ -31,4 +31,4 @@ MonoBehaviour:
   rotationAngle: 90
   projectileCount: 1
   spreadAngle: 0
-  attackSound: {fileID: 8300000, guid: fc7e888243cb3b543aa8d8270f27efaf, type: 3}
+  attackSound: {fileID: 8300000, guid: d3c9714acf0b8404e8bc1f4f86fe3724, type: 3}
