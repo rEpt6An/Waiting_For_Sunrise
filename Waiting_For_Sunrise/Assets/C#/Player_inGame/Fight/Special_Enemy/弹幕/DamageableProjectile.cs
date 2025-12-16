@@ -5,7 +5,7 @@ public class DamageableProjectile : Projectile // 继承自 Projectile
 {
     private int currentHP;
     private UnityEngine.Transform target; // 追踪目标
-    private float turnSpeed = 3f; // 追踪转向速度 (可以在 Inspector 中配置)
+    private float turnSpeed = 0.8f; // 追踪转向速度 (可以在 Inspector 中配置)
 
     // 重写 Awake 来获取 Rigidbody2D
     new void Awake()

@@ -3,6 +3,11 @@ namespace Assets.C_.player.player
     public interface IPlayerState
     {
         // 属性
+
+        /// <summary>
+        /// 玩家等级
+        /// </summary>
+        public int Level { get; }
         /// <summary>
         /// 当前生命值
         /// </summary>
@@ -113,6 +118,8 @@ namespace Assets.C_.player.player
         void changeHarvest(int changePoint);
         void changeMeleeAttack(int changePoint);
         void changeRangedAttack(int changePoint);
+
+        void changeLevel(int changePoint);
 
     }
 }

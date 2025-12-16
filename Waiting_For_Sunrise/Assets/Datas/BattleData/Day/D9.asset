@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b31a04591c6489c459438246abaa1c5e, type: 3}
+  m_Name: D9
+  m_EditorClassIdentifier: 
+  waves:
+  - {fileID: 11400000, guid: 632222db9ebb87144ad44be414fcd22c, type: 2}
+  - {fileID: 11400000, guid: a425da909a5b2bd4787f4f7568913d47, type: 2}
+  - {fileID: 11400000, guid: caade7abf17859f4984b8902993e575c, type: 2}
+  - {fileID: 11400000, guid: caade7abf17859f4984b8902993e575c, type: 2}
+  - {fileID: 11400000, guid: caade7abf17859f4984b8902993e575c, type: 2}
+  maxEnemiesOnScreen: 100

@@ -90,10 +90,12 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\C#\common\enum\Rarity.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\C#\UI_Control\Night\DayCompletionPanel.cs" />
     <Compile Include="Assets\C#\item\exception\NoSuchEquipmentException.cs" />
     <Compile Include="Assets\C#\item\weapon\pojo\Weapon.cs" />
     <Compile Include="Assets\C#\UI_Control\ShopConnect\ItemSlotUI.cs" />
     <Compile Include="Assets\C#\common\interface\ISingleton.cs" />
+    <Compile Include="Assets\C#\Player_inGame\Fight\Boss.cs" />
     <Compile Include="Assets\C#\UI_Control\MainMenu\MainMenuController.cs" />
     <Compile Include="Assets\C#\player\damage\PlayerGetDamageContext.cs" />
     <Compile Include="Assets\C#\item\equipment\pojo\EquipmentDo.cs" />
@@ -130,6 +132,7 @@
     <Compile Include="Assets\test\C#\common\Test.cs" />
     <Compile Include="Assets\C#\item\equipment\pojo\Equipment.cs" />
     <Compile Include="Assets\C#\common\converter\JsonConverter.cs" />
+    <Compile Include="Assets\C#\UI_Control\Night\WeaponSelectionPanel.cs" />
     <Compile Include="Assets\C#\common\exception\ResourceNotFoundException.cs" />
     <Compile Include="Assets\C#\player\damage\IAttackable.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
@@ -162,6 +165,7 @@
     <Compile Include="Assets\C#\UI_Control\Night\PauseMenuController.cs" />
     <Compile Include="Assets\C#\shop\interface\IItemIdLottery.cs" />
     <Compile Include="Assets\C#\common\pojo\FileResources.cs" />
+    <Compile Include="Assets\C#\UI_Control\Night\VictoryPanel.cs" />
     <Compile Include="Assets\C#\UI_Control\Night\BossUIManager.cs" />
     <Compile Include="Assets\C#\UI_Control\Night\WeaponUI.cs" />
     <Compile Include="Assets\C#\Player_inGame\Enemy_ingame\EnemyDeathSound.cs" />

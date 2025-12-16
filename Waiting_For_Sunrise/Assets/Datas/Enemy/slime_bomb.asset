@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: slime_bomb
   enemyPrefab: {fileID: 4671824011422154132, guid: c45c7443e89e7974da033a8acc72d594, type: 3}
-  maxHealth: 20
+  maxHealth: 35
   attackDamage: 3
   attackCooldown: 1
   moveSpeed: 1

@@ -10,7 +10,7 @@ namespace Assets.C_.player.player
 
         public PlayerAsset()
         {
-            Money = 800;
+            Money = 0;
             PlayerBag = new PlayerBag();
         }
 

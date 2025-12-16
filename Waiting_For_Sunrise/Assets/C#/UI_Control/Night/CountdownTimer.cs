@@ -1,28 +1,37 @@
+ï»¿// ğŸ“œ CountdownTimer.cs (ä¿®æ­£å)
 using UnityEngine;
 using TMPro;
-using System.Collections;   
-using System.Collections.Generic; 
+using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class CountdownTimer : MonoBehaviour
 {
-    [Header("¼ÆÊ±Æ÷ÉèÖÃ")]
-    [Tooltip("µ¹¼ÆÊ±µÄ×ÜÊ±³¤£¨Ãë£©")]
+    [Header("è®¡æ—¶å™¨è®¾ç½®")]
+    [Tooltip("å€’è®¡æ—¶çš„æ€»æ—¶é•¿ï¼ˆç§’ï¼‰")]
     [SerializeField] private float timeDuration = 60f;
 
     private TextMeshProUGUI timerText;
     private float timer;
 
-    [Header("µ¹¼ÆÊ±½áÊøÌø×ª")]
-    [Tooltip("¸ºÔğÇĞ»»³¡¾°µÄ×é¼ş£¨Èô³¡¾°ÀïÒÑÓĞ¿ÉÁô¿Õ£©")]
-    [SerializeField] private SceneSwitcher sceneSwitcher;//ËùĞèÒıÓÃ
+    [Header("UI & ç®¡ç†å¼•ç”¨")]
+    [Tooltip("å€’è®¡æ—¶ç»“æŸæ—¶å¼¹å‡ºçš„ DayCompletionPanel")]
+    [SerializeField] private DayCompletionPanel dayCompletionPanel;
+
+    // åœºæ™¯é‡Œå¦‚æœæ²¡æœ‰æŒ‚ SceneSwitcherï¼Œå°±è‡ªåŠ¨æ‰¾ä¸€ä¸ª (ä¿ç•™)
+    [Tooltip("è´Ÿè´£åˆ‡æ¢åœºæ™¯çš„ç»„ä»¶ï¼ˆå¿…é¡»åœ¨ Inspector ä¸­å¼•ç”¨æˆ–åœºæ™¯ä¸­å­˜åœ¨ï¼‰")]
+    [SerializeField] private SceneSwitcher sceneSwitcher;
+
 
     void Awake()
     {
         timerText = GetComponent<TextMeshProUGUI>();
 
-        // ³¡¾°ÀïÈç¹ûÃ»ÓĞ¹Ò SceneSwitcher£¬¾Í×Ô¶¯ÕÒÒ»¸ö
+        // åœºæ™¯é‡Œå¦‚æœæ²¡æœ‰æŒ‚ SceneSwitcherï¼Œå°±è‡ªåŠ¨æ‰¾ä¸€ä¸ª
         if (sceneSwitcher == null) sceneSwitcher = FindObjectOfType<SceneSwitcher>();
+
+        // è‡ªåŠ¨æŸ¥æ‰¾ DayCompletionPanel
+        if (dayCompletionPanel == null) dayCompletionPanel = FindObjectOfType<DayCompletionPanel>();
     }
 
     void Start() => ResetTimer();
@@ -40,10 +49,15 @@ public class CountdownTimer : MonoBehaviour
             UpdateTimerDisplay();
             this.enabled = false;
 
-            if (sceneSwitcher != null)
-                sceneSwitcher.SwitchScene("Shop");
+            // â­ï¸ æ ¸å¿ƒä¿®æ­£ï¼šå°†ç»“æŸé€»è¾‘äº¤ç»™ GameManager å¤„ç†
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.HandleDayEnd(dayCompletionPanel, sceneSwitcher);
+            }
             else
-                UnityEngine.Debug.LogWarning("CountdownTimer: ÕÒ²»µ½ SceneSwitcher£¬ÎŞ·¨Ìø×ª Shop£¡");
+            {
+                Debug.LogError("æ— æ³•æ‰¾åˆ° GameManager å®ä¾‹ï¼Œæ— æ³•å¤„ç† Day End é€»è¾‘ï¼");
+            }
         }
     }
 

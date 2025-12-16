@@ -20,7 +20,7 @@ MonoBehaviour:
   attackType: 0
   damageScaleType: 0
   baseDamage: 5
-  scalingMultiplier: 5
+  scalingMultiplier: 1
   baseAttackSpeed: 1
   baseRange: 1
   repel: 2
@@ -29,4 +29,6 @@ MonoBehaviour:
   penetrate: 1
   animationDuration: 0.3
   rotationAngle: 90
+  projectileCount: 1
+  spreadAngle: 0
   attackSound: {fileID: 8300000, guid: adbec6aa9273b584a8a91081c1c8b9d4, type: 3}

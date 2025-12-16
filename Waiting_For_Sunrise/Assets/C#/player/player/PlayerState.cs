@@ -1,10 +1,14 @@
-﻿
-﻿using System;
+﻿// 📜 PlayerState.cs (完整修改版)
+
+using System;
+using UnityEngine; // 引入 UnityEngine 以使用 Debug (如果需要)
 
 namespace Assets.C_.player.player
 {
-    public class PlayerState: IPlayerState
+    public class PlayerState : IPlayerState
     {
+        // ⭐️ Level 属性不需要修改，已正确定义
+        public int Level { get; private set; } = 1; // 初始等级
 
         //当前生命值
         public int Blood { get; private set; }
@@ -45,14 +49,14 @@ namespace Assets.C_.player.player
 
         public PlayerState()
         {
-            Blood = 100;          // 当前生命值
-            MaxHP = 100;             // 最大生命值
+            Blood = 20;        // 当前生命值
+            MaxHP = 20;              // 最大生命值
             Experience = 0;       // 经验值
             DamageMultipler = 1;  // 伤害倍率（1 = 100%）
-            DefensivePower = 5;   // 防御力
-            Dodge = 0.1;           // 闪避率（%）
-            HitRate = 0.8;         // 命中率（%）
-            Scope = 1;            // 范围
+            DefensivePower = 0;   // 防御力
+            Dodge = 0.1;            // 闪避率（%）
+            HitRate = 0.8;          // 命中率（%）
+            Scope = 1;             // 范围
             Speed = 5;            // 速度
             CriticalChance = 0.05;// 暴击率（%）
             CriticalDamage = 1.5; // 暴击伤害（150 = 1.5倍）
@@ -62,14 +66,60 @@ namespace Assets.C_.player.player
             Harvest = 0;          // 收获（额外资源获取）
             MeleeAttack = 0;
             RangedAttack = 0;
-            AttackSpeed = 1; 
+            AttackSpeed = 1;
         }
+
+        // --- 核心方法修改 ---
+
         public void changeBlood(int changePoint)
         {
             this.Blood += changePoint;
             if (this.Blood > this.MaxHP) this.Blood = this.MaxHP;
             else if (this.Blood < 0) this.Blood = 0;
         }
+
+        public void changeExperience(int changePoint)
+        {
+            // ⭐️ 经验值增加由 PlayerCharacter.GainExperience 控制，这里只负责增加
+            this.Experience += changePoint;
+            // 注意：经验消耗和升级检查在 PlayerCharacter.cs 中完成
+        }
+
+        // ⭐️ 新增：等级变更方法
+        public void changeLevel(int changePoint)
+        {
+            this.Level += changePoint;
+        }
+
+        // ⭐️ 修改：最大生命值变更，同时更新当前生命值
+        public void changeMaxHP(int changePoint)
+        {
+            // 记录旧的最大生命值
+            int oldMaxHP = this.MaxHP;
+
+            this.MaxHP += changePoint;
+
+            // 如果是增加最大生命值，则按比例增加当前生命值，或保持当前生命值不变
+            if (changePoint > 0)
+            {
+                // 确保当前生命值不会超过新的最大生命值
+                this.Blood = Math.Min(this.Blood + changePoint, this.MaxHP);
+            }
+            // 如果是减少最大生命值，当前生命值不能超过新的最大生命值
+            else if (this.Blood > this.MaxHP)
+            {
+                this.Blood = this.MaxHP;
+            }
+        }
+
+        public void changeDamageMultipler(double changePoint)
+        {
+            this.DamageMultipler += changePoint;
+            DamageMultipler = FixPrecision(DamageMultipler);
+        }
+
+        // --- 其他属性变更方法（保持不变） ---
+
         public Boolean isDie()
         {
             if (Blood <= 0)
@@ -78,19 +128,7 @@ namespace Assets.C_.player.player
             }
             return false;
         }
-        public void changeExperience(int changePoint)
-        {
-            this.Experience += changePoint;
-        }
-        public void changeDamageMultipler(double changePoint)
-        {
-            this.DamageMultipler += changePoint;
-            DamageMultipler = FixPrecision(DamageMultipler);
-        }
-        public void changeMaxHP(int changePoint)
-        {
-            this.MaxHP += changePoint;
-        }
+
         public void changeDefensivePower(int changePoint)
         {
             DefensivePower += changePoint;

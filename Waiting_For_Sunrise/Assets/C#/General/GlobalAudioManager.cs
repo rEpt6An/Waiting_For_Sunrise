@@ -101,7 +101,7 @@ public class GlobalAudioManager : MonoBehaviour
         {
             newClip = nightBGM;
         }
-        else if (sceneName.Contains("Shop")) // 假设您修正了 Shop 音乐的播放
+        else if (sceneName.Contains("Shopsss")) // 假设您修正了 Shop 音乐的播放
         {
             newClip = ShopBGM;
         }

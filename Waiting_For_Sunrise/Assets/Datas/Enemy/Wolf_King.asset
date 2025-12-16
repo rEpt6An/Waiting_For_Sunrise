@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Wolf_King
   enemyPrefab: {fileID: 6104108987532270553, guid: 92417369788e76440b33a694756fefbd, type: 3}
-  maxHealth: 500
+  maxHealth: 900
   attackDamage: 6
   attackCooldown: 1
   moveSpeed: 0.8

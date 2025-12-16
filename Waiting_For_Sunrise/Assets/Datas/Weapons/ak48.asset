@@ -16,17 +16,17 @@ MonoBehaviour:
   meleeLifetime: 0.1
   projectileSpeed: 10
   image: {fileID: 21300000, guid: 12dcc3bbb49995e40af36ff085839374, type: 3}
-  weaponName: gun
+  weaponName: ak48
   attackType: 1
   damageScaleType: 1
-  baseDamage: 4
-  scalingMultiplier: 100
+  baseDamage: 3
+  scalingMultiplier: 1
   baseAttackSpeed: 5
   baseRange: 1.5
   repel: 1
-  clip: 35
+  clip: 20
   cliptime: 1.5
-  penetrate: 1
+  penetrate: 0
   animationDuration: 0.2
   rotationAngle: 30
   projectileCount: 1

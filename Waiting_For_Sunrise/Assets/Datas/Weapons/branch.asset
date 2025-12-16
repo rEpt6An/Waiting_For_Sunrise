@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc433050be3a278448b23e29733d13da, type: 3}
+  m_Name: branch
+  m_EditorClassIdentifier: 
+  attackPrefab: {fileID: 4254535825771883383, guid: c491d3966b6eb12499995da7d91694ad, type: 3}
+  meleeLifetime: 0.15
+  projectileSpeed: 1
+  image: {fileID: 21300000, guid: 7d906c82b264e9d4d8359bd690025dbd, type: 3}
+  weaponName: branch
+  attackType: 0
+  damageScaleType: 0
+  baseDamage: 7
+  scalingMultiplier: 1
+  baseAttackSpeed: 0.75
+  baseRange: 1
+  repel: 0.3
+  clip: 1
+  cliptime: 1
+  penetrate: 1
+  animationDuration: 0.3
+  rotationAngle: 45
+  projectileCount: 1
+  spreadAngle: 0
+  attackSound: {fileID: 8300000, guid: 840157a30e415024eb12cfd431e5956f, type: 3}

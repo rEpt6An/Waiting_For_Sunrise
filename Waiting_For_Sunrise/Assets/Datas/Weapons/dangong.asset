@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc433050be3a278448b23e29733d13da, type: 3}
-  m_Name: xiangun
+  m_Name: dangong
   m_EditorClassIdentifier: 
-  attackPrefab: {fileID: 3518509106354909237, guid: 35a319b7deb226c4fb3c4f491ebef0d8, type: 3}
+  attackPrefab: {fileID: 6571381725210608071, guid: c3703849f1f88b9418ffa34e0fe41b45, type: 3}
   meleeLifetime: 0.1
   projectileSpeed: 10
-  image: {fileID: 21300000, guid: 47bb348fc4a5b314d955f36e048d5708, type: 3}
-  weaponName: gun
+  image: {fileID: 21300000, guid: 3940b324852687e4a954f6d399d6d576, type: 3}
+  weaponName: slingshot
   attackType: 1
   damageScaleType: 1
-  baseDamage: 7
+  baseDamage: 5.5
   scalingMultiplier: 1
   baseAttackSpeed: 1
   baseRange: 1.5
-  repel: 2
-  clip: 30
-  cliptime: 0.75
-  penetrate: 0
+  repel: 3
+  clip: 1
+  cliptime: 0.6
+  penetrate: 999
   animationDuration: 0.2
-  rotationAngle: 30
-  projectileCount: 5
-  spreadAngle: 20
-  attackSound: {fileID: 8300000, guid: fc7e888243cb3b543aa8d8270f27efaf, type: 3}
+  rotationAngle: 90
+  projectileCount: 1
+  spreadAngle: 0
+  attackSound: {fileID: 8300000, guid: 885fa79f91419f1428c26d9fab8f61c8, type: 3}

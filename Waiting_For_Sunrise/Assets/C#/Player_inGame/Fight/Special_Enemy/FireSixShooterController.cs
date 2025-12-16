@@ -22,7 +22,7 @@ public class FireSixShooterController : EnemyController
     [Header("狂暴模式")]
     // ⭐️ 解决：UI Panel 挂载问题。确保这是一个 GameObject 引用
     [Tooltip("首次进入狂暴时展示的 UI Panel (确保在 Inspector 中拖入一个 GameObject)")]
-    [SerializeField] private GameObject rageUIPanel;
+    [SerializeField] public GameObject rageUIPanel;
     [Tooltip("狂暴攻击结束后的冷却时间 (秒)")]
     [SerializeField] private float rageCooldownDuration = 2f;
     [Tooltip("半血狂暴时播放的音效")]

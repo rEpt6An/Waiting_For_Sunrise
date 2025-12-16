@@ -1,58 +1,57 @@
+ï»¿// ğŸ“œ GameManager.cs (ä¿®æ­£å)
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // µ¥ÀıÄ£Ê½
+    // å•ä¾‹æ¨¡å¼
     public static GameManager Instance { get; private set; }
 
-    // --- ÓÎÏ·×´Ì¬Êı¾İ ---
-    public int Day { get; private set; } = 1; 
-    private const int MAX_DAYS = 20; 
+    // --- æ¸¸æˆçŠ¶æ€æ•°æ® ---
+    public int Day { get; private set; } = 1;
+    private const int MAX_DAYS = 10; // â­ï¸ ä¿®æ­£ï¼šç¬¬ 10 å¤© Night ç»“æŸæ—¶èƒœåˆ©
+
+    // è¿è¡Œæ—¶å¼•ç”¨ï¼šç”¨äºè·¨åœºæ™¯æ‰¾åˆ°ç©å®¶ï¼Œæ–¹ä¾¿å›è¡€ç­‰æ“ä½œ
+    private PlayerCharacter playerCharacter;
 
     void Awake()
     {
-        // --- µ¥ÀıÊµÏÖ ---
+        // --- å•ä¾‹å®ç° ---
         if (Instance != null && Instance != this)
         {
-            // Èç¹û³¡¾°ÖĞÒÑ´æÔÚÒ»¸öGameManager£¬Ïú»ÙÕâ¸öĞÂµÄ
             Destroy(gameObject);
             return;
         }
         Instance = this;
-
-        // --- ¿ç³¡¾°´æÔÚ ---
-        // ÈÃÕâ¸öGameManager¶ÔÏóÔÚ¼ÓÔØĞÂ³¡¾°Ê±²»±»Ïú»Ù
         DontDestroyOnLoad(gameObject);
-
-        // --- ¼àÌı³¡¾°¼ÓÔØÊÂ¼ş ---
-        // ÕâÊÇÔÚ³¡¾°¼ÓÔØºóÖ´ĞĞÂß¼­µÄ¹Ø¼ü
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    // µ±GameManager±»Ïú»ÙÊ±£¬È¡ÏûÊÂ¼ş¼àÌı£¬·ÀÖ¹ÄÚ´æĞ¹Â©
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // Ã¿µ±Ò»¸öĞÂ³¡¾°¼ÓÔØÍê³ÉÊ±£¬Õâ¸ö·½·¨¾Í»á±»µ÷ÓÃ
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log($"³¡¾° '{scene.name}' ÒÑ¼ÓÔØ. µ±Ç°ÊÇµÚ {Day} Ìì.");
+        Debug.Log($"åœºæ™¯ '{scene.name}' å·²åŠ è½½. å½“å‰æ˜¯ç¬¬ {Day} å¤©.");
 
-        // ºËĞÄÂß¼­£ºÅĞ¶ÏÊÇ·ñÊÇ´ÓNight³¡¾°ÇĞ»»µ½ÁËShop³¡¾°
-        // ÎÒÃÇĞèÒªÖªµÀÉÏÒ»¸ö³¡¾°ÊÇÊ²Ã´£¬µ«Õâ±È½Ï¸´ÔÓ¡£
-        // Ò»¸ö¸ü¼òµ¥¿É¿¿µÄ·½·¨ÊÇ£¬Ö»ÔÚ½øÈëShop³¡¾°Ê±Ôö¼ÓÌìÊı¡£
         if (scene.name == "Shop")
         {
-            // ½øÈëÉÌµê£¬ÌìÊı+1
-            IncrementDay();
+            // â­ï¸ è¿›å…¥å•†åº—ï¼Œå¤©æ•°+1 (å¦‚æœä¸æ˜¯èƒœåˆ©)
+            if (Day < MAX_DAYS)
+            {
+                IncrementDay();
+            }
+            // å¦åˆ™ Day ä¿æŒ MAX_DAYS (10)ï¼Œç­‰å¾…è·³è½¬åˆ° Night åœºæ™¯æ—¶CheckForVictory
         }
 
-        // Èç¹ûÏÂÒ»¸ö³¡¾°ÊÇNight£¬ÎÒÃÇĞèÒª¼ì²éÊÇ·ñÊ¤Àû
         if (scene.name == "Night")
         {
+            // åœ¨ Night åœºæ™¯ä¸­æŸ¥æ‰¾ PlayerCharacter
+            playerCharacter = FindObjectOfType<PlayerCharacter>();
+
+            // æ£€æŸ¥æ˜¯å¦åº”è¯¥è§¦å‘èƒœåˆ©ï¼ˆå½“è¿›å…¥ç¬¬ 10 å¤© Night æ—¶ï¼‰
             CheckForVictory();
         }
     }
@@ -62,50 +61,96 @@ public class GameManager : MonoBehaviour
         if (Day < MAX_DAYS)
         {
             Day++;
-            Debug.Log($"ĞÂµÄÒ»Ìì¿ªÊ¼ÁË! ÏÖÔÚÊÇµÚ {Day} Ìì.");
-        }
-        else
-        {
-            // ÕâÍ¨³£²»Ó¦¸Ã·¢Éú£¬ÒòÎªÔÚ½øÈëNight³¡¾°Ç°¾ÍÓ¦¸ÃÊ¤ÀûÁË
-            Debug.Log("ÒÑ¾­´ïµ½×î´óÌìÊı£¬µ«ÈÔÔÚÔö¼ÓÌìÊı£¿");
+            Debug.Log($"æ–°çš„ä¸€å¤©å¼€å§‹äº†! ç°åœ¨æ˜¯ç¬¬ {Day} å¤©.");
         }
     }
 
+    // â­ï¸ æ ¸å¿ƒèƒœåˆ©åˆ¤æ–­ï¼šæ—¶é—´ç»“æŸæ—¶åœ¨ç¬¬ 10 å¤©å¤œæ™šè§¦å‘èƒœåˆ©
     private void CheckForVictory()
     {
-        // µ±day´ïµ½20µÄÊ±ºò night Ê±¼ä½áÊøÁËÊÇÓÎÏ·Ê¤Àû
-        // ÕâÒâÎ¶×Å£¬µ±µÚ20ÌìµÄNightµ¹¼ÆÊ±½áÊø£¬½øÈëShopÊ±£¬ÌìÊı±äÎª21¡£
-        // ËùÒÔÎÒÃÇÓ¦¸ÃÊÇÔÚ½øÈëµÚ21ÌìµÄNightÖ®Ç°Ê¤Àû£¬Ò²¾ÍÊÇµÚ20Ìì½áÊøÊ±¡£
-        // ÕâÀïµÄÂß¼­ÊÇ£ºÈç¹ûµ±Ç°ÌìÊıÒÑ¾­´ïµ½20£¬²¢ÇÒÎÒÃÇ¼´½«¿ªÊ¼Night³¡¾°£¬¾ÍÊ¤Àû¡£
+        // è¿™é‡Œçš„é€»è¾‘æ˜¯ï¼šå¦‚æœå½“å‰å¤©æ•°è¾¾åˆ° MAX_DAYSï¼Œå¹¶ä¸”æˆ‘ä»¬å³å°†å¼€å§‹ Night åœºæ™¯ï¼Œå°±èƒœåˆ©ã€‚
+        // ä½†æ ¹æ®æ‚¨çš„èƒœåˆ©é€»è¾‘ï¼šâ€œday10ç»“æŸæ¸¸æˆèƒœåˆ©â€ï¼Œæˆ‘ä»¬åº”è¯¥åœ¨ç¬¬ 10 å¤©çš„è®¡æ—¶å™¨ç»“æŸæ—¶è§¦å‘èƒœåˆ©ã€‚
+        // æ‰€ä»¥æˆ‘ä»¬åªåœ¨ Day 10 Night å¼€å§‹æ—¶æ‰“å°æ—¥å¿—ï¼Œèƒœåˆ©é€»è¾‘ä¸»è¦åœ¨ CountdownTimer ä¸­å®ç°ã€‚
+        if (Day == MAX_DAYS)
+        {
+            Debug.Log($"ğŸš¨ æœ€ç»ˆè€ƒéªŒï¼šç¬¬ {Day} å¤©çš„å¤œæ™šå¼€å§‹...");
+        }
+        else if (Day < MAX_DAYS)
+        {
+            Debug.Log($"ç¬¬ {Day} å¤©çš„å¤œæ™šå¼€å§‹...");
+        }
+    }
+
+    /// <summary>
+    /// â­ï¸ ç”± CountdownTimer è°ƒç”¨ï¼Œæ£€æŸ¥æ˜¯å¦èƒœåˆ© (ç¬¬ 10 å¤©ç»“æŸ)ã€‚
+    /// </summary>
+    public void HandleDayEnd(DayCompletionPanel panel, SceneSwitcher switcher)
+    {
         if (Day >= MAX_DAYS)
         {
-            // ÓÎÏ·Ê¤ÀûµÄÂß¼­
+            // è¾¾åˆ°æœ€ç»ˆå¤©æ•°ï¼Œè§¦å‘èƒœåˆ©
             HandleGameVictory();
         }
         else
         {
-            Debug.Log($"µÚ {Day} ÌìµÄÒ¹Íí¿ªÊ¼...");
-            // Èç¹ûÓĞĞèÒª£¬¿ÉÒÔÔÚÕâÀïÖØÖÃµ¹¼ÆÊ±Æ÷µÈ
-            // FindObjectOfType<CountdownTimer>()?.ResetTimer();
+            // å°šæœªè¾¾åˆ°æœ€ç»ˆå¤©æ•°ï¼Œæ­£å¸¸æµç¨‹ï¼šå¼¹å‡ºé¢æ¿ï¼Œè¿›å…¥å•†åº—
+            if (playerCharacter != null && playerCharacter.PlayerState != null)
+            {
+                // â­ï¸ æ ¸å¿ƒä¿®æ­£ï¼šä½¿ç”¨ç°æœ‰æ–¹æ³•å®ç°å›æ»¡è¡€
+                int maxHP = playerCharacter.PlayerState.MaxHP;
+                // å‡è®¾ changeBlood æ¥å—ä¸€ä¸ªå¢é‡å€¼ï¼Œæˆ‘ä»¬ç›´æ¥ä¼ å…¥ MaxHP å›æ»¡
+                // ğŸš¨ æ³¨æ„ï¼šè¿™éœ€è¦æ‚¨çš„ changeBlood æ–¹æ³•é€»è¾‘æ˜¯ï¼šCurrentHP = MaxHP
+                playerCharacter.PlayerState.changeBlood(maxHP);
+
+                Debug.Log("å€’è®¡æ—¶ç»“æŸï¼Œç©å®¶ç”Ÿå‘½å€¼å·²å›æ»¡ã€‚");
+            }
+
+            // æ­£å¸¸æ˜¾ç¤º Day Completion Panel
+            if (panel != null)
+            {
+                panel.Show(Day); // æ˜¾ç¤ºé¢æ¿ï¼Œç”±é¢æ¿å¤„ç†è·³è½¬åˆ° Shop
+            }
+            else
+            {
+                Debug.LogError("DayCompletionPanel ä¸¢å¤±ï¼Œç›´æ¥è·³è½¬ Shopã€‚");
+                switcher.SwitchScene("Shop");
+            }
         }
     }
 
-    private void HandleGameVictory()
+    /// <summary>
+    /// â­ï¸ æ ¸å¿ƒï¼š Boss æ­»äº¡æˆ–ç¬¬ 10 å¤©ç»“æŸè§¦å‘èƒœåˆ©ã€‚
+    /// </summary>
+    public void HandleGameVictory()
     {
-        // TODO: ÔÚÕâÀïÊµÏÖÓÎÏ·Ê¤ÀûµÄÂß¼­
-        // ÀıÈç£º
-        // 1. ½ûÓÃÍæ¼Ò¿ØÖÆ
-        // 2. ÏÔÊ¾Ê¤ÀûUIÃæ°å
-        // 3. ¼ÓÔØÊ¤Àû³¡¾°»òÖ÷²Ëµ¥
-        Debug.LogWarning("ÓÎÏ·Ê¤Àû£¡Äã³É¹¦´æ»îÁË " + MAX_DAYS + " Ìì£¡");
+        Debug.LogWarning("ğŸ‰ æ¸¸æˆèƒœåˆ©ï¼ä½ æˆåŠŸå­˜æ´»äº† " + MAX_DAYS + " å¤©ï¼");
 
-        // Ê¾Àı£ºÌø×ªµ½Ê¤Àû³¡¾°
-        // SceneManager.LoadScene("VictoryScene");
+        // ç¡®ä¿æ¸¸æˆæš‚åœ
+        Time.timeScale = 0f;
+
+        // æŸ¥æ‰¾èƒœåˆ©é¢æ¿å¹¶æ˜¾ç¤º
+        VictoryPanel victoryPanel = FindObjectOfType<VictoryPanel>(true); // æŸ¥æ‰¾æ‰€æœ‰å¯¹è±¡ï¼ŒåŒ…æ‹¬éæ´»åŠ¨çš„
+        if (victoryPanel != null)
+        {
+            victoryPanel.Show();
+        }
+        else
+        {
+            Debug.LogError("åœºæ™¯ä¸­ç¼ºå°‘ VictoryPanel å®ä¾‹ï¼");
+        }
     }
 
-    // Äã¿ÉÒÔÌí¼ÓÒ»¸ö·½·¨À´»ñÈ¡µ±Ç°ÌìÊıµÄ×Ö·û´®£¬·½±ãUIÏÔÊ¾
+    // --- è¾…åŠ©æ–¹æ³• ---
     public string GetDayString()
     {
         return $"Day: {Day}";
+    }
+
+    /// <summary>
+    /// â­ï¸ ä¿®æ­£ï¼šæä¾›ç©å®¶è§’è‰²çš„å¼•ç”¨
+    /// </summary>
+    public PlayerCharacter GetPlayerCharacter()
+    {
+        return playerCharacter;
     }
 }
