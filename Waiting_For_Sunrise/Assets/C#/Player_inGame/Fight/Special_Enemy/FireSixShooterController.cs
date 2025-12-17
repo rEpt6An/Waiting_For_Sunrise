@@ -34,6 +34,9 @@ public class FireSixShooterController : EnemyController
     private readonly int AnimTracker = Animator.StringToHash("TrackerAttack");
     private readonly int AnimIdle = Animator.StringToHash("Idle");
 
+    [Header("音效配置")]
+    [SerializeField] private AudioClip bossDeathSound;
+
     // --- 内部状态 (保持不变) ---
     private enum ShooterState { Pursuing, Attacking, PostAttackCooldown, EnragedRageSequence, EnragedCooldown, Dead }
     private ShooterState currentState = ShooterState.Pursuing;
@@ -281,12 +284,8 @@ public class FireSixShooterController : EnemyController
         }
     }
 
-    // --- 辅助方法 ---
-
-    // 将角度转换为 Vector2 (0度为右侧)
     private Vector2 AngleToVector2(float angle)
     {
-        // 转换为弧度，注意 Unity 的 0 度通常是 X 轴正方向
         float radians = angle * Mathf.Deg2Rad;
         return new Vector2(Mathf.Cos(radians), Mathf.Sin(radians));
     }
@@ -332,19 +331,27 @@ public class FireSixShooterController : EnemyController
         }
     }
 
-    // ⭐️ 死亡重写
     public override void Die()
     {
         if (isDead) return;
         isDead = true;
-        Debug.Log("FireSixShooter: 💥 死亡。");
-        // 停止所有协程，清理
+
+
+        if (audioSource != null && bossDeathSound != null)
+        {
+            audioSource.PlayOneShot(bossDeathSound);
+        }
+
         StopAllCoroutines();
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.HandleGameVictory();
+        }
+
 
         base.Die();
     }
-
-    // Gizmos (可选)
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;

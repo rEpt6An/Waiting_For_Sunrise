@@ -153,4 +153,29 @@ public class GlobalAudioManager : MonoBehaviour
         mainMixer.SetFloat(exposedParameter, dB);
         // Debug.Log($"AudioManager: 调整 {exposedParameter} 音量到 {volume:F2} ({dB:F2} dB)");
     }
+
+
+    /// <summary>
+    /// 停止当前正在播放的背景音乐
+    /// </summary>
+    public void StopBGM()
+    {
+        if (bgmAudioSource != null && bgmAudioSource.isPlaying)
+        {
+            bgmAudioSource.Stop();
+            Debug.Log("AudioManager:  背景音乐已停止。");
+        }
+    }
+
+    /// <summary>
+    /// 暂停当前正在播放的背景音乐
+    /// </summary>
+    public void PauseBGM()
+    {
+        if (bgmAudioSource != null && bgmAudioSource.isPlaying)
+        {
+            bgmAudioSource.Pause();
+            Debug.Log("AudioManager:  背景音乐已暂停。");
+        }
+    }
 }

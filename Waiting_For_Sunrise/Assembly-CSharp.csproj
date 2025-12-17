@@ -206,6 +206,7 @@
     <Compile Include="Assets\C#\Player_inGame\Fight\Special_Enemy\FireSixShooterController.cs" />
     <Compile Include="Assets\C#\shop\pojo\GoodsDto.cs" />
     <Compile Include="Assets\C#\item\event\EquipmentEventHandler.cs" />
+    <Compile Include="Assets\C#\UI_Control\Night\GameOverPanel.cs" />
     <Compile Include="Assets\C#\common\pojo\Icon.cs" />
     <Compile Include="Assets\C#\item\event\EquipmentEvent.cs" />
     <Compile Include="Assets\C#\common\FileResourceFactory.cs" />

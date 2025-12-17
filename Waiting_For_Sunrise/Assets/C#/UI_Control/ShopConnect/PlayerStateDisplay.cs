@@ -30,11 +30,11 @@ public class PlayerStateDisplay : MonoBehaviour
         if (playerState != null)
         {
             StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine($"Blood: {playerState.Blood}");
+            sb.AppendLine($"Level: {playerState.Level}");
             sb.AppendLine($"EXP: {playerState.Experience}");
-            sb.AppendLine($"Damage Multiplier: {playerState.DamageMultipler:F2}");
             sb.AppendLine($"Max HP: {playerState.MaxHP}");
+
+            sb.AppendLine($"Damage Multiplier: {playerState.DamageMultipler:F2}");
             sb.AppendLine($"Defense: {playerState.DefensivePower}");
             sb.AppendLine($"Dodge Rate: {playerState.Dodge:P1}");
             sb.AppendLine($"Attack Speed: {playerState.AttackSpeed:F2}");

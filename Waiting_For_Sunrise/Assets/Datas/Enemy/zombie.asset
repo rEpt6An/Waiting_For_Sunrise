@@ -19,4 +19,4 @@ MonoBehaviour:
   attackCooldown: 1
   moveSpeed: 1.2
   experienceReward: 4
-  coinDropAmount: 8
+  coinDropAmount: 3

@@ -21,14 +21,14 @@ MonoBehaviour:
   damageScaleType: 1
   baseDamage: 3.5
   scalingMultiplier: 1
-  baseAttackSpeed: 1
+  baseAttackSpeed: 0.8
   baseRange: 1
   repel: 2
-  clip: 3
+  clip: 8
   cliptime: 1
-  penetrate: 4
+  penetrate: 5
   animationDuration: 0.3
-  rotationAngle: 90
+  rotationAngle: 60
   projectileCount: 1
   spreadAngle: 0
   attackSound: {fileID: 8300000, guid: d005cd40ce3f11a4b95158e53ecfb5d8, type: 3}

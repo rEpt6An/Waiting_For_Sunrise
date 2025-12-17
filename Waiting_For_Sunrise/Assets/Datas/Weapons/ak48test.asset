@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc433050be3a278448b23e29733d13da, type: 3}
-  m_Name: usp
+  m_Name: ak48test
   m_EditorClassIdentifier: 
   attackPrefab: {fileID: 3518509106354909237, guid: 35a319b7deb226c4fb3c4f491ebef0d8, type: 3}
   meleeLifetime: 0.1
   projectileSpeed: 10
-  image: {fileID: 21300000, guid: 7c8922b1deaa00742ab425fc540d09ac, type: 3}
-  weaponName: usp
+  image: {fileID: 21300000, guid: 12dcc3bbb49995e40af36ff085839374, type: 3}
+  weaponName: ak48
   attackType: 1
   damageScaleType: 1
-  baseDamage: 6.5
-  scalingMultiplier: 100
-  baseAttackSpeed: 1.1
+  baseDamage: 100
+  scalingMultiplier: 1
+  baseAttackSpeed: 5
   baseRange: 1.5
   repel: 1
-  clip: 12
-  cliptime: 0.75
-  penetrate: 1
+  clip: 20
+  cliptime: 1.5
+  penetrate: 0
   animationDuration: 0.2
   rotationAngle: 30
   projectileCount: 1
   spreadAngle: 0
-  attackSound: {fileID: 8300000, guid: d3c9714acf0b8404e8bc1f4f86fe3724, type: 3}
+  attackSound: {fileID: 8300000, guid: 595c4e4c903662042b5919f35fb9f3b9, type: 3}

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: 6fire
   enemyPrefab: {fileID: 6175048253148136458, guid: c6ae7c55df4899742a43b71f8e13e57b, type: 3}
-  maxHealth: 2500
+  maxHealth: 4000
   attackDamage: 6
   attackCooldown: 1
   moveSpeed: 0.6
-  experienceReward: 9999
-  coinDropAmount: 9999
+  experienceReward: 0
+  coinDropAmount: 0

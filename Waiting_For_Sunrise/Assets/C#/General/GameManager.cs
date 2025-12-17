@@ -1,5 +1,4 @@
-﻿// 📜 GameManager.cs (修正后)
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -9,9 +8,8 @@ public class GameManager : MonoBehaviour
 
     // --- 游戏状态数据 ---
     public int Day { get; private set; } = 1;
-    private const int MAX_DAYS = 10; // ⭐️ 修正：第 10 天 Night 结束时胜利
+    private const int MAX_DAYS = 10; 
 
-    // 运行时引用：用于跨场景找到玩家，方便回血等操作
     private PlayerCharacter playerCharacter;
 
     void Awake()
@@ -38,12 +36,10 @@ public class GameManager : MonoBehaviour
 
         if (scene.name == "Shop")
         {
-            // ⭐️ 进入商店，天数+1 (如果不是胜利)
             if (Day < MAX_DAYS)
             {
                 IncrementDay();
             }
-            // 否则 Day 保持 MAX_DAYS (10)，等待跳转到 Night 场景时CheckForVictory
         }
 
         if (scene.name == "Night")
@@ -65,12 +61,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ⭐️ 核心胜利判断：时间结束时在第 10 天夜晚触发胜利
     private void CheckForVictory()
     {
-        // 这里的逻辑是：如果当前天数达到 MAX_DAYS，并且我们即将开始 Night 场景，就胜利。
-        // 但根据您的胜利逻辑：“day10结束游戏胜利”，我们应该在第 10 天的计时器结束时触发胜利。
-        // 所以我们只在 Day 10 Night 开始时打印日志，胜利逻辑主要在 CountdownTimer 中实现。
+
         if (Day == MAX_DAYS)
         {
             Debug.Log($"🚨 最终考验：第 {Day} 天的夜晚开始...");
@@ -93,13 +86,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // 尚未达到最终天数，正常流程：弹出面板，进入商店
             if (playerCharacter != null && playerCharacter.PlayerState != null)
             {
-                // ⭐️ 核心修正：使用现有方法实现回满血
                 int maxHP = playerCharacter.PlayerState.MaxHP;
-                // 假设 changeBlood 接受一个增量值，我们直接传入 MaxHP 回满
-                // 🚨 注意：这需要您的 changeBlood 方法逻辑是：CurrentHP = MaxHP
                 playerCharacter.PlayerState.changeBlood(maxHP);
 
                 Debug.Log("倒计时结束，玩家生命值已回满。");
@@ -123,13 +112,18 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void HandleGameVictory()
     {
-        Debug.LogWarning("🎉 游戏胜利！你成功存活了 " + MAX_DAYS + " 天！");
+        Debug.LogWarning("游戏胜利！你成功存活了 " + MAX_DAYS + " 天！");
+
+        if (GlobalAudioManager.Instance != null)
+        {
+            GlobalAudioManager.Instance.StopBGM();
+        }
 
         // 确保游戏暂停
         Time.timeScale = 0f;
 
         // 查找胜利面板并显示
-        VictoryPanel victoryPanel = FindObjectOfType<VictoryPanel>(true); // 查找所有对象，包括非活动的
+        VictoryPanel victoryPanel = FindObjectOfType<VictoryPanel>(true);
         if (victoryPanel != null)
         {
             victoryPanel.Show();
@@ -139,7 +133,6 @@ public class GameManager : MonoBehaviour
             Debug.LogError("场景中缺少 VictoryPanel 实例！");
         }
     }
-
     // --- 辅助方法 ---
     public string GetDayString()
     {

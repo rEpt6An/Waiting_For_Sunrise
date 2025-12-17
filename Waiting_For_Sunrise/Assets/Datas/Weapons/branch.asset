@@ -23,7 +23,7 @@ MonoBehaviour:
   scalingMultiplier: 1
   baseAttackSpeed: 0.75
   baseRange: 1
-  repel: 0.3
+  repel: 5
   clip: 1
   cliptime: 1
   penetrate: 1

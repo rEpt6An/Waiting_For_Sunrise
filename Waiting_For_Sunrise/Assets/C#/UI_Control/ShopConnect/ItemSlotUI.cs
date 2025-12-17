@@ -24,7 +24,7 @@ public class ItemSlotUI : MonoBehaviour
         if (bagUI != null && ClickButton != null)
         {
             ClickButton.onClick.RemoveAllListeners();
-            ClickButton.onClick.AddListener(() => bagUI.OnSlotClicked(this));
+            //ClickButton.onClick.AddListener(() => bagUI.OnSlotClicked(this));
         }
     }
 

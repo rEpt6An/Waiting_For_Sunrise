@@ -19,6 +19,9 @@ public class PlayerCharacter : MonoBehaviour
     [Tooltip("玩家死亡时播放的音效片段")]
     [SerializeField] private AudioClip deathSound;
 
+    [Header("死亡 UI 配置")]
+    [SerializeField] private GameOverPanel gameOverPanel;
+
 
     // --- 升级配置 ---
     [Header("升级配置")]
@@ -440,7 +443,6 @@ public class PlayerCharacter : MonoBehaviour
 
     private void HandleDeath()
     {
-        // ... (保持不变) ...
         UnityEngine.Debug.LogWarning("玩家已死亡！");
 
         if (audioSource != null && deathSound != null)
@@ -448,9 +450,31 @@ public class PlayerCharacter : MonoBehaviour
             audioSource.PlayOneShot(deathSound);
         }
 
-        gameObject.SetActive(false);
-        Time.timeScale = 0f;
-    }
+        // ⭐️ 核心改进：显示死亡面板
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.Show();
+        }
+        else
+        {
+            // 如果没配面板，至少尝试在场景中找一个
+            GameOverPanel foundPanel = FindObjectOfType<GameOverPanel>(true);
+            if (foundPanel != null)
+            {
+                foundPanel.Show();
+            }
+            else
+            {
+                Debug.LogError("找不到 GameOverPanel！游戏直接停止。");
+                Time.timeScale = 0f;
+            }
+        }
 
+        // 注意：不要立即 gameObject.SetActive(false)，否则可能导致挂载在玩家身上的协程或音效中断
+        // 我们可以禁用玩家的输入和移动脚本
+        GetComponent<PlayerMovement>().enabled = false;
+        // 或者只隐藏渲染器
+        // GetComponent<SpriteRenderer>().enabled = false;
+    }
 
 }

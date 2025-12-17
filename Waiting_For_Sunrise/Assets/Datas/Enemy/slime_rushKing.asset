@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: slime_rushKing
   enemyPrefab: {fileID: 4593758896393256516, guid: cc5e6ffa60f6e424fbe0caacf8664075, type: 3}
-  maxHealth: 600
+  maxHealth: 800
   attackDamage: 6
   attackCooldown: 0.8
   moveSpeed: 1
   experienceReward: 50
-  coinDropAmount: 85
+  coinDropAmount: 80
