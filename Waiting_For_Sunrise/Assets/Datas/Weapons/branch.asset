@@ -21,7 +21,7 @@ MonoBehaviour:
   damageScaleType: 0
   baseDamage: 7
   scalingMultiplier: 1
-  baseAttackSpeed: 0.75
+  baseAttackSpeed: 1.2
   baseRange: 1
   repel: 5
   clip: 1

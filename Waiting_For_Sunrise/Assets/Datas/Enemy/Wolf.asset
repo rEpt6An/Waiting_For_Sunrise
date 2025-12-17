@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Wolf
   enemyPrefab: {fileID: 6104108987532270553, guid: 9b5f057047dcb284bb3db33670f124cf, type: 3}
-  maxHealth: 200
-  attackDamage: 7
+  maxHealth: 250
+  attackDamage: 4
   attackCooldown: 1
   moveSpeed: 1
-  experienceReward: 40
-  coinDropAmount: 20
+  experienceReward: 50
+  coinDropAmount: 50

@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPrefab: {fileID: 3518509106354909237, guid: c90b489b4eb93424fb70b931b1a1857f, type: 3}
   meleeLifetime: 0.2
-  projectileSpeed: 4
+  projectileSpeed: 5
   image: {fileID: 21300000, guid: b3c24c2ee05945e4cb0bf1f21fdd091f, type: 3}
   weaponName: The King
   attackType: 1
-  damageScaleType: 1
-  baseDamage: 3.5
+  damageScaleType: 0
+  baseDamage: 4
   scalingMultiplier: 1
-  baseAttackSpeed: 0.8
+  baseAttackSpeed: 1
   baseRange: 1
   repel: 2
-  clip: 8
+  clip: 999
   cliptime: 1
-  penetrate: 5
+  penetrate: 8
   animationDuration: 0.3
   rotationAngle: 60
   projectileCount: 1

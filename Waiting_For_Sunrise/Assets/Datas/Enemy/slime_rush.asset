@@ -15,8 +15,8 @@ MonoBehaviour:
   enemyName: slime_rush
   enemyPrefab: {fileID: 4593758896393256516, guid: c2d99d11ca490b241b91447cafe5bae3, type: 3}
   maxHealth: 80
-  attackDamage: 7
+  attackDamage: 4
   attackCooldown: 1
   moveSpeed: 1.2
-  experienceReward: 12
-  coinDropAmount: 9
+  experienceReward: 8
+  coinDropAmount: 6

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Zombie
   enemyPrefab: {fileID: 3653803303832198713, guid: 0bc7abbc37365fb48866c3d0fce64a1d, type: 3}
-  maxHealth: 15
-  attackDamage: 5
+  maxHealth: 25
+  attackDamage: 3
   attackCooldown: 1
   moveSpeed: 1.2
-  experienceReward: 4
-  coinDropAmount: 3
+  experienceReward: 3
+  coinDropAmount: 2

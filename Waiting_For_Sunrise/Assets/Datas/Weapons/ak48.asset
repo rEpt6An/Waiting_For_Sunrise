@@ -19,14 +19,14 @@ MonoBehaviour:
   weaponName: ak48
   attackType: 1
   damageScaleType: 1
-  baseDamage: 3
+  baseDamage: 4
   scalingMultiplier: 1
   baseAttackSpeed: 5
   baseRange: 1.5
   repel: 1
-  clip: 20
-  cliptime: 1.5
-  penetrate: 0
+  clip: 25
+  cliptime: 1.2
+  penetrate: 2
   animationDuration: 0.2
   rotationAngle: 30
   projectileCount: 1

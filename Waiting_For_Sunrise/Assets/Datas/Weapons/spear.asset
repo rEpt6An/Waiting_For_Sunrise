@@ -20,7 +20,7 @@ MonoBehaviour:
   attackType: 0
   damageScaleType: 0
   baseDamage: 9
-  scalingMultiplier: 5
+  scalingMultiplier: 1
   baseAttackSpeed: 0.85
   baseRange: 1
   repel: 5

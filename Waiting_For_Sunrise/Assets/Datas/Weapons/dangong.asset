@@ -19,13 +19,13 @@ MonoBehaviour:
   weaponName: slingshot
   attackType: 1
   damageScaleType: 1
-  baseDamage: 5.5
-  scalingMultiplier: 1
+  baseDamage: 6
+  scalingMultiplier: 1.2
   baseAttackSpeed: 1
   baseRange: 1.5
   repel: 3
   clip: 1
-  cliptime: 0.6
+  cliptime: 0.5
   penetrate: 999
   animationDuration: 0.2
   rotationAngle: 90

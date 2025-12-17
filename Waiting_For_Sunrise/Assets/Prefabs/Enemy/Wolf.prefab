@@ -200,8 +200,8 @@ MonoBehaviour:
   meleeThreshold: 2
   jumpThreshold: 6
   jumpDamageRadius: 1
-  idleAfterAttackDuration: 0.5
-  jumpChargeDuration: 0.5
+  idleAfterAttackDuration: 1.5
+  jumpChargeDuration: 1
   lineRenderer: {fileID: 7772350258663677110}
   maxLineLength: 10
   trajectoryColor: {r: 0.8867924, g: 0, b: 0, a: 0.8}

@@ -5996,10 +5996,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa4aa43c4afdd24489e28c5f34399e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.5
+  moveSpeed: 1.8
   rollDistance: 1
   rollDuration: 0.2
-  rollCooldown: 0.5
+  rollCooldown: 0.4
 --- !u!95 &1186222994
 Animator:
   serializedVersion: 5

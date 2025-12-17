@@ -17,5 +17,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a425da909a5b2bd4787f4f7568913d47, type: 2}
   - {fileID: 11400000, guid: caade7abf17859f4984b8902993e575c, type: 2}
   - {fileID: 11400000, guid: a425da909a5b2bd4787f4f7568913d47, type: 2}
-  - {fileID: 11400000, guid: caade7abf17859f4984b8902993e575c, type: 2}
+  - {fileID: 11400000, guid: a425da909a5b2bd4787f4f7568913d47, type: 2}
   maxEnemiesOnScreen: 100

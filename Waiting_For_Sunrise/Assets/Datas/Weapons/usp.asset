@@ -19,14 +19,14 @@ MonoBehaviour:
   weaponName: usp
   attackType: 1
   damageScaleType: 1
-  baseDamage: 6.5
-  scalingMultiplier: 100
-  baseAttackSpeed: 1.1
+  baseDamage: 7
+  scalingMultiplier: 1
+  baseAttackSpeed: 1.2
   baseRange: 1.5
-  repel: 1
+  repel: 2
   clip: 12
-  cliptime: 0.75
-  penetrate: 1
+  cliptime: 0.6
+  penetrate: 4
   animationDuration: 0.2
   rotationAngle: 30
   projectileCount: 1
