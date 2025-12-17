@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using UnityEngine; // 必须引入 Unity 引擎命名空间
 
 namespace Assets.C_.common
 {
@@ -8,11 +8,8 @@ namespace Assets.C_.common
         public string Path { get; private set; }
         public string FileContent { get; private set; } = null;
         public byte[] Bytes { get; private set; } = null;
-
-        // content or byte
         public string Type { get; private set; }
 
-        // zy: Constructor for injecting content directly (e.g., from Unity)
         public FileResource(string content)
         {
             this.FileContent = content;
@@ -20,29 +17,24 @@ namespace Assets.C_.common
             this.Path = "Injected_From_Unity";
         }
 
-        // Constructor for loading from disk path
         public FileResource(string path, string type)
         {
-            // 假设 ValidChecker.CheckIsValidWindowsPath(path) 是一个静态校验方法
-            // 如果你没有这个类，需要替换成自己的路径校验逻辑
-            // ValidChecker.CheckIsValidWindowsPath(path); 
-
+            // 🚨 重要：这里接收到的 path 应该是逻辑路径，例如 "item/0"
             this.Path = path;
-            this.Type = type.ToLower(); // 统一转为小写，确保判断正确
+            this.Type = type.ToLower();
         }
 
-        // 统一初始化方法，根据 Type 加载内容或字节
         public void Init()
         {
-            if (Path == "Injected_From_Unity") return; // 注入的内容不需要初始化
+            if (Path == "Injected_From_Unity") return;
 
             if (Type == "byte")
             {
-                LoadBytes();
+                LoadBytesFromResources();
             }
             else if (Type == "content")
             {
-                LoadContent();
+                LoadContentFromResources();
             }
             else
             {
@@ -50,66 +42,46 @@ namespace Assets.C_.common
             }
         }
 
-        // ----------------------------------------------------
-        // Private Loader Methods
-        // ----------------------------------------------------
-
-        private string LoadContent()
+        private void LoadContentFromResources()
         {
             if (this.FileContent == null)
             {
-                try
+                // 使用 Unity 的 Resources 加载文本
+                TextAsset asset = Resources.Load<TextAsset>(Path);
+                if (asset != null)
                 {
-                    // **假设 SystemFileReader.ReadContext(Path) 存在且返回 string**
-                    this.FileContent = SystemFileReader.ReadContext(Path);
+                    this.FileContent = asset.text;
                 }
-                catch (Exception ex) // 捕获文件读取可能出现的异常
+                else
                 {
-                    throw new InvalidDataException($"无法读取文件内容: {Path}. 错误: {ex.Message}", ex);
-                }
-
-                if (string.IsNullOrEmpty(this.FileContent))
-                {
-                    throw new InvalidDataException($"文件内容为空：{Path}");
+                    Debug.LogError($"[FileResource] 文本加载失败: {Path}");
                 }
             }
-            return this.FileContent;
         }
 
-        /**
-         * 🌟 改进的 LoadBytes 方法
-         * 使用 System.IO.File.ReadAllBytes() 确保兼容性，并增加 try-catch 提高健壮性。
-         */
-        private byte[] LoadBytes()
+        private void LoadBytesFromResources()
         {
             if (this.Bytes == null)
             {
-                try
+                // 1. 先尝试按 TextAsset 加载（用于读取 .bytes 或 .json 的原始字节）
+                TextAsset asset = Resources.Load<TextAsset>(Path);
+                if (asset != null)
                 {
-                    // 使用 System.IO.File.ReadAllBytes() 直接读取所有字节
-                    this.Bytes = File.ReadAllBytes(Path);
-                }
-                catch (FileNotFoundException)
-                {
-                    throw new InvalidDataException($"文件不存在: {Path}");
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    throw new InvalidDataException($"没有访问权限: {Path}");
-                }
-                catch (Exception ex)
-                {
-                    // 捕获其他如 IO 错误、路径太长等问题
-                    throw new InvalidDataException($"读取字节文件失败: {Path}. 错误: {ex.Message}", ex);
+                    this.Bytes = asset.bytes;
+                    return;
                 }
 
-                // 检查读取到的字节数组是否为空
-                if (this.Bytes == null || this.Bytes.Length == 0)
+                // 2. 如果是图片，按 Texture2D 加载并转换
+                Texture2D tex = Resources.Load<Texture2D>(Path);
+                if (tex != null)
                 {
-                    throw new InvalidDataException($"文件内容为空或无法读取字节：{Path}");
+                    // 🚨 注意：这要求图片勾选了 "Read/Write Enabled"
+                    this.Bytes = tex.EncodeToPNG();
+                    return;
                 }
+
+                Debug.LogError($"[FileResource] 字节加载失败: {Path}");
             }
-            return this.Bytes;
         }
     }
 }

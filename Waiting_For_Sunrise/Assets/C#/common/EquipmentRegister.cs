@@ -1,10 +1,12 @@
-using Assets.C_.item;
+﻿using Assets.C_.item;
 
 namespace Assets.C_.common
 {
     public class EquipmentRegister : AbstractRegister<FileResource, Equipment>
     {
-        private static readonly string EQUIPMENT_JSON_FILE_RESOURCE_PATH = "Assets\\Resources\\json\\equipment.json";
+        // ✅ 必须修改：去掉 Assets/Resources/ 前缀和 .json 后缀
+        // 统一路径分隔符为正斜杠 /
+        private static readonly string EQUIPMENT_JSON_FILE_RESOURCE_PATH = "json/equipment";
         private static readonly string EQUIPMENT_JSON_FILE_RESOURCE_TYPE = "content";
 
         protected override FileResource GetFileResource()
